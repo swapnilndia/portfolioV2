@@ -1,0 +1,62 @@
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
+  font-weight: 500;
+  border-radius: var(--radius-sm);
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+  border: 1px solid var(--color-border);
+}
+
+.tag__icon {
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+}
+
+.tag__text {
+  display: inline-flex;
+  align-items: center;
+}
+
+.tag--default {
+  background-color: var(--color-bg-elevated);
+  color: var(--color-text);
+}
+
+.tag--primary {
+  background-color: var(--color-accent);
+  color: white;
+  border-color: var(--color-accent);
+}
+
+.tag--secondary {
+  background-color: var(--color-bg-secondary);
+  color: var(--color-text-muted);
+}
+
+.tag--success {
+  background-color: var(--color-success);
+  color: white;
+  border-color: var(--color-success);
+}
+
+.tag--danger {
+  background-color: var(--color-danger);
+  color: white;
+  border-color: var(--color-danger);
+}
+
+.tag--sm {
+  padding: calc(var(--space-xs) / 2) var(--space-xs);
+  font-size: var(--font-size-xs);
+}
+
+.tag--md {
+  padding: var(--space-xs) var(--space-sm);
+  font-size: var(--font-size-sm);
+}
+

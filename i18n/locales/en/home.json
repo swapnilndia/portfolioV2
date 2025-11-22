@@ -1,0 +1,14 @@
+{
+  "hero": {
+    "title": "Swapnil Katiyar",
+    "subtitle": "Front-End Developer",
+    "description": "Building responsive, high-performance web applications with React, TypeScript, and modern JavaScript. Product-focused developer with ~3+ years of experience in frontend development, performance optimization, and user experience.",
+    "location": "Noida, India"
+  },
+  "sections": {
+    "highlightProjects": "Featured Projects",
+    "recentExperience": "Recent Experience",
+    "techStack": "Technologies I Work With"
+  }
+}
+

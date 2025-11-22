@@ -1,0 +1,24 @@
+@use '@/styles/core/mixins' as *;
+
+.tech-strip {
+  @include section-padding;
+  background-color: var(--color-bg-elevated);
+}
+
+.tech-strip__container {
+  @include container;
+  text-align: center;
+}
+
+.tech-strip__title {
+  @include heading-md;
+  margin-bottom: var(--space-xl);
+}
+
+.tech-strip__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md);
+  justify-content: center;
+}
+

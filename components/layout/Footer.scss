@@ -1,0 +1,37 @@
+@use '@/styles/core/mixins' as *;
+
+.footer {
+  margin-top: auto;
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl);
+  background-color: var(--color-bg-elevated);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer__container {
+  @include container;
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  text-align: center;
+
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.footer__copyright {
+  @include caption;
+  color: var(--color-text-muted);
+}
+
+.footer__built-with {
+  @include caption;
+  color: var(--color-text-light);
+}
+

@@ -1,0 +1,19 @@
+{
+  "title": "Projects",
+  "description": "A collection of projects I've built, highlighting my work in React, TypeScript, and modern frontend development.",
+  "filters": {
+    "all": "All Projects",
+    "featured": "Featured"
+  },
+  "detail": {
+    "role": "Role",
+    "company": "Company",
+    "timeframe": "Timeframe",
+    "techStack": "Tech Stack",
+    "problem": "Problem",
+    "solution": "Solution",
+    "impact": "Impact",
+    "myRole": "My Role"
+  }
+}
+

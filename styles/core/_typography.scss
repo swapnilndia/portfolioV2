@@ -1,0 +1,57 @@
+/* Typography Styles */
+@use './mixins' as *;
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+}
+
+h1 {
+  @include heading-xl;
+}
+
+h2 {
+  @include heading-lg;
+}
+
+h3 {
+  @include heading-md;
+}
+
+h4 {
+  @include heading-sm;
+}
+
+p {
+  @include body;
+  color: var(--color-text);
+}
+
+a {
+  color: var(--color-accent);
+  transition: color var(--transition-base);
+
+  &:hover {
+    color: var(--color-accent-hover);
+  }
+}
+
+strong {
+  font-weight: 600;
+}
+
+code {
+  font-family: 'Courier New', monospace;
+  font-size: 0.9em;
+  background-color: var(--color-bg-elevated);
+  padding: 0.125rem 0.375rem;
+  border-radius: var(--radius-sm);
+}
+

@@ -1,0 +1,27 @@
+@use '@/styles/core/mixins' as *;
+
+.section {
+  @include section-padding;
+}
+
+.section__header {
+  margin-bottom: var(--space-xl);
+  text-align: center;
+
+  @media (min-width: 768px) {
+    margin-bottom: var(--space-2xl);
+  }
+}
+
+.section__title {
+  @include heading-lg;
+  margin-bottom: var(--space-md);
+}
+
+.section__subtitle {
+  @include body-lg;
+  color: var(--color-text-muted);
+  max-width: 600px;
+  margin: 0 auto;
+}
+

@@ -1,0 +1,30 @@
+.main-layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.main-layout__main {
+  flex: 1;
+  transition: filter 0.3s ease;
+}
+
+.main-layout--chat-open .main-layout__main {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.main-layout--chat-open .header {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.main-layout--chat-open .footer {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+}
+

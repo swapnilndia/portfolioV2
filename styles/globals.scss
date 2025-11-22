@@ -1,0 +1,58 @@
+/* Global Styles */
+@use './core/reset';
+@use './core/variables' as *;
+@use './core/mixins' as *;
+@use './core/typography' as *;
+@use './core/layout' as *;
+@use './themes/light' as *;
+@use './themes/dark' as *;
+
+/* Default to light theme */
+html {
+  color-scheme: light dark;
+}
+
+html[data-theme='light'] {
+  color-scheme: light;
+}
+
+html[data-theme='dark'] {
+  color-scheme: dark;
+}
+
+/* Base styles */
+body {
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Scrollbar styles */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-elevated);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+
+  &:hover {
+    background: var(--color-border-hover);
+  }
+}
+
+/* Selection styles */
+::selection {
+  background-color: var(--color-accent);
+  color: white;
+}
+

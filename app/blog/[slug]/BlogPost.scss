@@ -1,51 +1,63 @@
+@use '@/styles/core/mixins' as *;
+
 .blog-post {
   &__header {
-    margin-bottom: 2rem;
+    margin-bottom: var(--space-xl);
   }
 
   &__back {
-    color: var(--primary-color);
+    @include body;
+    color: var(--color-accent);
     text-decoration: none;
     font-weight: 500;
-    transition: opacity 0.2s ease;
+    transition: color var(--transition-base);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
 
     &:hover {
-      opacity: 0.8;
+      color: var(--color-accent-hover);
     }
   }
 
   &__card {
-    padding: 2rem;
+    padding: var(--space-lg);
+
+    @media (min-width: 768px) {
+      padding: var(--space-xl);
+    }
   }
 
   &__meta {
     display: flex;
-    gap: 1rem;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    @include caption;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
   }
 
   &__date,
   &__read-time {
     &::before {
       content: '•';
-      margin-right: 0.5rem;
+      margin-right: var(--space-xs);
     }
   }
 
   &__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
-    margin-bottom: 2rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
+    gap: var(--space-xs);
+    margin-bottom: var(--space-xl);
+    padding-bottom: var(--space-xl);
+    border-bottom: 1px solid var(--color-border);
   }
 
   &__content {
-    line-height: 1.8;
-    color: var(--text-secondary);
+    @include body-lg;
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
 
     h1,
     h2,
@@ -53,76 +65,125 @@
     h4,
     h5,
     h6 {
-      color: var(--text-primary);
-      margin-top: 2rem;
-      margin-bottom: 1rem;
+      color: var(--color-text);
+      margin-top: var(--space-2xl);
+      margin-bottom: var(--space-md);
       font-weight: 600;
+      line-height: var(--line-height-tight);
     }
 
     h1 {
-      font-size: 2rem;
+      @include heading-xl;
+      font-size: clamp(1.75rem, 4vw, 2rem);
     }
 
     h2 {
-      font-size: 1.75rem;
+      @include heading-lg;
+      font-size: clamp(1.5rem, 3vw, 1.75rem);
     }
 
     h3 {
-      font-size: 1.5rem;
+      @include heading-md;
+      font-size: clamp(1.25rem, 2.5vw, 1.5rem);
     }
 
     p {
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-md);
     }
 
     ul,
     ol {
-      margin-bottom: 1rem;
-      padding-left: 2rem;
+      margin-bottom: var(--space-md);
+      padding-left: var(--space-xl);
     }
 
     li {
-      margin-bottom: 0.5rem;
+      margin-bottom: var(--space-sm);
     }
 
     code {
-      background: var(--bg-secondary);
+      @include body;
+      background: var(--color-bg-secondary);
       padding: 0.2rem 0.4rem;
-      border-radius: 0.25rem;
+      border-radius: var(--radius-sm);
       font-size: 0.9em;
-      color: var(--primary-color);
+      color: var(--color-accent);
+      font-family: 'Monaco', 'Courier New', monospace;
     }
 
     pre {
-      background: var(--bg-secondary);
-      padding: 1rem;
-      border-radius: 0.5rem;
+      background: var(--color-bg-secondary);
+      padding: var(--space-md);
+      border-radius: var(--radius-md);
       overflow-x: auto;
-      margin-bottom: 1rem;
+      margin-bottom: var(--space-md);
+      border: 1px solid var(--color-border);
+
+      @media (min-width: 768px) {
+        padding: var(--space-lg);
+      }
 
       code {
         background: none;
         padding: 0;
-        color: var(--text-primary);
+        color: var(--color-text);
+        font-size: var(--font-size-sm);
       }
     }
 
     a {
-      color: var(--primary-color);
+      color: var(--color-accent);
       text-decoration: none;
+      transition: color var(--transition-base);
 
       &:hover {
+        color: var(--color-accent-hover);
         text-decoration: underline;
       }
     }
 
     blockquote {
-      border-left: 4px solid var(--primary-color);
-      padding-left: 1rem;
+      border-left: 4px solid var(--color-accent);
+      padding-left: var(--space-md);
       margin-left: 0;
-      margin-bottom: 1rem;
-      color: var(--text-secondary);
+      margin-bottom: var(--space-md);
+      color: var(--color-text-muted);
       font-style: italic;
+      background: var(--color-bg-elevated);
+      padding: var(--space-md) var(--space-md) var(--space-md) var(--space-lg);
+      border-radius: var(--radius-md);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      border-radius: var(--radius-md);
+      margin: var(--space-lg) 0;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: var(--space-md) 0;
+      overflow-x: auto;
+      display: block;
+
+      @media (min-width: 768px) {
+        display: table;
+      }
+    }
+
+    th,
+    td {
+      padding: var(--space-sm) var(--space-md);
+      border: 1px solid var(--color-border);
+      text-align: left;
+    }
+
+    th {
+      background: var(--color-bg-elevated);
+      font-weight: 600;
+      color: var(--color-text);
     }
   }
 }

@@ -68,9 +68,10 @@ NICKNAME LOGIC (IMPROVED)
   Examples:  
   Goldy → Diga Diga  
   Pankaj → Pink  
-  Parinit → Pandit  
+  Parinit → Ponga Pandit  
   Alok → Dada  
-  Neeraj → Nero  
+  Amit → Amit Ji
+  Himanshu → MiMacChu
 
 Rules:
 - Use nickname occasionally (30–50% of messages).

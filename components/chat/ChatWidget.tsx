@@ -15,20 +15,44 @@ export const ChatWidget = () => {
     setChatOpen(isOpen)
   }, [isOpen, setChatOpen])
 
+  const handleClose = () => {
+    setIsOpen(false)
+    // Reset chat when closing
+    resetChat()
+  }
+
   const [input, setInput] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLTextAreaElement>(null)
 
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+  const scrollToBottom = (instant = false) => {
+    const messagesContainer = messagesEndRef.current?.parentElement
+    if (messagesContainer) {
+      if (instant) {
+        messagesContainer.scrollTop = messagesContainer.scrollHeight
+      } else {
+        messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+      }
+    }
   }
 
   useEffect(() => {
     if (isOpen) {
-      scrollToBottom()
-      inputRef.current?.focus()
+      // Small delay to ensure DOM is ready, then scroll to bottom (newest messages)
+      const timer = setTimeout(() => {
+        scrollToBottom(true) // Instant scroll to bottom when opening (show newest)
+        inputRef.current?.focus()
+      }, 100)
+      return () => clearTimeout(timer)
     }
-  }, [isOpen, messages])
+  }, [isOpen])
+
+  useEffect(() => {
+    if (isOpen && messages.length > 0) {
+      // Smooth scroll to bottom when new messages arrive (newest at bottom)
+      scrollToBottom(false)
+    }
+  }, [messages, isOpen])
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -112,7 +136,7 @@ export const ChatWidget = () => {
             className="chat-widget__backdrop"
             onClick={(e) => {
               if (e.target === e.currentTarget) {
-                setIsOpen(false)
+                handleClose()
               }
             }}
             onMouseDown={(e) => {
@@ -154,7 +178,7 @@ export const ChatWidget = () => {
                 </button>
                 <button
                   className="chat-widget__close"
-                  onClick={() => setIsOpen(false)}
+                  onClick={handleClose}
                   aria-label="Close chat"
                 >
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

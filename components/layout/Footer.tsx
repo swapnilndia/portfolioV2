@@ -1,7 +1,15 @@
+'use client'
+
+import { useState, useEffect } from 'react'
 import './Footer.scss'
 
 export const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const [currentYear, setCurrentYear] = useState<number>(2025)
+
+  useEffect(() => {
+    // Set year on client side only to avoid hydration mismatch
+    setCurrentYear(new Date().getFullYear())
+  }, [])
 
   return (
     <footer className="footer">

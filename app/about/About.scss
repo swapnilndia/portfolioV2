@@ -1,12 +1,19 @@
+@use '@/styles/core/mixins' as *;
+
 .about-page {
   &__intro {
-    margin-bottom: 3rem;
+    margin-bottom: var(--space-2xl);
+
+    @media (min-width: 768px) {
+      margin-bottom: var(--space-3xl);
+    }
   }
 
   &__paragraph {
-    line-height: 1.8;
-    color: var(--text-secondary);
-    margin-bottom: 1.5rem;
+    @include body-lg;
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-lg);
 
     &:last-child {
       margin-bottom: 0;
@@ -14,44 +21,73 @@
   }
 
   &__career-switch {
-    margin-bottom: 3rem;
+    margin-bottom: var(--space-2xl);
+
+    @media (min-width: 768px) {
+      margin-bottom: var(--space-3xl);
+    }
   }
 
   &__career-card {
-    padding: 2rem;
+    padding: var(--space-lg);
+
+    @media (min-width: 768px) {
+      padding: var(--space-xl);
+    }
   }
 
   &__skills {
-    margin-top: 3rem;
+    margin-top: var(--space-2xl);
+
+    @media (min-width: 768px) {
+      margin-top: var(--space-3xl);
+    }
   }
 
   &__skills-title {
-    font-size: 1.75rem;
-    margin-bottom: 2rem;
-    color: var(--text-primary);
+    @include heading-lg;
+    margin-bottom: var(--space-xl);
+    color: var(--color-text);
+    text-align: center;
+
+    @media (min-width: 768px) {
+      text-align: left;
+    }
   }
 
   &__skills-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 2rem;
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: var(--space-xl);
+    }
+
+    @media (min-width: 1024px) {
+      gap: var(--space-2xl);
+    }
   }
 
   &__skill-category {
-    padding: 1.5rem;
+    padding: var(--space-lg);
+
+    @media (min-width: 768px) {
+      padding: var(--space-xl);
+    }
   }
 
   &__skill-category-title {
-    font-size: 1.25rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
+    @include heading-sm;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
   }
 
   &__skill-tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 }
 

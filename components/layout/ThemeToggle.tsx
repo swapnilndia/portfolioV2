@@ -1,16 +1,35 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useThemeStore } from '@/store/themeStore'
 import './ThemeToggle.scss'
 
 export const ThemeToggle = () => {
   const { theme, toggleTheme } = useThemeStore()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     const root = document.documentElement
     root.setAttribute('data-theme', theme)
   }, [theme])
+
+  // Avoid hydration mismatch by not rendering until mounted
+  if (!mounted) {
+    return (
+      <button
+        className="theme-toggle"
+        aria-label="Switch theme"
+        title="Switch theme"
+        disabled
+      >
+        <span className="theme-toggle__icon" aria-hidden="true">
+          🌙
+        </span>
+        <span className="visually-hidden">Switch theme</span>
+      </button>
+    )
+  }
 
   return (
     <button

@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { useI18nStore } from '@/store/i18nStore'
 import './LanguageSwitcher.scss'
@@ -10,8 +10,10 @@ type Language = 'en' | 'hi'
 export const LanguageSwitcher = () => {
   const { i18n } = useTranslation()
   const { language, setLanguage } = useI18nStore()
+  const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
+    setMounted(true)
     if (i18n.language !== language) {
       i18n.changeLanguage(language)
     }
@@ -26,6 +28,24 @@ export const LanguageSwitcher = () => {
     { code: 'en', label: 'EN' },
     // { code: 'hi', label: 'HI' }, // Hidden for now
   ]
+
+  // Avoid hydration mismatch by not rendering active state until mounted
+  if (!mounted) {
+    return (
+      <div className="language-switcher">
+        {languages.map((lang) => (
+          <button
+            key={lang.code}
+            className="language-switcher__button"
+            aria-label={`Switch to ${lang.label}`}
+            disabled
+          >
+            {lang.label}
+          </button>
+        ))}
+      </div>
+    )
+  }
 
   return (
     <div className="language-switcher">

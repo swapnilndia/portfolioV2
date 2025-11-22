@@ -67,16 +67,8 @@ const loadFromSessionStorage = (): {
 
 // Initial state with welcome message if no stored state
 const getInitialState = () => {
-  const stored = loadFromSessionStorage()
-  
-  if (stored.messages.length > 0) {
-    return {
-      ...stored,
-      userMessageCount: countUserMessages(stored.messages),
-    }
-  }
-
-  // Return welcome message if no stored state
+  // Always start fresh - don't load from sessionStorage on initialization
+  // Messages will only persist during active session via sendMessage
   const welcomeMessage: ChatMessage = {
     id: 'welcome',
     role: 'assistant',

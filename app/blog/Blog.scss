@@ -1,17 +1,27 @@
+@use '@/styles/core/mixins' as *;
+
 .blog-page {
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--space-lg);
+
+    @media (min-width: 768px) {
+      gap: var(--space-xl);
+    }
   }
 
   &__card {
-    padding: 2rem;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    padding: var(--space-lg);
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+
+    @media (min-width: 768px) {
+      padding: var(--space-xl);
+    }
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+      box-shadow: var(--shadow-lg);
     }
   }
 
@@ -21,43 +31,44 @@
   }
 
   &__title {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-    color: var(--text-primary);
-    transition: color 0.2s ease;
+    @include heading-md;
+    margin-bottom: var(--space-md);
+    color: var(--color-text);
+    transition: color var(--transition-base);
 
     &:hover {
-      color: var(--primary-color);
+      color: var(--color-accent);
     }
   }
 
   &__excerpt {
-    line-height: 1.7;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
+    @include body-lg;
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
   }
 
   &__meta {
     display: flex;
-    gap: 1rem;
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin-bottom: 1rem;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    @include caption;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-md);
   }
 
   &__date,
   &__read-time {
     &::before {
       content: '•';
-      margin-right: 0.5rem;
+      margin-right: var(--space-xs);
     }
   }
 
   &__tags {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: var(--space-xs);
   }
 }
 

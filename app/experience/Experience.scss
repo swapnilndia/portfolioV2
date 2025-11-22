@@ -1,81 +1,101 @@
+@use '@/styles/core/mixins' as *;
+
 .experience-page {
   &__section {
-    margin-bottom: 3rem;
+    margin-bottom: var(--space-2xl);
 
     &:last-child {
       margin-bottom: 0;
     }
+
+    @media (min-width: 768px) {
+      margin-bottom: var(--space-3xl);
+    }
   }
 
   &__section-title {
-    font-size: 1.75rem;
-    margin-bottom: 2rem;
-    color: var(--text-primary);
+    @include heading-lg;
+    margin-bottom: var(--space-xl);
+    color: var(--color-text);
+    text-align: center;
+
+    @media (min-width: 768px) {
+      text-align: left;
+    }
   }
 
   &__list {
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: var(--space-lg);
+
+    @media (min-width: 768px) {
+      gap: var(--space-xl);
+    }
   }
 
   &__card {
-    padding: 2rem;
+    padding: var(--space-lg);
+
+    @media (min-width: 768px) {
+      padding: var(--space-xl);
+    }
   }
 
   &__header {
-    margin-bottom: 1.5rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    border-bottom: 1px solid var(--color-border);
   }
 
   &__company {
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
-    color: var(--text-primary);
+    @include heading-md;
+    margin-bottom: var(--space-xs);
+    color: var(--color-text);
   }
 
   &__title {
-    font-size: 1.125rem;
+    @include body-lg;
     font-weight: 500;
-    margin-bottom: 0.5rem;
-    color: var(--text-secondary);
+    margin-bottom: var(--space-xs);
+    color: var(--color-text-muted);
   }
 
   &__location,
   &__timeframe {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.25rem;
+    @include caption;
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-xs);
   }
 
   &__bullets {
     list-style: none;
     padding: 0;
-    margin: 0 0 1.5rem 0;
+    margin: 0 0 var(--space-lg) 0;
   }
 
   &__bullet {
-    padding-left: 1.5rem;
-    margin-bottom: 0.75rem;
-    line-height: 1.6;
-    color: var(--text-secondary);
+    @include body;
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
     position: relative;
 
     &::before {
       content: '•';
       position: absolute;
       left: 0;
-      color: var(--primary-color);
+      color: var(--color-accent);
       font-weight: bold;
+      font-size: 1.2em;
     }
   }
 
   &__tech {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.75rem;
+    gap: var(--space-sm);
   }
 }
 

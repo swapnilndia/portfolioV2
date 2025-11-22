@@ -10,6 +10,32 @@
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
 
+  /* Extended color palette for gradients and special cases */
+  --color-accent-purple: #8b5cf6;
+  --color-accent-purple-hover: #7c3aed;
+  --color-success-light: #059669;
+  --color-danger-dark: #dc2626;
+
+  /* Overlay colors with alpha transparency */
+  --color-overlay-accent-light: rgba(59, 130, 246, 0.15);
+  --color-overlay-accent-medium: rgba(59, 130, 246, 0.25);
+  --color-overlay-accent-strong: rgba(59, 130, 246, 0.4);
+  --color-overlay-accent-stronger: rgba(59, 130, 246, 0.5);
+  --color-overlay-purple: rgba(139, 92, 246, 0.15);
+  --color-overlay-white-light: rgba(255, 255, 255, 0.1);
+  --color-overlay-white-medium: rgba(255, 255, 255, 0.2);
+  --color-overlay-white-strong: rgba(255, 255, 255, 0.3);
+  --color-overlay-black-light: rgba(0, 0, 0, 0.1);
+  --color-overlay-black-medium: rgba(0, 0, 0, 0.2);
+  --color-overlay-black-strong: rgba(0, 0, 0, 0.3);
+  --color-overlay-danger: rgba(239, 68, 68, 0.1);
+  --color-overlay-danger-medium: rgba(239, 68, 68, 0.3);
+  --color-overlay-danger-strong: rgba(239, 68, 68, 0.4);
+  --color-overlay-warning: rgba(251, 191, 36, 0.1);
+  --color-overlay-warning-medium: rgba(251, 191, 36, 0.3);
+  --color-overlay-success: rgba(16, 185, 129, 0.4);
+  --color-overlay-success-glow: rgba(16, 185, 129, 0);
+
   /* Spacing */
   --space-xs: 0.25rem;
   --space-sm: 0.5rem;

@@ -1,8 +1,11 @@
 import { create } from 'zustand'
 
+import { StructuredContent } from '@/components/chat/MessageRenderer'
+
 export interface ChatMessage {
   role: 'user' | 'assistant'
   text: string
+  content?: StructuredContent // Structured content for assistant messages
   id: string
   timestamp: Date
 }
@@ -149,11 +152,41 @@ export const useChatStore = create<ChatStore>((set, get) => ({
 
       const data = await response.json()
 
+      // Handle structured or text response
+      const responseContent = data.response
+      let responseText = ''
+      let structuredContent: StructuredContent | undefined = undefined
+
+      try {
+        if (typeof responseContent === 'object' && responseContent !== null && 'type' in responseContent) {
+          // Structured response
+          structuredContent = responseContent as StructuredContent
+          // Extract text for display/fallback
+          if (responseContent.type === 'text' && responseContent.content?.text) {
+            responseText = String(responseContent.content.text)
+          } else if (responseContent.type === 'structured') {
+            responseText = String(responseContent.content?.text || 'Response')
+          } else {
+            responseText = 'Response received'
+          }
+        } else if (typeof responseContent === 'string') {
+          // Legacy string format
+          responseText = responseContent
+        } else {
+          responseText = 'I apologize, but I could not generate a response.'
+        }
+      } catch (error) {
+        console.error('Error parsing response content:', error)
+        responseText = typeof responseContent === 'string' ? responseContent : 'I apologize, but I could not generate a response.'
+        structuredContent = undefined
+      }
+
       // Add assistant message
       const assistantMessage: ChatMessage = {
         id: (Date.now() + 1).toString(),
         role: 'assistant',
-        text: data.response,
+        text: responseText,
+        content: structuredContent,
         timestamp: new Date(),
       }
 

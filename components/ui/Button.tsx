@@ -12,6 +12,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   href?: string
   target?: string
   rel?: string
+  download?: string
 }
 
 export const Button = ({
@@ -27,13 +28,14 @@ export const Button = ({
   const classes = className ? `${baseClasses} ${className}` : baseClasses
 
   if (as === 'a' && href) {
-    const { target, rel, ...anchorProps } = props as any
+    const { target, rel, download, ...anchorProps } = props as any
     return (
       <a
         href={href}
         className={classes}
         target={target}
         rel={rel}
+        download={download}
         {...anchorProps}
       >
         {children}

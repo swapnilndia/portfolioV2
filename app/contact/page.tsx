@@ -118,7 +118,7 @@ export default function ContactPage() {
             <h3 className="contact-page__social-title">{t('social.title')}</h3>
             <div className="contact-page__social-links">
               <a
-                href="https://www.linkedin.com/in/swapnil-katiyar"
+                href="https://www.linkedin.com/in/swapnilndia/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-page__social-link"
@@ -129,7 +129,7 @@ export default function ContactPage() {
                 {t('social.linkedin')}
               </a>
               <a
-                href="https://github.com/swapnilkatiyar"
+                href="https://github.com/swapnilndia"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="contact-page__social-link"
@@ -140,7 +140,19 @@ export default function ContactPage() {
                 {t('social.github')}
               </a>
               <a
-                href="mailto:swapnilkatiyar.dev@gmail.com"
+                href="https://leetcode.com/u/Swapnilndia/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="contact-page__social-link"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="16 18 22 12 16 6"/>
+                  <polyline points="8 6 2 12 8 18"/>
+                </svg>
+                {t('social.leetcode')}
+              </a>
+              <a
+                href="mailto:swapnil240695@gmail.com"
                 className="contact-page__social-link"
               >
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">

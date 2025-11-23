@@ -7,9 +7,84 @@ let agent: Agent | null = null
 
 const getAgent = () => {
   if (!agent) {
+    const enhancedInstructions = `${portfolioContext}
+
+RESPONSE FORMATTING RULES:
+When your response contains structured content (lists, tables, code blocks, or when formatting would improve readability), format it as JSON. For simple conversational responses, use plain text.
+
+JSON Structure (when needed):
+{
+  "type": "structured",
+  "content": {
+    "text": "Optional introductory text",
+    "sections": [
+      {
+        "type": "list" | "table" | "code" | "image" | "text",
+        "data": {...}
+      }
+    ]
+  }
+}
+
+Examples:
+
+List response:
+{
+  "type": "structured",
+  "content": {
+    "text": "Here are Swapnil's key skills:",
+    "sections": [
+      {
+        "type": "list",
+        "data": {
+          "items": ["React", "TypeScript", "Next.js"],
+          "ordered": false
+        }
+      }
+    ]
+  }
+}
+
+Table response:
+{
+  "type": "structured",
+  "content": {
+    "sections": [
+      {
+        "type": "table",
+        "data": {
+          "headers": ["Company", "Role", "Duration"],
+          "rows": [["Tekonika", "Software Developer", "May 2025 - Present"]]
+        }
+      }
+    ]
+  }
+}
+
+Code response:
+{
+  "type": "structured",
+  "content": {
+    "sections": [
+      {
+        "type": "code",
+        "data": {
+          "code": "const greeting = 'Hello';",
+          "language": "javascript"
+        }
+      }
+    ]
+  }
+}
+
+Simple text response (use this for most conversational replies):
+Just respond with plain text, no JSON needed. Only use JSON when structure adds clear value.
+
+IMPORTANT: Always ensure valid JSON when using structured format. For casual conversation, use plain text.`
+    
     agent = new Agent({
       name: 'Portfolio Assistant',
-      instructions: portfolioContext,
+      instructions: enhancedInstructions,
     })
   }
   return agent
@@ -44,8 +119,41 @@ export async function POST(request: NextRequest) {
     // Extract the response text
     const responseText = result.finalOutput || 'I apologize, but I could not generate a response.'
 
+    // Try to parse as JSON, fallback to text if not valid JSON
+    let parsedResponse: unknown = null
+    try {
+      // Only try to parse if it looks like JSON (starts with { or [)
+      const trimmed = responseText.trim()
+      if (trimmed.startsWith('{') || trimmed.startsWith('[')) {
+        parsedResponse = JSON.parse(responseText)
+        // Validate it's our expected structure
+        if (
+          typeof parsedResponse === 'object' &&
+          parsedResponse !== null &&
+          'type' in parsedResponse &&
+          (parsedResponse.type === 'text' || parsedResponse.type === 'structured')
+        ) {
+          // Valid structured response - use it as is
+        } else {
+          // Invalid structure, treat as plain text
+          parsedResponse = null
+        }
+      }
+    } catch (error) {
+      // Not valid JSON, treat as plain text
+      parsedResponse = null
+    }
+
+    // Always return a valid response structure
+    const finalResponse = parsedResponse || {
+      type: 'text',
+      content: {
+        text: responseText,
+      },
+    }
+
     return NextResponse.json({
-      response: responseText,
+      response: finalResponse,
       history: result.history,
     })
   } catch (error) {

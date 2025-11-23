@@ -23,14 +23,12 @@ export const Hero = () => {
               </Button>
               <Button
                 as="a"
-                href="#"
+                href="/Swapnil_Resume.pdf"
                 variant="secondary"
                 size="lg"
-                onClick={(e) => {
-                  e.preventDefault()
-                  // Placeholder for resume download
-                  console.log('Download resume')
-                }}
+                download="Swapnil_Katiyar_Resume.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
               >
                 Download Resume
               </Button>

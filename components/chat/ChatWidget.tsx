@@ -3,6 +3,7 @@
 import { useState, useRef, useEffect } from 'react'
 import { useUiStore } from '@/store/uiStore'
 import { useChatStore, MAX_QUESTIONS, MESSAGE_SOFT_LIMIT, MESSAGE_HARD_LIMIT } from '@/store/chatStore'
+import { MessageRenderer } from './MessageRenderer'
 import './ChatWidget.scss'
 
 export const ChatWidget = () => {
@@ -211,7 +212,11 @@ export const ChatWidget = () => {
                   </div>
                   <div className="chat-widget__message-content">
                     <div className="chat-widget__message-text">
-                      {message.text}
+                      {message.role === 'assistant' && message.content ? (
+                        <MessageRenderer content={message.content} />
+                      ) : (
+                        <MessageRenderer content={message.text} />
+                      )}
                     </div>
                   </div>
                 </div>

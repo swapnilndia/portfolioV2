@@ -57,7 +57,12 @@
   @include body-lg;
   color: var(--color-text-muted);
   margin-bottom: var(--space-md);
-  line-height: var(--line-height-relaxed);
+  line-height: 1.7;
+  max-width: 60ch;
+  
+  @media (min-width: 968px) {
+    max-width: 65ch;
+  }
 }
 
 .hero__location {

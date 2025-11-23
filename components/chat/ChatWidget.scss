@@ -125,10 +125,11 @@
   z-index: var(--z-modal);
   pointer-events: auto;
   transform-origin: bottom right;
+  top: auto;
+  left: auto;
 
   @media (max-width: 768px) {
-    width: calc(100vw - var(--space-md));
-    height: auto;
+    width: calc(100vw - var(--space-md) * 2);
     max-height: calc(100dvh - var(--space-md) * 2);
     height: calc(100dvh - var(--space-md) * 2);
     bottom: var(--space-md);
@@ -146,11 +147,11 @@
 @keyframes slideUpFromButton {
   from {
     opacity: 0;
-    transform: scale(0.1);
+    transform: scale(0.8) translateY(20px);
   }
   to {
     opacity: 1;
-    transform: scale(1);
+    transform: scale(1) translateY(0);
   }
 }
 
@@ -189,10 +190,12 @@
   border-bottom: 1px solid var(--color-border);
   background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-purple) 100%);
   color: white;
-  position: relative;
+  position: sticky;
+  top: 0;
   overflow: hidden;
   flex-shrink: 0;
-  z-index: 2;
+  z-index: 10;
+  min-height: 72px;
 
   @media (max-width: 768px) {
     padding: var(--space-md);

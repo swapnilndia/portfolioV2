@@ -1,0 +1,422 @@
+@use '@/styles/core/mixins' as *;
+
+// Heatmap cell dimensions (keep in sync with TS constants)
+$cell-size: 12px;
+$cell-gap: 3px;
+$day-label-width: 28px;
+
+// Level colours — theme-aware
+$heatmap-colors: (
+  0: var(--color-bg-secondary),
+  1: rgba(16, 185, 129, 0.2),
+  2: rgba(16, 185, 129, 0.45),
+  3: rgba(16, 185, 129, 0.7),
+  4: var(--color-success),
+);
+
+.coding-activity {
+  @include section-padding;
+}
+
+.coding-activity__container {
+  @include container;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+}
+
+.coding-activity__section-title {
+  @include heading-lg;
+}
+
+// ── Shared block card ────────────────────────────────────────────────────────
+
+.coding-activity__block {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.coding-activity__block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+}
+
+.coding-activity__block-label {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.coding-activity__badges {
+  display: flex;
+  gap: var(--space-sm);
+  flex-wrap: wrap;
+}
+
+.coding-activity__badge {
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  color: var(--color-text-muted);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0.2rem var(--space-sm);
+}
+
+// ── Heatmap ──────────────────────────────────────────────────────────────────
+
+.coding-activity__heatmap-wrap {
+  width: 100%;
+  overflow: hidden;
+}
+
+.coding-activity__heatmap-inner {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  margin-inline: auto;
+  max-width: 100%;
+}
+
+.coding-activity__month-row {
+  display: grid;
+  margin-bottom: 6px;
+  padding-left: $day-label-width + $cell-gap;
+}
+
+.coding-activity__month-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.coding-activity__heatmap-body {
+  display: flex;
+  gap: $cell-gap;
+  align-items: flex-start;
+}
+
+.coding-activity__day-labels {
+  display: grid;
+  grid-template-rows: repeat(7, $cell-size);
+  gap: $cell-gap;
+  width: $day-label-width;
+  flex-shrink: 0;
+}
+
+.coding-activity__day-label {
+  font-size: 9px;
+  color: var(--color-text-muted);
+  display: flex;
+  align-items: center;
+  line-height: 1;
+}
+
+.coding-activity__grid {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: $cell-size;
+}
+
+.coding-activity__cell {
+  width: $cell-size;
+  height: $cell-size;
+  border-radius: 2px;
+  cursor: default;
+  transition: opacity var(--transition-fast);
+
+  @each $level, $color in $heatmap-colors {
+    &--level-#{$level} {
+      background: #{$color};
+    }
+  }
+
+  &:hover {
+    opacity: 0.75;
+  }
+}
+
+// ── GitHub mini-stats ────────────────────────────────────────────────────────
+
+.coding-activity__github-stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+
+  @media (min-width: 480px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.coding-activity__github-stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.coding-activity__github-stat-value {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  color: var(--color-text);
+  line-height: var(--line-height-tight);
+}
+
+.coding-activity__github-stat-label {
+  @include caption;
+  color: var(--color-text-muted);
+}
+
+// ── Recent repos ─────────────────────────────────────────────────────────────
+
+.coding-activity__repos {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--color-border);
+}
+
+.coding-activity__repos-header {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.coding-activity__repos-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-sm);
+
+  @media (min-width: 560px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.coding-activity__repo-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  padding: var(--space-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  text-decoration: none;
+  color: inherit;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+
+  &:hover {
+    border-color: var(--color-accent);
+    background: var(--color-bg-elevated);
+    text-decoration: none;
+  }
+}
+
+.coding-activity__repo-name {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-accent);
+}
+
+.coding-activity__repo-desc {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex: 1;
+}
+
+.coding-activity__repo-meta {
+  display: flex;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+  margin-top: var(--space-xs);
+}
+
+// ── LeetCode chart (donut + diff cards) ──────────────────────────────────────
+
+.coding-activity__leetcode-chart {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-lg);
+
+  @media (min-width: 560px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: var(--space-xl);
+  }
+}
+
+// Donut
+
+.coding-activity__donut-wrapper {
+  flex-shrink: 0;
+  width: 150px;
+  height: 150px;
+  align-self: center;
+
+  @media (min-width: 560px) {
+    width: 160px;
+    height: 160px;
+  }
+}
+
+.coding-activity__donut-svg {
+  width: 100%;
+  height: 100%;
+}
+
+.coding-activity__donut-track {
+  stroke: var(--color-bg-secondary);
+}
+
+.coding-activity__donut-number {
+  fill: var(--color-text);
+  font-size: 20px;
+  font-weight: 700;
+  font-family: var(--font-family-base);
+}
+
+.coding-activity__donut-sub {
+  fill: var(--color-text-muted);
+  font-size: 11px;
+  font-family: var(--font-family-base);
+}
+
+.coding-activity__donut-acc {
+  fill: var(--color-text-muted);
+  font-size: 9px;
+  font-family: var(--font-family-base);
+}
+
+// Difficulty cards
+
+.coding-activity__diff-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-sm);
+  width: 100%;
+
+  @media (min-width: 560px) {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    width: auto;
+  }
+}
+
+.coding-activity__diff-card {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background var(--transition-fast);
+
+  &--easy {
+    &:hover,
+    &.is-hovered {
+      border-color: var(--color-success);
+      background: rgba(16, 185, 129, 0.08);
+    }
+  }
+  &--medium {
+    &:hover,
+    &.is-hovered {
+      border-color: var(--color-warning);
+      background: rgba(245, 158, 11, 0.08);
+    }
+  }
+  &--hard {
+    &:hover,
+    &.is-hovered {
+      border-color: var(--color-danger);
+      background: rgba(239, 68, 68, 0.08);
+    }
+  }
+}
+
+.coding-activity__diff-label {
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+
+  &--easy   { color: var(--color-success); }
+  &--medium { color: var(--color-warning); }
+  &--hard   { color: var(--color-danger); }
+}
+
+.coding-activity__diff-counts {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+
+  strong {
+    font-size: var(--font-size-sm);
+    font-weight: 700;
+    color: var(--color-text);
+  }
+}
+
+.coding-activity__diff-bar-track {
+  height: 4px;
+  background: var(--color-border);
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+}
+
+.coding-activity__diff-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  transition: width var(--transition-slow);
+
+  &--easy   { background: var(--color-success); }
+  &--medium { background: var(--color-warning); }
+  &--hard   { background: var(--color-danger); }
+}
+
+.coding-activity__diff-pct {
+  @include caption;
+  color: var(--color-text-muted);
+}
+
+// ── LeetCode heatmap label / variant ─────────────────────────────────────────
+
+.coding-activity__heatmap-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+  padding-top: var(--space-sm);
+  border-top: 1px solid var(--color-border);
+}
+
+.coding-activity__grid--leetcode {
+  .coding-activity__cell--level-1 { background: rgba(245, 158, 11, 0.2); }
+  .coding-activity__cell--level-2 { background: rgba(245, 158, 11, 0.45); }
+  .coding-activity__cell--level-3 { background: rgba(245, 158, 11, 0.7); }
+  .coding-activity__cell--level-4 { background: var(--color-warning); }
+}

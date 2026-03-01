@@ -1,45 +1,200 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, useMemo, useRef } from 'react'
 import { useTranslation } from 'react-i18next'
 import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
 import { Button } from '@/components/ui/Button'
+import { COUNTRIES, isoToFlag } from '@/data/countries'
 import './Contact.scss'
+
+type ContactFormData = {
+  name: string
+  email: string
+  selectedIso: string
+  phoneNumber: string
+  message: string
+}
+
+type ContactFormErrors = Partial<Record<keyof ContactFormData, string>>
 
 export default function ContactPage() {
   const { t } = useTranslation('contact')
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
+    selectedIso: 'IN',
+    phoneNumber: '',
     message: '',
   })
+  const [formErrors, setFormErrors] = useState<ContactFormErrors>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>(
-    'idle'
+  const [submitErrorMessage, setSubmitErrorMessage] = useState('')
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle')
+
+  const [dropdownOpen, setDropdownOpen] = useState(false)
+  const [countrySearch, setCountrySearch] = useState('')
+  const dropdownRef = useRef<HTMLDivElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null)
+
+  const selectedCountry = useMemo(
+    () => COUNTRIES.find((c) => c.iso === formData.selectedIso) ?? COUNTRIES.find((c) => c.iso === 'IN')!,
+    [formData.selectedIso]
   )
+
+  const filteredCountries = useMemo(() => {
+    const q = countrySearch.trim().toLowerCase()
+    if (!q) return COUNTRIES
+    return COUNTRIES.filter(
+      (c) =>
+        c.name.toLowerCase().includes(q) ||
+        c.dialCode.includes(q) ||
+        c.iso.toLowerCase().includes(q)
+    )
+  }, [countrySearch])
+
+  // Close dropdown on outside click or Escape
+  useEffect(() => {
+    if (!dropdownOpen) return
+    const handleClick = (e: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target as Node)) {
+        setDropdownOpen(false)
+        setCountrySearch('')
+      }
+    }
+    const handleKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        setDropdownOpen(false)
+        setCountrySearch('')
+      }
+    }
+    document.addEventListener('mousedown', handleClick)
+    document.addEventListener('keydown', handleKey)
+    return () => {
+      document.removeEventListener('mousedown', handleClick)
+      document.removeEventListener('keydown', handleKey)
+    }
+  }, [dropdownOpen])
+
+  // Focus search input when dropdown opens
+  useEffect(() => {
+    if (dropdownOpen) {
+      setTimeout(() => searchRef.current?.focus(), 50)
+    }
+  }, [dropdownOpen])
+
+  useEffect(() => {
+    fetch('https://ipapi.co/json/')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data?.country_code) {
+          const iso = (data.country_code as string).toUpperCase()
+          const match = COUNTRIES.find((c) => c.iso === iso)
+          if (match) {
+            setFormData((prev) => ({ ...prev, selectedIso: iso }))
+          }
+        }
+      })
+      .catch(() => {
+        // silently fall back to IN
+      })
+  }, [])
+
+  const validateForm = (data: ContactFormData): ContactFormErrors => {
+    const errors: ContactFormErrors = {}
+
+    if (!data.name.trim()) {
+      errors.name = t('form.validation.required')
+    } else if (data.name.trim().length < 2) {
+      errors.name = t('form.validation.nameMin')
+    }
+
+    if (!data.email.trim()) {
+      errors.email = t('form.validation.required')
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email.trim())) {
+      errors.email = t('form.validation.emailInvalid')
+    }
+
+    if (data.phoneNumber.trim()) {
+      if (!/^\d{6,14}$/.test(data.phoneNumber.replace(/\s/g, ''))) {
+        errors.phoneNumber = t('form.validation.phoneInvalid')
+      }
+    }
+
+    if (!data.message.trim()) {
+      errors.message = t('form.validation.required')
+    } else if (data.message.trim().length < 10) {
+      errors.message = t('form.validation.messageMin')
+    }
+
+    return errors
+  }
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    })
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+    setFormErrors((prev) => ({ ...prev, [name]: undefined }))
+    setSubmitStatus('idle')
+    setSubmitErrorMessage('')
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+
+    const trimmedData: ContactFormData = {
+      name: formData.name.trim(),
+      email: formData.email.trim(),
+      selectedIso: formData.selectedIso,
+      phoneNumber: formData.phoneNumber.replace(/\s/g, ''),
+      message: formData.message.trim(),
+    }
+
+    const errors = validateForm(trimmedData)
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors)
+      setSubmitStatus('error')
+      setSubmitErrorMessage(t('form.errorInvalid'))
+      return
+    }
+
     setIsSubmitting(true)
     setSubmitStatus('idle')
+    setSubmitErrorMessage('')
+    setFormErrors({})
 
-    // TODO: Implement actual form submission
-    // For now, just simulate a delay
-    await new Promise((resolve) => setTimeout(resolve, 1000))
+    try {
+      const country = COUNTRIES.find((c) => c.iso === trimmedData.selectedIso)
+      const phone = trimmedData.phoneNumber
+        ? `${country?.dialCode ?? ''}${trimmedData.phoneNumber}`
+        : ''
 
-    setIsSubmitting(false)
-    setSubmitStatus('success')
-    setFormData({ name: '', email: '', message: '' })
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: trimmedData.name,
+          email: trimmedData.email,
+          phone,
+          message: trimmedData.message,
+        }),
+      })
+
+      const result = await response.json()
+
+      if (!response.ok) {
+        throw new Error(result.error || t('form.error'))
+      }
+
+      setSubmitStatus('success')
+      setFormData((prev) => ({ ...prev, name: '', email: '', phoneNumber: '', message: '' }))
+    } catch (error) {
+      setSubmitStatus('error')
+      setSubmitErrorMessage(error instanceof Error ? error.message : t('form.error'))
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -59,8 +214,16 @@ export default function ContactPage() {
                   value={formData.name}
                   onChange={handleChange}
                   required
+                  disabled={isSubmitting}
+                  aria-invalid={Boolean(formErrors.name)}
+                  aria-describedby={formErrors.name ? 'contact-name-error' : undefined}
                   className="contact-page__input"
                 />
+                {formErrors.name && (
+                  <p id="contact-name-error" className="contact-page__field-error">
+                    {formErrors.name}
+                  </p>
+                )}
               </div>
 
               <div className="contact-page__field">
@@ -74,8 +237,97 @@ export default function ContactPage() {
                   value={formData.email}
                   onChange={handleChange}
                   required
+                  disabled={isSubmitting}
+                  aria-invalid={Boolean(formErrors.email)}
+                  aria-describedby={formErrors.email ? 'contact-email-error' : undefined}
                   className="contact-page__input"
                 />
+                {formErrors.email && (
+                  <p id="contact-email-error" className="contact-page__field-error">
+                    {formErrors.email}
+                  </p>
+                )}
+              </div>
+
+              <div className="contact-page__field">
+                <label htmlFor="phoneNumber" className="contact-page__label">
+                  {t('form.phone')}
+                  <span className="contact-page__label-optional"> ({t('form.optional')})</span>
+                </label>
+                <div className="contact-page__phone-row">
+                  <div className="contact-page__country-select-wrapper" ref={dropdownRef}>
+                    <button
+                      type="button"
+                      className="contact-page__country-trigger"
+                      onClick={() => setDropdownOpen((o) => !o)}
+                      disabled={isSubmitting}
+                      aria-haspopup="listbox"
+                      aria-expanded={dropdownOpen}
+                      aria-label="Select country code"
+                    >
+                      <span className="contact-page__select-flag" aria-hidden="true">
+                        {isoToFlag(formData.selectedIso)}
+                      </span>
+                      <span className="contact-page__dial-code">{selectedCountry.dialCode}</span>
+                      <svg className="contact-page__dropdown-arrow" width="12" height="12" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    </button>
+
+                    {dropdownOpen && (
+                      <div className="contact-page__country-dropdown" role="listbox" aria-label="Country">
+                        <div className="contact-page__country-search-wrap">
+                          <input
+                            ref={searchRef}
+                            type="text"
+                            className="contact-page__country-search"
+                            placeholder="Search country…"
+                            value={countrySearch}
+                            onChange={(e) => setCountrySearch(e.target.value)}
+                          />
+                        </div>
+                        <ul className="contact-page__country-list">
+                          {filteredCountries.length > 0 ? filteredCountries.map((country) => (
+                            <li
+                              key={country.iso}
+                              role="option"
+                              aria-selected={country.iso === formData.selectedIso}
+                              className={`contact-page__country-option${country.iso === formData.selectedIso ? ' contact-page__country-option--active' : ''}`}
+                              onClick={() => {
+                                setFormData((prev) => ({ ...prev, selectedIso: country.iso }))
+                                setDropdownOpen(false)
+                                setCountrySearch('')
+                              }}
+                            >
+                              <span aria-hidden="true">{isoToFlag(country.iso)}</span>
+                              <span className="contact-page__country-name">{country.name}</span>
+                              <span className="contact-page__country-dial">{country.dialCode}</span>
+                            </li>
+                          )) : (
+                            <li className="contact-page__country-empty">No results</li>
+                          )}
+                        </ul>
+                      </div>
+                    )}
+                  </div>
+                  <input
+                    type="tel"
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    disabled={isSubmitting}
+                    placeholder={t('form.phonePlaceholder')}
+                    aria-invalid={Boolean(formErrors.phoneNumber)}
+                    aria-describedby={formErrors.phoneNumber ? 'contact-phone-error' : undefined}
+                    className="contact-page__input"
+                  />
+                </div>
+                {formErrors.phoneNumber && (
+                  <p id="contact-phone-error" className="contact-page__field-error">
+                    {formErrors.phoneNumber}
+                  </p>
+                )}
               </div>
 
               <div className="contact-page__field">
@@ -89,8 +341,16 @@ export default function ContactPage() {
                   onChange={handleChange}
                   required
                   rows={6}
+                  disabled={isSubmitting}
+                  aria-invalid={Boolean(formErrors.message)}
+                  aria-describedby={formErrors.message ? 'contact-message-error' : undefined}
                   className="contact-page__textarea"
                 />
+                {formErrors.message && (
+                  <p id="contact-message-error" className="contact-page__field-error">
+                    {formErrors.message}
+                  </p>
+                )}
               </div>
 
               {submitStatus === 'success' && (
@@ -100,7 +360,9 @@ export default function ContactPage() {
               )}
 
               {submitStatus === 'error' && (
-                <div className="contact-page__error">{t('form.error')}</div>
+                <div className="contact-page__error">
+                  {submitErrorMessage || t('form.error')}
+                </div>
               )}
 
               <Button
@@ -151,16 +413,6 @@ export default function ContactPage() {
                 </svg>
                 {t('social.leetcode')}
               </a>
-              <a
-                href="mailto:swapnil240695@gmail.com"
-                className="contact-page__social-link"
-              >
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-                  <polyline points="22,6 12,13 2,6"/>
-                </svg>
-                {t('social.email')}
-              </a>
             </div>
           </Card>
         </div>
@@ -168,4 +420,3 @@ export default function ContactPage() {
     </Section>
   )
 }
-

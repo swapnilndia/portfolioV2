@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { Agent, run, user } from '@openai/agents'
+import { Agent, run, user, type AgentInputItem } from '@openai/agents'
 import { portfolioContext } from '@/data/portfolioContext'
 
 // Create the agent with portfolio context
@@ -94,7 +94,7 @@ export async function POST(request: NextRequest) {
   try {
     const body = await request.json() as {
       message: string
-      previousMessages?: unknown[]
+      previousMessages?: AgentInputItem[]
     }
     const { message, previousMessages = [] } = body
 

@@ -4,22 +4,28 @@
   "form": {
     "name": "Name",
     "email": "Email",
+    "phone": "Phone Number",
+    "optional": "optional",
+    "phonePlaceholder": "9876543210",
     "message": "Message",
     "submit": "Send Message",
     "sending": "Sending...",
-    "success": "Message sent successfully!",
+    "success": "Message sent! You'll receive a reply on email shortly.",
     "error": "Failed to send message. Please try again.",
+    "errorInvalid": "Please fix the highlighted fields and try again.",
     "validation": {
       "required": "This field is required",
-      "emailInvalid": "Please enter a valid email address"
+      "emailInvalid": "Please enter a valid email address",
+      "nameMin": "Name must be at least 2 characters",
+      "messageMin": "Message must be at least 10 characters",
+      "phoneInvalid": "Please enter a valid phone number",
+      "countryCodeInvalid": "Please enter a valid country code (e.g. +91)"
     }
   },
   "social": {
     "title": "Connect with me",
     "linkedin": "LinkedIn",
     "github": "GitHub",
-    "leetcode": "LeetCode",
-    "email": "Email"
+    "leetcode": "LeetCode"
   }
 }
-

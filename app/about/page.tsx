@@ -5,6 +5,7 @@ import { Section } from '@/components/ui/Section'
 import { Card } from '@/components/ui/Card'
 import { Tag } from '@/components/ui/Tag'
 import { skills } from '@/data/skills'
+import { CodingActivity } from '@/components/about/CodingActivity'
 import './About.scss'
 
 export default function About() {
@@ -48,6 +49,7 @@ export default function About() {
           </div>
         </div>
       </Section>
+      <CodingActivity />
     </>
   )
 }

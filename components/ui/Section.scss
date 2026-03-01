@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .section {
   @include section-padding;
@@ -24,4 +24,3 @@
   max-width: 600px;
   margin: 0 auto;
 }
-

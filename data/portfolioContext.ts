@@ -135,6 +135,4 @@ Keep replies natural, crisp, and human-like.
 Stay true to facts provided in the context.  
 Decline politely when info is unavailable or private.  
 
-`
-
-
+`;

@@ -1,11 +1,11 @@
-import { create } from 'zustand'
+import { create } from "zustand";
 
 interface UiStore {
-  mobileMenuOpen: boolean
-  setMobileMenuOpen: (open: boolean) => void
-  toggleMobileMenu: () => void
-  chatOpen: boolean
-  setChatOpen: (open: boolean) => void
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+  toggleMobileMenu: () => void;
+  chatOpen: boolean;
+  setChatOpen: (open: boolean) => void;
 }
 
 export const useUiStore = create<UiStore>((set) => ({
@@ -14,5 +14,4 @@ export const useUiStore = create<UiStore>((set) => ({
   toggleMobileMenu: () => set((state) => ({ mobileMenuOpen: !state.mobileMenuOpen })),
   chatOpen: false,
   setChatOpen: (open) => set({ chatOpen: open }),
-}))
-
+}));

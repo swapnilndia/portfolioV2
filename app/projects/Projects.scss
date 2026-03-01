@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .projects-page {
   &__filters {
@@ -35,7 +35,7 @@
       background: var(--color-accent);
       color: white;
       border-color: var(--color-accent);
-      
+
       &:hover {
         background: var(--color-accent-hover);
         border-color: var(--color-accent-hover);
@@ -58,4 +58,3 @@
     }
   }
 }
-

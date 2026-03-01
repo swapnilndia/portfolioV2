@@ -1,22 +1,16 @@
-import type { ReactNode } from 'react'
-import { Container } from './Container'
-import './Section.scss'
+import type { ReactNode } from "react";
+import { Container } from "./Container";
+import "./Section.scss";
 
 interface SectionProps {
-  children: ReactNode
-  title?: string
-  subtitle?: string
-  className?: string
-  id?: string
+  children: ReactNode;
+  title?: string;
+  subtitle?: string;
+  className?: string;
+  id?: string;
 }
 
-export const Section = ({
-  children,
-  title,
-  subtitle,
-  className = '',
-  id,
-}: SectionProps) => {
+export const Section = ({ children, title, subtitle, className = "", id }: SectionProps) => {
   return (
     <section className={`section ${className}`.trim()} id={id}>
       <Container>
@@ -29,6 +23,5 @@ export const Section = ({
         {children}
       </Container>
     </section>
-  )
-}
-
+  );
+};

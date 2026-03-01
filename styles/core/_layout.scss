@@ -1,5 +1,5 @@
 /* Layout Utilities */
-@use './mixins' as *;
+@use "./mixins" as *;
 
 .container {
   @include container;
@@ -50,4 +50,3 @@
 .gap-xl {
   gap: var(--space-xl);
 }
-

@@ -13,19 +13,23 @@ This guide will help you deploy your Next.js portfolio to Vercel (recommended) o
 ### Option 1: Deploy via Vercel CLI (Fastest)
 
 1. **Install Vercel CLI** (if not already installed):
+
    ```bash
    npm i -g vercel
    ```
 
 2. **Login to Vercel**:
+
    ```bash
    vercel login
    ```
 
 3. **Deploy**:
+
    ```bash
    vercel
    ```
+
    - Follow the prompts
    - It will ask for project settings (accept defaults or customize)
    - For production: `vercel --prod`
@@ -33,6 +37,7 @@ This guide will help you deploy your Next.js portfolio to Vercel (recommended) o
 ### Option 2: Deploy via Vercel Dashboard (Easiest)
 
 1. **Push your code to GitHub/GitLab/Bitbucket**:
+
    ```bash
    git add .
    git commit -m "Ready for deployment"
@@ -59,6 +64,7 @@ This guide will help you deploy your Next.js portfolio to Vercel (recommended) o
 ## Environment Variables Required
 
 ### Required for Chat Feature:
+
 - `OPENAI_API_KEY`: Your OpenAI API key
   - Get it from: https://platform.openai.com/api-keys
   - Required for the `/api/chat` endpoint
@@ -66,6 +72,7 @@ This guide will help you deploy your Next.js portfolio to Vercel (recommended) o
 ### Setting Environment Variables:
 
 **On Vercel:**
+
 - Project Settings → Environment Variables
 - Add variable name: `OPENAI_API_KEY`
 - Add value: `sk-...` (your key)
@@ -74,6 +81,7 @@ This guide will help you deploy your Next.js portfolio to Vercel (recommended) o
 
 **For local development:**
 Create a `.env.local` file:
+
 ```env
 OPENAI_API_KEY=sk-your-key-here
 ```
@@ -109,12 +117,14 @@ OPENAI_API_KEY=sk-your-key-here
 ## Troubleshooting
 
 ### Chat feature not working after deployment:
+
 - ✅ Verify `OPENAI_API_KEY` is set in environment variables
 - ✅ Check that the variable is available in the runtime (not just build time)
 - ✅ Verify API key has credits/quota available
 - ✅ Check Vercel function logs for errors
 
 ### Build fails:
+
 - Check for TypeScript errors: `npm run build`
 - Verify all dependencies are in `package.json`
 - Check Node.js version compatibility (Vercel uses Node 18+ by default)
@@ -134,4 +144,3 @@ OPENAI_API_KEY=sk-your-key-here
 - **Session Storage**: Chat history uses browser sessionStorage (clears on tab close)
 - **Question Limit**: Chat is limited to 15 questions per session
 - **Message Length**: Messages limited to 500 characters (hard limit)
-

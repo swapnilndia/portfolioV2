@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .blog-post {
   &__header {
@@ -40,7 +40,7 @@
   &__date,
   &__read-time {
     &::before {
-      content: '•';
+      content: "•";
       margin-right: var(--space-xs);
     }
   }
@@ -108,7 +108,7 @@
       border-radius: var(--radius-sm);
       font-size: 0.9em;
       color: var(--color-accent);
-      font-family: 'Monaco', 'Courier New', monospace;
+      font-family: "Monaco", "Courier New", monospace;
     }
 
     pre {
@@ -187,4 +187,3 @@
     }
   }
 }
-

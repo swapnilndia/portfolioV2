@@ -1,19 +1,19 @@
 export type BlogPost = {
-  slug: string
-  title: string
-  excerpt: string
-  content: string
-  date: string
-  readTime: string
-  tags: string[]
-}
+  slug: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  readTime: string;
+  tags: string[];
+};
 
 export const posts: BlogPost[] = [
   {
-    slug: 'from-civil-engineering-to-frontend-development',
-    title: 'From Civil Engineering to Front-End Development',
+    slug: "from-civil-engineering-to-frontend-development",
+    title: "From Civil Engineering to Front-End Development",
     excerpt:
-      'My journey from analyzing structures to building user interfaces—how analytical thinking and problem-solving skills translate across domains.',
+      "My journey from analyzing structures to building user interfaces—how analytical thinking and problem-solving skills translate across domains.",
     content: `
 # From Civil Engineering to Front-End Development
 
@@ -41,16 +41,15 @@ The analytical mindset from engineering has been invaluable in:
 
 The journey continues, and I'm excited to keep building better web experiences.
     `,
-    date: '2024-03-15',
-    readTime: '5 min',
-    tags: ['Career', 'Journey'],
+    date: "2024-03-15",
+    readTime: "5 min",
+    tags: ["Career", "Journey"],
   },
   {
-    slug: 'improving-performance-react-apps',
-    title:
-      'Improving Performance in React Apps with Code-Splitting and Memoization',
+    slug: "improving-performance-react-apps",
+    title: "Improving Performance in React Apps with Code-Splitting and Memoization",
     excerpt:
-      'Practical strategies for optimizing React applications through code-splitting, memoization, and dynamic imports.',
+      "Practical strategies for optimizing React applications through code-splitting, memoization, and dynamic imports.",
     content: `
 # Improving Performance in React Apps
 
@@ -80,15 +79,15 @@ Load components and modules only when needed, reducing initial bundle size.
 
 These techniques have helped me build applications that load faster and provide better user experiences.
     `,
-    date: '2024-02-20',
-    readTime: '8 min',
-    tags: ['React', 'Performance', 'Optimization'],
+    date: "2024-02-20",
+    readTime: "8 min",
+    tags: ["React", "Performance", "Optimization"],
   },
   {
-    slug: 'react-typescript-scalable-frontends',
-    title: 'Using React and TypeScript for Scalable Frontends',
+    slug: "react-typescript-scalable-frontends",
+    title: "Using React and TypeScript for Scalable Frontends",
     excerpt:
-      'How TypeScript enhances React development with type safety, better tooling, and improved developer experience.',
+      "How TypeScript enhances React development with type safety, better tooling, and improved developer experience.",
     content: `
 # Using React and TypeScript for Scalable Frontends
 
@@ -123,9 +122,8 @@ const UserCard: React.FC<UserProps> = ({ name, email, age }) => {
 
 TypeScript has become essential for building maintainable, scalable React applications.
     `,
-    date: '2024-01-10',
-    readTime: '6 min',
-    tags: ['React', 'TypeScript', 'Frontend'],
+    date: "2024-01-10",
+    readTime: "6 min",
+    tags: ["React", "TypeScript", "Frontend"],
   },
-]
-
+];

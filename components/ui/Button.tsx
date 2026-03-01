@@ -1,52 +1,46 @@
-import type { ButtonHTMLAttributes, ReactNode } from 'react'
-import './Button.scss'
+import type { ButtonHTMLAttributes, ReactNode } from "react";
+import "./Button.scss";
 
-type ButtonVariant = 'primary' | 'secondary' | 'ghost' | 'link'
-type ButtonSize = 'sm' | 'md' | 'lg'
+type ButtonVariant = "primary" | "secondary" | "ghost" | "link";
+type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant
-  size?: ButtonSize
-  children: ReactNode
-  as?: 'button' | 'a'
-  href?: string
-  target?: string
-  rel?: string
-  download?: string
+  variant?: ButtonVariant;
+  size?: ButtonSize;
+  children: ReactNode;
+  as?: "button" | "a";
+  href?: string;
+  target?: string;
+  rel?: string;
+  download?: string;
 }
 
 export const Button = ({
-  variant = 'primary',
-  size = 'md',
+  variant = "primary",
+  size = "md",
   children,
-  className = '',
-  as = 'button',
+  className = "",
+  as = "button",
   href,
+  target,
+  rel,
+  download,
   ...props
 }: ButtonProps) => {
-  const baseClasses = `btn btn--${variant} btn--${size}`
-  const classes = className ? `${baseClasses} ${className}` : baseClasses
+  const baseClasses = `btn btn--${variant} btn--${size}`;
+  const classes = className ? `${baseClasses} ${className}` : baseClasses;
 
-  if (as === 'a' && href) {
-    const { target, rel, download, ...anchorProps } = props as any
+  if (as === "a" && href) {
     return (
-      <a
-        href={href}
-        className={classes}
-        target={target}
-        rel={rel}
-        download={download}
-        {...anchorProps}
-      >
+      <a href={href} className={classes} target={target} rel={rel} download={download} {...props}>
         {children}
       </a>
-    )
+    );
   }
 
   return (
     <button className={classes} {...props}>
       {children}
     </button>
-  )
-}
-
+  );
+};

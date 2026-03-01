@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .footer {
   margin-top: auto;
@@ -34,4 +34,3 @@
   @include caption;
   color: var(--color-text-light);
 }
-

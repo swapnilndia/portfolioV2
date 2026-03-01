@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .about-page {
   &__intro {
@@ -90,4 +90,3 @@
     gap: var(--space-sm);
   }
 }
-

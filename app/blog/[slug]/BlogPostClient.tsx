@@ -1,27 +1,27 @@
-'use client'
+"use client";
 
-import { useTranslation } from 'react-i18next'
-import Link from 'next/link'
-import ReactMarkdown from 'react-markdown'
-import remarkGfm from 'remark-gfm'
-import { Section } from '@/components/ui/Section'
-import { Card } from '@/components/ui/Card'
-import { Tag } from '@/components/ui/Tag'
-import type { BlogPost } from '@/data/posts'
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import { Section } from "@/components/ui/Section";
+import { Card } from "@/components/ui/Card";
+import { Tag } from "@/components/ui/Tag";
+import type { BlogPost } from "@/data/posts";
 
 interface BlogPostClientProps {
-  post: BlogPost
+  post: BlogPost;
 }
 
 export function BlogPostClient({ post }: BlogPostClientProps) {
-  const { t } = useTranslation('blog')
+  const { t } = useTranslation("blog");
 
   return (
     <Section title={post.title} subtitle={post.excerpt}>
       <div className="blog-post">
         <div className="blog-post__header">
           <Link href="/blog" className="blog-post__back">
-            ← {t('backToBlog')}
+            ← {t("backToBlog")}
           </Link>
         </div>
 
@@ -40,13 +40,10 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
           </div>
 
           <div className="blog-post__content">
-            <ReactMarkdown remarkPlugins={[remarkGfm]}>
-              {post.content}
-            </ReactMarkdown>
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
           </div>
         </Card>
       </div>
     </Section>
-  )
+  );
 }
-

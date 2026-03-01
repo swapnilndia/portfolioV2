@@ -1,23 +1,21 @@
-import { notFound } from 'next/navigation'
-import Link from 'next/link'
-import { BlogPostClient } from './BlogPostClient'
-import { posts } from '@/data/posts'
-import './BlogPost.scss'
+import { notFound } from "next/navigation";
+import { BlogPostClient } from "./BlogPostClient";
+import { posts } from "@/data/posts";
+import "./BlogPost.scss";
 
 interface BlogPostPageProps {
   params: Promise<{
-    slug: string
-  }>
+    slug: string;
+  }>;
 }
 
 export default async function BlogPostPage({ params }: BlogPostPageProps) {
-  const { slug } = await params
-  const post = posts.find((p) => p.slug === slug)
+  const { slug } = await params;
+  const post = posts.find((p) => p.slug === slug);
 
   if (!post) {
-    notFound()
+    notFound();
   }
 
-  return <BlogPostClient post={post} />
+  return <BlogPostClient post={post} />;
 }
-

@@ -1,24 +1,20 @@
-'use client'
+"use client";
 
-import { useTranslation } from 'react-i18next'
-import Link from 'next/link'
-import { Card } from '@/components/ui/Card'
-import { experiences } from '@/data/experience'
-import './RecentExperience.scss'
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { Card } from "@/components/ui/Card";
+import { experiences } from "@/data/experience";
+import "./RecentExperience.scss";
 
 export const RecentExperience = () => {
-  const { t } = useTranslation('home')
-  const recentRoles = experiences
-    .filter((exp) => exp.category === 'software')
-    .slice(0, 2)
+  const { t } = useTranslation("home");
+  const recentRoles = experiences.filter((exp) => exp.category === "software").slice(0, 2);
 
   return (
     <section className="recent-experience">
       <div className="recent-experience__container">
         <div className="recent-experience__header">
-          <h2 className="recent-experience__title">
-            {t('sections.recentExperience')}
-          </h2>
+          <h2 className="recent-experience__title">{t("sections.recentExperience")}</h2>
           <Link href="/experience" className="recent-experience__link">
             View Full Experience →
           </Link>
@@ -35,6 +31,5 @@ export const RecentExperience = () => {
         </div>
       </div>
     </section>
-  )
-}
-
+  );
+};

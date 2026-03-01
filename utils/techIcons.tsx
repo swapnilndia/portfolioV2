@@ -1,5 +1,5 @@
-import React from 'react'
-import type { IconType } from 'react-icons'
+import React from "react";
+import type { IconType } from "react-icons";
 import {
   SiReact,
   SiJavascript,
@@ -53,27 +53,27 @@ import {
   SiJquery,
   SiBootstrap,
   SiMaterialdesign,
-} from 'react-icons/si'
+} from "react-icons/si";
 
 // Map technology names to their corresponding icons
 export const techIconsMap: Record<string, IconType> = {
   // Frontend Frameworks & Libraries
   React: SiReact,
-  'React.js': SiReact,
-  'React JS': SiReact,
+  "React.js": SiReact,
+  "React JS": SiReact,
   Nextjs: SiNextdotjs,
-  'Next.js': SiNextdotjs,
+  "Next.js": SiNextdotjs,
   Angular: SiAngular,
   Vue: SiVuedotjs,
-  'Vue.js': SiVuedotjs,
+  "Vue.js": SiVuedotjs,
   Nuxt: SiNuxtdotjs,
-  'Nuxt.js': SiNuxtdotjs,
+  "Nuxt.js": SiNuxtdotjs,
   Svelte: SiSvelte,
   jQuery: SiJquery,
 
   // Languages
   JavaScript: SiJavascript,
-  'JavaScript (ES6+)': SiJavascript,
+  "JavaScript (ES6+)": SiJavascript,
   JS: SiJavascript,
   TypeScript: SiTypescript,
   TS: SiTypescript,
@@ -89,26 +89,26 @@ export const techIconsMap: Record<string, IconType> = {
   Go: SiGo,
   PHP: SiPhp,
   Ruby: SiRubyonrails,
-  'Ruby on Rails': SiRubyonrails,
+  "Ruby on Rails": SiRubyonrails,
 
   // State Management
   Redux: SiRedux,
-  'Redux Toolkit': SiRedux,
+  "Redux Toolkit": SiRedux,
 
   // UI Libraries & Frameworks
-  'Material-UI': SiMui,
-  'Material UI': SiMui,
+  "Material-UI": SiMui,
+  "Material UI": SiMui,
   MUI: SiMui,
-  'Tailwind CSS': SiTailwindcss,
+  "Tailwind CSS": SiTailwindcss,
   Tailwind: SiTailwindcss,
   Bootstrap: SiBootstrap,
-  'Material Design': SiMaterialdesign,
+  "Material Design": SiMaterialdesign,
 
   // Backend
   Nodejs: SiNodedotjs,
-  'Node.js': SiNodedotjs,
+  "Node.js": SiNodedotjs,
   Express: SiExpress,
-  'Express.js': SiExpress,
+  "Express.js": SiExpress,
   NestJS: SiNestjs,
   Django: SiDjango,
   Flask: SiFlask,
@@ -126,8 +126,8 @@ export const techIconsMap: Record<string, IconType> = {
   Postman: SiPostman,
   Swagger: SiSwagger,
   AWS: SiAmazon,
-  'AWS EC2': SiAmazon,
-  'AWS RDS': SiAmazon,
+  "AWS EC2": SiAmazon,
+  "AWS RDS": SiAmazon,
   Amazon: SiAmazon,
   Docker: SiDocker,
   Vercel: SiVercel,
@@ -136,7 +136,7 @@ export const techIconsMap: Record<string, IconType> = {
 
   // Testing
   Jest: SiJest,
-  'React Testing Library': SiTestinglibrary,
+  "React Testing Library": SiTestinglibrary,
   Cypress: SiCypress,
 
   // Build Tools
@@ -151,10 +151,10 @@ export const techIconsMap: Record<string, IconType> = {
   Prettier: SiPrettier,
 
   // APIs
-  'REST APIs': SiPostman,
+  "REST APIs": SiPostman,
   GraphQL: SiGraphql,
-  'REST API': SiPostman,
-}
+  "REST API": SiPostman,
+};
 
 /**
  * Get icon component for a technology name
@@ -164,16 +164,16 @@ export const techIconsMap: Record<string, IconType> = {
 export const getTechIcon = (techName: string): IconType | null => {
   // Try exact match first
   if (techIconsMap[techName]) {
-    return techIconsMap[techName]
+    return techIconsMap[techName];
   }
 
   // Try case-insensitive match
-  const normalized = techName.trim()
-  const lowerCase = normalized.toLowerCase()
+  const normalized = techName.trim();
+  const lowerCase = normalized.toLowerCase();
 
   for (const [key, icon] of Object.entries(techIconsMap)) {
     if (key.toLowerCase() === lowerCase) {
-      return icon
+      return icon;
     }
   }
 
@@ -183,33 +183,28 @@ export const getTechIcon = (techName: string): IconType | null => {
       normalized.toLowerCase().includes(key.toLowerCase()) ||
       key.toLowerCase().includes(normalized.toLowerCase())
     ) {
-      return icon
+      return icon;
     }
   }
 
-  return null
-}
+  return null;
+};
 
 /**
  * TechIcon component - renders icon with fallback
  */
 interface TechIconProps {
-  name: string
-  size?: number | string
-  className?: string
+  name: string;
+  size?: number | string;
+  className?: string;
 }
 
-export const TechIcon: React.FC<TechIconProps> = ({
-  name,
-  size = 16,
-  className = '',
-}) => {
-  const IconComponent = getTechIcon(name)
+export const TechIcon: React.FC<TechIconProps> = ({ name, size = 16, className = "" }) => {
+  const icon = getTechIcon(name);
 
-  if (!IconComponent) {
-    return null
+  if (!icon) {
+    return null;
   }
 
-  return <IconComponent size={size} className={className} />
-}
-
+  return React.createElement(icon, { size, className });
+};

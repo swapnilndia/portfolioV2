@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .btn {
   display: inline-flex;
@@ -96,4 +96,3 @@
   padding: var(--space-md) var(--space-xl);
   font-size: var(--font-size-lg);
 }
-

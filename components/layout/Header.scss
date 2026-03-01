@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .header {
   position: sticky;
@@ -9,7 +9,7 @@
   background-color: rgba(255, 255, 255, 0.9);
 }
 
-[data-theme='dark'] .header {
+[data-theme="dark"] .header {
   background-color: rgba(15, 23, 42, 0.9);
 }
 
@@ -167,4 +167,3 @@
   font-size: var(--font-size-xl);
   line-height: 1;
 }
-

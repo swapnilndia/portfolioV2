@@ -68,7 +68,7 @@
       cursor: not-allowed;
     }
 
-    &[aria-invalid='true'] {
+    &[aria-invalid="true"] {
       border-color: var(--color-danger);
       box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.12);
     }

@@ -1,24 +1,24 @@
-import type { ReactNode } from 'react'
-import './Card.scss'
+import type { ReactNode } from "react";
+import "./Card.scss";
 
 interface CardProps {
-  children: ReactNode
-  className?: string
-  header?: ReactNode
-  footer?: ReactNode
-  onClick?: () => void
-  as?: 'div' | 'article'
+  children: ReactNode;
+  className?: string;
+  header?: ReactNode;
+  footer?: ReactNode;
+  onClick?: () => void;
+  as?: "div" | "article";
 }
 
 export const Card = ({
   children,
-  className = '',
+  className = "",
   header,
   footer,
   onClick,
-  as: Component = 'div',
+  as: Component = "div",
 }: CardProps) => {
-  const classes = `card ${onClick ? 'card--clickable' : ''} ${className}`.trim()
+  const classes = `card ${onClick ? "card--clickable" : ""} ${className}`.trim();
 
   return (
     <Component className={classes} onClick={onClick}>
@@ -26,6 +26,5 @@ export const Card = ({
       <div className="card__body">{children}</div>
       {footer && <div className="card__footer">{footer}</div>}
     </Component>
-  )
-}
-
+  );
+};

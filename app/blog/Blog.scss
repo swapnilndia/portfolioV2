@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .blog-page {
   &__list {
@@ -13,7 +13,9 @@
 
   &__card {
     padding: var(--space-lg);
-    transition: transform var(--transition-base), box-shadow var(--transition-base);
+    transition:
+      transform var(--transition-base),
+      box-shadow var(--transition-base);
 
     @media (min-width: 768px) {
       padding: var(--space-xl);
@@ -60,7 +62,7 @@
   &__date,
   &__read-time {
     &::before {
-      content: '•';
+      content: "•";
       margin-right: var(--space-xs);
     }
   }
@@ -71,4 +73,3 @@
     gap: var(--space-xs);
   }
 }
-

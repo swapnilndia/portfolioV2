@@ -1,22 +1,20 @@
-'use client'
+"use client";
 
-import { useTranslation } from 'react-i18next'
-import Link from 'next/link'
-import { ProjectCard } from '@/components/projects/ProjectCard'
-import { projects } from '@/data/projects'
-import './HighlightProjects.scss'
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { ProjectCard } from "@/components/projects/ProjectCard";
+import { projects } from "@/data/projects";
+import "./HighlightProjects.scss";
 
 export const HighlightProjects = () => {
-  const { t } = useTranslation('home')
-  const featuredProjects = projects.filter((p) => p.featured).slice(0, 4)
+  const { t } = useTranslation("home");
+  const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
 
   return (
     <section className="highlight-projects">
       <div className="highlight-projects__container">
         <div className="highlight-projects__header">
-          <h2 className="highlight-projects__title">
-            {t('sections.highlightProjects')}
-          </h2>
+          <h2 className="highlight-projects__title">{t("sections.highlightProjects")}</h2>
           <Link href="/projects" className="highlight-projects__link">
             View All Projects →
           </Link>
@@ -28,6 +26,5 @@ export const HighlightProjects = () => {
         </div>
       </div>
     </section>
-  )
-}
-
+  );
+};

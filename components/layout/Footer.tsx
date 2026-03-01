@@ -1,7 +1,7 @@
-import './Footer.scss'
+import "./Footer.scss";
 
 export const Footer = () => {
-  const currentYear = new Date().getFullYear()
+  const currentYear = new Date().getFullYear();
 
   return (
     <footer className="footer">
@@ -11,12 +11,9 @@ export const Footer = () => {
           <p className="footer__copyright" suppressHydrationWarning>
             © {currentYear} Swapnil Katiyar. All rights reserved.
           </p>
-          <p className="footer__built-with">
-            Built with React, TypeScript, and SCSS
-          </p>
+          <p className="footer__built-with">Built with React, TypeScript, and SCSS</p>
         </div>
       </div>
     </footer>
-  )
-}
-
+  );
+};

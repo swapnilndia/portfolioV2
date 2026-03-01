@@ -1,11 +1,11 @@
-import type { ReactNode } from 'react'
-import { Header } from './Header'
-import { Footer } from './Footer'
-import { ChatWidget } from '@/components/chat/ChatWidget'
-import './MainLayout.scss'
+import type { ReactNode } from "react";
+import { Header } from "./Header";
+import { Footer } from "./Footer";
+import { ChatWidget } from "@/components/chat/ChatWidget";
+import "./MainLayout.scss";
 
 interface MainLayoutProps {
-  children: ReactNode
+  children: ReactNode;
 }
 
 export const MainLayout = ({ children }: MainLayoutProps) => {
@@ -16,6 +16,5 @@ export const MainLayout = ({ children }: MainLayoutProps) => {
       <Footer />
       <ChatWidget />
     </div>
-  )
-}
-
+  );
+};

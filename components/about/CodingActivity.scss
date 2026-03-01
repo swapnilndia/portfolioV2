@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 // Heatmap cell dimensions (keep in sync with TS constants)
 $cell-size: 12px;
@@ -221,7 +221,9 @@ $heatmap-colors: (
   border-radius: var(--radius-lg);
   text-decoration: none;
   color: inherit;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
 
   &:hover {
     border-color: var(--color-accent);
@@ -335,7 +337,9 @@ $heatmap-colors: (
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: border-color var(--transition-fast), background var(--transition-fast);
+  transition:
+    border-color var(--transition-fast),
+    background var(--transition-fast);
 
   &--easy {
     &:hover,
@@ -366,9 +370,15 @@ $heatmap-colors: (
   text-transform: uppercase;
   letter-spacing: 0.04em;
 
-  &--easy   { color: var(--color-success); }
-  &--medium { color: var(--color-warning); }
-  &--hard   { color: var(--color-danger); }
+  &--easy {
+    color: var(--color-success);
+  }
+  &--medium {
+    color: var(--color-warning);
+  }
+  &--hard {
+    color: var(--color-danger);
+  }
 }
 
 .coding-activity__diff-counts {
@@ -394,9 +404,15 @@ $heatmap-colors: (
   border-radius: var(--radius-pill);
   transition: width var(--transition-slow);
 
-  &--easy   { background: var(--color-success); }
-  &--medium { background: var(--color-warning); }
-  &--hard   { background: var(--color-danger); }
+  &--easy {
+    background: var(--color-success);
+  }
+  &--medium {
+    background: var(--color-warning);
+  }
+  &--hard {
+    background: var(--color-danger);
+  }
 }
 
 .coding-activity__diff-pct {
@@ -415,8 +431,16 @@ $heatmap-colors: (
 }
 
 .coding-activity__grid--leetcode {
-  .coding-activity__cell--level-1 { background: rgba(245, 158, 11, 0.2); }
-  .coding-activity__cell--level-2 { background: rgba(245, 158, 11, 0.45); }
-  .coding-activity__cell--level-3 { background: rgba(245, 158, 11, 0.7); }
-  .coding-activity__cell--level-4 { background: var(--color-warning); }
+  .coding-activity__cell--level-1 {
+    background: rgba(245, 158, 11, 0.2);
+  }
+  .coding-activity__cell--level-2 {
+    background: rgba(245, 158, 11, 0.45);
+  }
+  .coding-activity__cell--level-3 {
+    background: rgba(245, 158, 11, 0.7);
+  }
+  .coding-activity__cell--level-4 {
+    background: var(--color-warning);
+  }
 }

@@ -1,18 +1,18 @@
-'use client'
+"use client";
 
-import { useTranslation } from 'react-i18next'
-import Link from 'next/link'
-import { Section } from '@/components/ui/Section'
-import { Card } from '@/components/ui/Card'
-import { Tag } from '@/components/ui/Tag'
-import { posts } from '@/data/posts'
-import './Blog.scss'
+import { useTranslation } from "react-i18next";
+import Link from "next/link";
+import { Section } from "@/components/ui/Section";
+import { Card } from "@/components/ui/Card";
+import { Tag } from "@/components/ui/Tag";
+import { posts } from "@/data/posts";
+import "./Blog.scss";
 
 export default function BlogPage() {
-  const { t } = useTranslation('blog')
+  const { t } = useTranslation("blog");
 
   return (
-    <Section title={t('title')} subtitle={t('subtitle')}>
+    <Section title={t("title")} subtitle={t("subtitle")}>
       <div className="blog-page">
         <div className="blog-page__list">
           {posts.map((post) => (
@@ -37,6 +37,5 @@ export default function BlogPage() {
         </div>
       </div>
     </Section>
-  )
+  );
 }
-

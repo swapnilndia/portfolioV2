@@ -1,4 +1,4 @@
-@use '@/styles/core/mixins' as *;
+@use "@/styles/core/mixins" as *;
 
 .tech-strip {
   @include section-padding;
@@ -21,4 +21,3 @@
   gap: var(--space-md);
   justify-content: center;
 }
-

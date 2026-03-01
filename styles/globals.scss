@@ -1,22 +1,22 @@
 /* Global Styles */
-@use './core/reset';
-@use './core/variables' as *;
-@use './core/mixins' as *;
-@use './core/typography' as *;
-@use './core/layout' as *;
-@use './themes/light' as *;
-@use './themes/dark' as *;
+@use "./core/reset";
+@use "./core/variables" as *;
+@use "./core/mixins" as *;
+@use "./core/typography" as *;
+@use "./core/layout" as *;
+@use "./themes/light" as *;
+@use "./themes/dark" as *;
 
 /* Default to light theme */
 html {
   color-scheme: light dark;
 }
 
-html[data-theme='light'] {
+html[data-theme="light"] {
   color-scheme: light;
 }
 
-html[data-theme='dark'] {
+html[data-theme="dark"] {
   color-scheme: dark;
 }
 
@@ -55,4 +55,3 @@ body {
   background-color: var(--color-accent);
   color: white;
 }
-

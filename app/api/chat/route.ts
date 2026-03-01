@@ -1,13 +1,13 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Agent, run, user, type AgentInputItem } from "@openai/agents";
+import OpenAI from "openai";
 import { portfolioContext } from "@/data/portfolioContext";
 
-// Create the agent with portfolio context
-let agent: Agent | null = null;
+type ChatHistoryItem = {
+  role: "user" | "assistant";
+  content: string;
+};
 
-const getAgent = () => {
-  if (!agent) {
-    const enhancedInstructions = `${portfolioContext}
+const enhancedInstructions = `${portfolioContext}
 
 RESPONSE FORMATTING RULES:
 When your response contains structured content (lists, tables, code blocks, or when formatting would improve readability), format it as JSON. For simple conversational responses, use plain text.
@@ -82,21 +82,37 @@ Just respond with plain text, no JSON needed. Only use JSON when structure adds 
 
 IMPORTANT: Always ensure valid JSON when using structured format. For casual conversation, use plain text.`;
 
-    agent = new Agent({
-      name: "Portfolio Assistant",
-      instructions: enhancedInstructions,
-    });
+function getClient(): OpenAI {
+  const apiKey = process.env.OPENAI_API_KEY;
+  if (!apiKey) {
+    throw new Error("API key not configured");
   }
-  return agent;
-};
+  return new OpenAI({ apiKey });
+}
+
+function sanitizeHistory(value: unknown): ChatHistoryItem[] {
+  if (!Array.isArray(value)) return [];
+
+  return value
+    .filter(
+      (item): item is ChatHistoryItem =>
+        typeof item === "object" &&
+        item !== null &&
+        "role" in item &&
+        "content" in item &&
+        (item.role === "user" || item.role === "assistant") &&
+        typeof item.content === "string"
+    )
+    .slice(-20);
+}
 
 export async function POST(request: NextRequest) {
   try {
     const body = (await request.json()) as {
       message: string;
-      previousMessages?: AgentInputItem[];
+      previousMessages?: unknown[];
     };
-    const { message, previousMessages = [] } = body;
+    const { message, previousMessages } = body;
 
     if (!message || typeof message !== "string") {
       return NextResponse.json(
@@ -105,16 +121,24 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const agent = getAgent();
+    const userMessage = message.trim();
+    const history = sanitizeHistory(previousMessages);
+    const openai = getClient();
 
-    // Build input based on whether we have previous messages
-    const input = previousMessages.length > 0 ? [...previousMessages, user(message)] : message;
+    const completion = await openai.chat.completions.create({
+      model: "gpt-4o-mini",
+      messages: [
+        { role: "system", content: enhancedInstructions },
+        ...history,
+        { role: "user", content: userMessage },
+      ],
+      max_tokens: 700,
+      temperature: 0.7,
+    });
 
-    // Run the agent with the input
-    const result = await run(agent, input);
-
-    // Extract the response text
-    const responseText = result.finalOutput || "I apologize, but I could not generate a response.";
+    const responseText =
+      completion.choices[0]?.message?.content?.trim() ||
+      "I apologize, but I could not generate a response.";
 
     // Try to parse as JSON, fallback to text if not valid JSON
     let parsedResponse: unknown = null;
@@ -151,7 +175,11 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({
       response: finalResponse,
-      history: result.history,
+      history: [
+        ...history,
+        { role: "user", content: userMessage },
+        { role: "assistant", content: responseText },
+      ],
     });
   } catch (error) {
     console.error("Error in chat API:", error);

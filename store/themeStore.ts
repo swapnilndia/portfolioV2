@@ -22,6 +22,7 @@ export const useThemeStore = create<ThemeStore>()(
     }),
     {
       name: "portfolio-theme",
+      skipHydration: true,
     }
   )
 );

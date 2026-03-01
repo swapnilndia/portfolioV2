@@ -16,6 +16,7 @@ export const useI18nStore = create<I18nStore>()(
     }),
     {
       name: "portfolio-language",
+      skipHydration: true,
     }
   )
 );

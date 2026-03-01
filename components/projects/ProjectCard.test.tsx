@@ -1,13 +1,15 @@
+import React from 'react'
 import { render } from '@testing-library/react'
 import { ProjectCard } from './ProjectCard'
 import { projects } from '@/data/projects'
 
 // Mock Next.js Link component
-jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
-    return <a href={href}>{children}</a>
-  }
-})
+jest.mock('next/link', () => ({
+  __esModule: true,
+  default: ({ children, href }: { children: React.ReactNode; href: string }) => (
+    <a href={href}>{children}</a>
+  ),
+}))
 
 describe('ProjectCard', () => {
   const project = projects[0]
@@ -18,7 +20,7 @@ describe('ProjectCard', () => {
   })
 
   it('renders tech stack tags', () => {
-    const { getByText } = render(<ProjectCard project={project} />)
+    const { getAllByText, getByText } = render(<ProjectCard project={project} />)
     project.techStack.forEach((tech) => {
       expect(getByText(tech)).toBeInTheDocument()
     })
@@ -42,4 +44,3 @@ describe('ProjectCard', () => {
     expect(getByText(project.timeframe)).toBeInTheDocument()
   })
 })
-

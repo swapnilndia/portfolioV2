@@ -1,0 +1,121 @@
+@use '@/styles/core/mixins' as *;
+
+.coding-stats {
+  @include section-padding;
+}
+
+.coding-stats__container {
+  @include container;
+}
+
+.coding-stats__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-xl);
+  flex-wrap: wrap;
+  gap: var(--space-md);
+}
+
+.coding-stats__title {
+  @include heading-lg;
+}
+
+.coding-stats__link {
+  @include body;
+  color: var(--color-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color var(--transition-base);
+
+  &:hover {
+    color: var(--color-accent-hover);
+    text-decoration: underline;
+  }
+}
+
+.coding-stats__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+
+  @media (min-width: 768px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.coding-stats__card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.coding-stats__card-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &--github {
+    background: var(--color-bg-secondary);
+    color: var(--color-text);
+  }
+
+  &--leetcode {
+    background: var(--color-overlay-warning);
+    color: var(--color-warning);
+  }
+
+  &--streak {
+    background: var(--color-overlay-danger);
+    color: var(--color-danger);
+  }
+}
+
+.coding-stats__stat {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.coding-stats__number {
+  font-size: var(--font-size-3xl);
+  font-weight: 700;
+  line-height: var(--line-height-tight);
+  color: var(--color-text);
+  min-height: 2.25rem;
+  display: flex;
+  align-items: center;
+}
+
+.coding-stats__label {
+  @include caption;
+  color: var(--color-text-muted);
+}
+
+.coding-stats__skeleton {
+  display: inline-block;
+  width: 90px;
+  height: 2rem;
+  background: linear-gradient(
+    90deg,
+    var(--color-bg-secondary) 25%,
+    var(--color-border) 50%,
+    var(--color-bg-secondary) 75%
+  );
+  background-size: 200% 100%;
+  animation: coding-stats-shimmer 1.5s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes coding-stats-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

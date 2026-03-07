@@ -420,6 +420,114 @@ $heatmap-colors: (
   color: var(--color-text-muted);
 }
 
+// ── Annual activity row ───────────────────────────────────────────────────────
+
+.coding-activity__annual-row {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-lg);
+
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.coding-activity__annual-card {
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+// ── Annual line graph ─────────────────────────────────────────────────────────
+
+.coding-activity__annual-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.coding-activity__annual-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+}
+
+.coding-activity__annual-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--color-text-muted);
+}
+
+.coding-activity__annual-tooltip {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+  background: var(--color-bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-pill);
+  padding: 0.15rem var(--space-sm);
+
+  strong {
+    color: var(--color-text);
+  }
+}
+
+.coding-activity__annual-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.coding-activity__annual-gridline {
+  stroke: var(--color-border);
+  stroke-width: 1;
+  stroke-dasharray: 4 4;
+}
+
+.coding-activity__annual-tick {
+  font-size: 11px;
+  fill: var(--color-text-muted);
+  font-family: var(--font-family-base);
+}
+
+.coding-activity__annual-line {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+
+  &--github {
+    stroke: var(--color-primary);
+  }
+
+  &--leetcode {
+    stroke: var(--color-warning);
+  }
+}
+
+.coding-activity__annual-dot {
+  stroke-width: 2;
+  cursor: pointer;
+  transition: r 0.15s ease;
+
+  &--github {
+    fill: var(--color-bg-elevated);
+    stroke: var(--color-primary);
+  }
+
+  &--leetcode {
+    fill: var(--color-bg-elevated);
+    stroke: var(--color-warning);
+  }
+
+  &:hover {
+    r: 7;
+  }
+}
+
 // ── LeetCode heatmap label / variant ─────────────────────────────────────────
 
 .coding-activity__heatmap-label {

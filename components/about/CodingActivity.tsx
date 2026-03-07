@@ -17,6 +17,11 @@ interface RecentRepo {
   url: string;
 }
 
+interface YearlyPoint {
+  year: number;
+  count: number;
+}
+
 interface GitHubData {
   contributions: ContributionDay[];
   totalThisYear: number;
@@ -25,6 +30,7 @@ interface GitHubData {
   totalStars: number;
   followers: number;
   recentRepos: RecentRepo[];
+  yearlyContributions: YearlyPoint[];
 }
 
 interface LeetCodeData {
@@ -39,6 +45,7 @@ interface LeetCodeData {
   acceptanceRate: number;
   ranking: number;
   submissions: ContributionDay[];
+  yearlySubmissions: YearlyPoint[];
 }
 
 const MONTH_NAMES = [
@@ -149,6 +156,138 @@ function getMonthLabels(
 }
 
 const SKELETON_WEEKS: null[][] = Array.from({ length: 53 }, () => Array(7).fill(null));
+
+// ── Annual line graph ─────────────────────────────────────────────────────────
+
+function catmullRomPath(pts: { x: number; y: number }[]): string {
+  if (pts.length === 0) return "";
+  if (pts.length === 1) return `M ${pts[0].x} ${pts[0].y}`;
+  if (pts.length === 2) return `M ${pts[0].x} ${pts[0].y} L ${pts[1].x} ${pts[1].y}`;
+  const commands: string[] = [`M ${pts[0].x} ${pts[0].y}`];
+  for (let i = 0; i < pts.length - 1; i++) {
+    const p0 = pts[Math.max(0, i - 1)];
+    const p1 = pts[i];
+    const p2 = pts[i + 1];
+    const p3 = pts[Math.min(pts.length - 1, i + 2)];
+    const cp1x = p1.x + (p2.x - p0.x) / 6;
+    const cp1y = p1.y + (p2.y - p0.y) / 6;
+    const cp2x = p2.x - (p3.x - p1.x) / 6;
+    const cp2y = p2.y - (p3.y - p1.y) / 6;
+    commands.push(
+      `C ${cp1x.toFixed(2)} ${cp1y.toFixed(2)}, ${cp2x.toFixed(2)} ${cp2y.toFixed(2)}, ${p2.x} ${p2.y}`
+    );
+  }
+  return commands.join(" ");
+}
+
+function AnnualLineGraph({
+  data,
+  variant,
+  label,
+}: {
+  data: YearlyPoint[];
+  variant: "github" | "leetcode";
+  label: string;
+}) {
+  const [tooltip, setTooltip] = useState<{ year: number; count: number } | null>(null);
+
+  const VW = 500;
+  const VH = 200;
+  const PAD = { top: 20, right: 20, bottom: 36, left: 52 };
+  const plotW = VW - PAD.left - PAD.right;
+  const plotH = VH - PAD.top - PAD.bottom;
+
+  const maxCount = Math.max(...data.map((d) => d.count), 1);
+  const yMax = Math.ceil((maxCount * 1.15) / 50) * 50;
+  const Y_TICKS = 4;
+
+  const toX = (i: number) =>
+    PAD.left + (data.length > 1 ? (i / (data.length - 1)) * plotW : plotW / 2);
+  const toY = (count: number) => PAD.top + plotH - (count / yMax) * plotH;
+
+  const pts = data.map((d, i) => ({ x: toX(i), y: toY(d.count), ...d }));
+  const linePath = catmullRomPath(pts);
+  const yTicks = Array.from({ length: Y_TICKS + 1 }, (_, i) => Math.round((yMax / Y_TICKS) * i));
+
+  return (
+    <div className="coding-activity__annual-wrap">
+      <div className="coding-activity__annual-header">
+        <span className="coding-activity__annual-label">{label}</span>
+        {tooltip && (
+          <span className="coding-activity__annual-tooltip">
+            {tooltip.year}: <strong>{tooltip.count.toLocaleString()}</strong>
+          </span>
+        )}
+      </div>
+      <svg
+        viewBox={`0 0 ${VW} ${VH}`}
+        className={`coding-activity__annual-svg coding-activity__annual-svg--${variant}`}
+        preserveAspectRatio="xMidYMid meet"
+        aria-label={label}
+      >
+        {/* Grid lines + Y labels */}
+        {yTicks.map((tick) => {
+          const y = toY(tick);
+          return (
+            <g key={tick}>
+              <line
+                x1={PAD.left}
+                y1={y}
+                x2={VW - PAD.right}
+                y2={y}
+                className="coding-activity__annual-gridline"
+              />
+              <text
+                x={PAD.left - 8}
+                y={y + 4}
+                textAnchor="end"
+                className="coding-activity__annual-tick"
+              >
+                {tick >= 1000 ? `${(tick / 1000).toFixed(1)}k` : tick}
+              </text>
+            </g>
+          );
+        })}
+
+        {/* Smooth line */}
+        <path
+          d={linePath}
+          className={`coding-activity__annual-line coding-activity__annual-line--${variant}`}
+        />
+
+        {/* X-axis labels */}
+        {pts.map((pt) => (
+          <text
+            key={pt.year}
+            x={pt.x}
+            y={VH - PAD.bottom + 20}
+            textAnchor="middle"
+            className="coding-activity__annual-tick"
+          >
+            {pt.year}
+          </text>
+        ))}
+
+        {/* Data dots */}
+        {pts.map((pt) => (
+          <circle
+            key={pt.year}
+            cx={pt.x}
+            cy={pt.y}
+            r={5}
+            className={`coding-activity__annual-dot coding-activity__annual-dot--${variant}`}
+            onMouseEnter={() => setTooltip({ year: pt.year, count: pt.count })}
+            onMouseLeave={() => setTooltip(null)}
+          >
+            <title>
+              {pt.year}: {pt.count.toLocaleString()}
+            </title>
+          </circle>
+        ))}
+      </svg>
+    </div>
+  );
+}
 
 function Heatmap({
   weeks,
@@ -584,6 +723,31 @@ export const CodingActivity = () => {
           <div className="coding-activity__heatmap-label">Submission Calendar</div>
           <Heatmap weeks={lcWeeks} variant="leetcode" />
         </div>
+
+        {/* ── Annual activity row ─────────────────────────────── */}
+        {!loading &&
+        (github?.yearlyContributions?.length || leetcode?.yearlySubmissions?.length) ? (
+          <div className="coding-activity__annual-row">
+            {github?.yearlyContributions?.length ? (
+              <div className="coding-activity__annual-card">
+                <AnnualLineGraph
+                  data={github.yearlyContributions}
+                  variant="github"
+                  label="GitHub Contributions"
+                />
+              </div>
+            ) : null}
+            {leetcode?.yearlySubmissions?.length ? (
+              <div className="coding-activity__annual-card">
+                <AnnualLineGraph
+                  data={leetcode.yearlySubmissions}
+                  variant="leetcode"
+                  label="LeetCode Attempts"
+                />
+              </div>
+            ) : null}
+          </div>
+        ) : null}
       </div>
     </section>
   );

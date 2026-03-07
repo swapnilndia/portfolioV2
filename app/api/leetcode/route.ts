@@ -126,6 +126,21 @@ export async function GET() {
         ? Math.round((allSolved.count / allSolved.submissions) * 1000) / 10
         : 0;
 
+    const calendarRaw: Record<string, number> = JSON.parse(
+      json.data.matchedUser.submissionCalendar || "{}"
+    );
+    const currentYear = new Date().getFullYear();
+    const yearsToShow = Array.from({ length: 5 }, (_, i) => currentYear - 4 + i);
+    const yearCountMap = new Map<number, number>();
+    for (const [ts, count] of Object.entries(calendarRaw)) {
+      const year = new Date(parseInt(ts) * 1000).getUTCFullYear();
+      yearCountMap.set(year, (yearCountMap.get(year) ?? 0) + count);
+    }
+    const yearlySubmissions = yearsToShow.map((year) => ({
+      year,
+      count: yearCountMap.get(year) ?? 0,
+    }));
+
     return NextResponse.json({
       totalSolved: allSolved?.count ?? 0,
       totalQuestions: totalQ?.count ?? 0,
@@ -138,6 +153,7 @@ export async function GET() {
       acceptanceRate,
       ranking,
       submissions,
+      yearlySubmissions,
     });
   } catch (error) {
     console.error("LeetCode API error:", error);

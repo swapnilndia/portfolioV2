@@ -75,26 +75,35 @@ export async function GET() {
     const username = "swapnilndia";
     const ghHeaders = { Accept: "application/vnd.github.v3+json" };
 
-    const [contributionsRes, profileRes, reposRes, pinnedRepoRes] = await Promise.all([
-      fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`, {
-        next: { revalidate: 3600 },
-      }),
-      fetch(`https://api.github.com/users/${username}`, {
-        headers: ghHeaders,
-        next: { revalidate: 3600 },
-      }),
-      fetch(
-        `https://api.github.com/users/${username}/repos?per_page=100&type=owner&sort=pushed&direction=desc`,
-        {
+    const currentYear = new Date().getFullYear();
+    const yearsToFetch = Array.from({ length: 5 }, (_, i) => currentYear - 4 + i);
+    const yearQuery = yearsToFetch.map((y) => `y=${y}`).join("&");
+
+    const [contributionsRes, multiYearRes, profileRes, reposRes, pinnedRepoRes] = await Promise.all(
+      [
+        fetch(`https://github-contributions-api.jogruber.de/v4/${username}?y=last`, {
+          next: { revalidate: 3600 },
+        }),
+        fetch(`https://github-contributions-api.jogruber.de/v4/${username}?${yearQuery}`, {
+          next: { revalidate: 3600 },
+        }),
+        fetch(`https://api.github.com/users/${username}`, {
           headers: ghHeaders,
           next: { revalidate: 3600 },
-        }
-      ),
-      fetch(`https://api.github.com/repos/${username}/portfolioV2`, {
-        headers: ghHeaders,
-        next: { revalidate: 3600 },
-      }),
-    ]);
+        }),
+        fetch(
+          `https://api.github.com/users/${username}/repos?per_page=100&type=owner&sort=pushed&direction=desc`,
+          {
+            headers: ghHeaders,
+            next: { revalidate: 3600 },
+          }
+        ),
+        fetch(`https://api.github.com/repos/${username}/portfolioV2`, {
+          headers: ghHeaders,
+          next: { revalidate: 3600 },
+        }),
+      ]
+    );
 
     if (!contributionsRes.ok || !profileRes.ok) {
       throw new Error("Failed to fetch GitHub data");
@@ -133,10 +142,18 @@ export async function GET() {
     const recentRepos = selectedRepos.slice(0, 2).map(toRepoCard);
 
     // `?y=last` returns total as { lastYear: N } — calculate this year's count from the array
-    const currentYear = new Date().getFullYear().toString();
+    const currentYearStr = currentYear.toString();
     const totalThisYear = contributionsData.contributions
-      .filter((c) => c.date.startsWith(currentYear))
+      .filter((c) => c.date.startsWith(currentYearStr))
       .reduce((sum, c) => sum + c.count, 0);
+
+    const multiYearData: GitHubContributionsResponse | null = multiYearRes.ok
+      ? await multiYearRes.json()
+      : null;
+    const yearlyContributions = yearsToFetch.map((year) => ({
+      year,
+      count: (multiYearData?.total as Record<string, number> | undefined)?.[year.toString()] ?? 0,
+    }));
 
     const currentStreak = calculateCurrentStreak(contributionsData.contributions);
 
@@ -148,6 +165,7 @@ export async function GET() {
       totalStars,
       followers: profileData.followers,
       recentRepos,
+      yearlyContributions,
     });
   } catch (error) {
     console.error("GitHub API error:", error);

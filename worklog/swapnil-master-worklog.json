@@ -1,0 +1,1772 @@
+{
+  "May-2025": {
+    "2025-05-12": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Initial setup as a Employee, Got access to email, figma, bitbucket.",
+      "technologies": ["CSS", "Figma"],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-05-13": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Initial Codebase setup and asked to go through the code and checkout the common function and components.",
+      "technologies": ["React", "Git"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-14": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Started working on the FnBHome page, with the help of the figma that is provided. (Creation of Static UI and all components to be made in single page).",
+      "technologies": ["React", "Next.js", "CSS", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-15": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Continuation in the creation of FnBHome page UI , with the same instructions.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-16": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Continuation in the creation of FnBHome page UI , with the same instructions. And Finished the FnBHome UI.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-17": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-05-18": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-05-19": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Updating the UI as per new Figma design updated for several section. Got access of Strapi to manipulate the data from the Strapi.",
+      "technologies": ["CSS", "Strapi", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-20": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Updated the UI as per new Figma design",
+      "technologies": ["CSS", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-21": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Started integration of Strapi into the FnBHome component along with the segregating the components into multiple smaller pieces for smaller line of code , which will help in write more maintainable and future proof code.",
+      "technologies": ["React", "Next.js", "Strapi", "API Integration"],
+      "taskType": "Refactoring"
+    },
+    "2025-05-22": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Created assets in Strapi from the given figma file, Testing the various edge cases in strapi and FnBHome components. Refactoring the code of the Home page also, making resolving the issue of not passing key in components. and Adding safe conditions in Home page components.",
+      "technologies": ["React", "Next.js", "CSS", "Strapi", "Figma"],
+      "taskType": "Testing"
+    },
+    "2025-05-23": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Refactored the classes names in FnBHome page, and its child components. Resolved some issues given to me by my manager and pushed the code for review.",
+      "technologies": ["React", "Next.js", "Git"],
+      "taskType": "Refactoring"
+    },
+    "2025-05-24": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-05-25": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-05-26": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Tested the HeroTopBanner component along with CategoryCorousel component, found some edge cases and implement to logic to resolve the issues. Also added dynamic E2E Banner Carousel to the FoodGrocerySellerGrid and pushed the code.",
+      "technologies": ["React", "JavaScript", "Git"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-27": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Done changes as Informed, Refactored the CSS and JavaScript logic. Made the code more safe. Also added toggle feature to the sliding buttons, when the screen size is less than 768px, slider buttons should not be visible.",
+      "technologies": ["JavaScript", "CSS"],
+      "taskType": "Refactoring"
+    },
+    "2025-05-28": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "FnBHome Refactoring & Enhancements , done some refactoring of the code in DoubleRowSellerCarousel , FnBSellerCardCarousel, FoodGrocerySellerGrid components and pushed the code.",
+      "technologies": ["React", "Next.js", "Git"],
+      "taskType": "Refactoring"
+    },
+    "2025-05-29": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Implemented a filter overlay specifically for mobile viewports for better UX. Reverted code that was removed earlier.",
+      "technologies": ["React", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-05-30": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Testing the FnB Homepage for various cases by putting data in Strapi, for various edge cases. Also making page for Integrating the API Binding.",
+      "technologies": ["React", "Next.js", "Strapi", "API Integration"],
+      "taskType": "Testing"
+    },
+    "2025-05-31": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    }
+  },
+  "June-2025": {
+    "2025-06-01": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-02": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on the Default search bar for FnBHome Page, Added data from the new Figma design in the Strapi.",
+      "technologies": ["React", "Next.js", "CSS", "Strapi", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-03": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Integrated the Data from Strapi to the FnBHome Search page for default search bar. Added conditions centrally for toggling search bar between the Electronic and FnB section. Also added Navigation on button for Electronic Home page and FnB home page. Started the integration of All restaurant with the given API.",
+      "technologies": ["React", "Next.js", "Strapi", "API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-04": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Found some data mismatch in the Api-Response from backend for All restaurant section, Coordinated the backend team and informed about the concerns , Implemented the Filter, Sorting and Calculating distance based on API. Adjusted the UI as per given suggestions given by Backend Team/ Seniors. Started working on HERO_TOP_BANNER strapi component for simplified logic.",
+      "technologies": ["React", "JavaScript", "CSS", "Strapi", "API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-05": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Completed HeroTopBanner section , started working on Dynamic search section for Food and Beverages.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-06": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Continuining on Dynamic Search, and binded recommended section API work, but data was not coming. Resolved some production bugs in the FnB section.",
+      "technologies": ["API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-07": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-08": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-09": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Resolved production bugs in the FnB section, Completed Dynamic search and pushed the code for review to the Team Lead. Optimized the FnBSellerGrid section.",
+      "technologies": ["Git"],
+      "taskType": "Refactoring"
+    },
+    "2025-06-10": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Binded Recommended Restaurant APi, added condition for No Data, error and loading state etc. Added Cuisines filter in the All restaurants api.",
+      "technologies": ["API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-11": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Implemented navigation on Recommended section and All restaurant section, Started working on Orders details section UI.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-12": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Worked on the Default search bar for FnBHome Page, Added data from the new Figma design in the Strapi.",
+      "technologies": ["React", "Next.js", "CSS", "Strapi", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-13": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Binded Dynamic Search Results api, And Dynamic Auto-Search Suggestion, Implemented pagination for Dynamic Search Results, and integrated the UI.",
+      "technologies": ["React", "API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-14": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-15": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-16": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Working on the correction of Navigation in the Default Search bar for FNB section. Added Skeleton for the FnB search result page and 2 times updated the UI for view more buttons.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-17": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Working on Loading feature in the FnB search result page.Fixed some UI issues in the FnBHome page,and then Started working on the FnBOrderTrack page and it's skeleton. Also need to implement the Prettier.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-18": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Continuing on FnBOrderTrack page and it's skeleton.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-19": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Solving bugs on the Easypay Testing sheet, and completed FnBOrder track page. Solved bug with serial number 25, 31, and 53.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Bug Fix"
+    },
+    "2025-06-20": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Continuing of solving the bugs from the excel sheet. Fixed BannerCarousel, HeroCarousel, and NewHeroCaorusel, Made FnB api dynamic as per user location.",
+      "technologies": ["React", "API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-21": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-22": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-23": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Continuing of solving the bugs from the excel sheet.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-24": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Continuing of solving the bugs from the excel sheet.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-25": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Continuing of solving the bugs from the excel sheet.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-26": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Continuing of solving the bugs from the excel sheet. and working on the Scroll functionality and Tile shhifting logic in the FnB Homepage",
+      "technologies": ["React", "Next.js", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2025-06-27": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Continuing of solving the bugs from the excel sheet. And working on the Optimizing the App",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Refactoring"
+    },
+    "2025-06-28": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-29": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-06-30": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Started working on the segregation of routes based on electronic, food, and grocery. Created Main home page, Grocery homepage.",
+      "technologies": ["Next.js"],
+      "taskType": "Refactoring"
+    }
+  },
+  "July-2025": {
+    "2025-07-01": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Made routes for FnB and Grocery and Electronics page seperately, added data to the Grocery and Mainhome page component, done some minor UI Fixes and worked on some functionality related to routes.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-02": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Worked on the integration of the Grocery section API's .",
+      "technologies": ["API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-03": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Worked and completed on the integration of Grocery section API's.",
+      "technologies": ["API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-04": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Leave",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-05": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-06": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-07": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on Solving issues in the Grocery section. Implemented integration of Husky for automatic formatting. Added shimmer effect and loading skeleton in the FnBHome, Grocery and MainHome section.",
+      "technologies": ["React", "Next.js", "API Integration", "Husky"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-08": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Will start working on resolving the new bugs as per excel sheets.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Bug Fix"
+    },
+    "2025-07-09": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Solving the Food and Grocery Issues as per excel sheet.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Bug Fix"
+    },
+    "2025-07-10": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Solving the Food and Grocery Issues as per excel sheet.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Bug Fix"
+    },
+    "2025-07-11": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Solving the Food and Grocery Issues as per excel sheet.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Bug Fix"
+    },
+    "2025-07-12": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-13": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-14": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Working on resolving, bugs.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-15": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Working on resolving, bugs. And then cleaning the code with unused Images and Gifs.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Refactoring"
+    },
+    "2025-07-16": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Working on the navigation issue for the Search result page . Started integration of the CMS component for the FnB , Grocery and Electronics section.",
+      "technologies": ["React", "Next.js", "API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-17": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Added data for the CMS component for all section and integrated to the UI, continuing with the styling as per figma.",
+      "technologies": ["React", "CSS", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-18": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Worked on Conditions update as per Figma for the Noresults found component. Loading issue resolved as per search result page for Electronics. Grocery Image for no result found added condition.",
+      "technologies": ["React", "Next.js", "CSS", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-19": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-20": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-21": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on NoResultFound, implemented new Image for electronics , updated noErrorDtl for message .",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-22": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Researched on ESLint integration with the project,",
+      "technologies": ["ESLint"],
+      "taskType": "POC / Research"
+    },
+    "2025-07-23": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Started working on OpenKart New UI , Project setup from Bajaj buyer clean up and Initial commit.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-24": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Changing the theming colors and icons through out the Website.",
+      "technologies": ["CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-25": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Finding the Icons and colors, Getting the build ready for deployement.",
+      "technologies": ["CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-26": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-27": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-07-28": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on Resolving the issue as per excel sheet.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Bug Fix"
+    },
+    "2025-07-29": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Worked on Updating CSS for FnB SLP page and result not found page, if the data is not present. Correc",
+      "technologies": ["Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-30": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Check the logic for Grocery store and Food restaurant, that if store / restaurant is closed or if it is not servicable, then it should not let button Add to Cart actuallly add to cart. Add cursor pointer at all places where there is click event possible. Update the UI of Shopping Cart, check for flickering effect.",
+      "technologies": ["JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2025-07-31": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Worked on Resolving the issue as per excel sheet. Started working on Filter logic and Scrollling conditions.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Bug Fix"
+    }
+  },
+  "August-2025": {
+    "2025-08-01": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Converted all OverlayModals into the Custom Modal, Updated settings for the filter page.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-02": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-03": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-04": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Development of the Active order popup carousel, and Delivery agent calling system (if applicable) integration and testing. Also worked on replacing the OverlayModal with custom modal for FnbCart and ShoppingCart component.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-05": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Worked on issues which are there in the delivery agent popup.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-06": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Updated filter logic based on various scenarios. Shifted data from session storage to appContext.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-07": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Continued on the development on the logic of development of the persisting the filter and restaurant data.",
+      "technologies": ["JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-08": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Resolved the issues for the Filter logic on Home, Grocery and FnB pages.",
+      "technologies": ["React", "Next.js", "JavaScript"],
+      "taskType": "Bug Fix"
+    },
+    "2025-08-09": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-10": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-11": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Researched for SEO for making Robots.txt and Sitemap.xml and implemented. Waiting for approval",
+      "technologies": ["Next.js", "SEO"],
+      "taskType": "POC / Research"
+    },
+    "2025-08-12": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Continue researched for SEO, found the logic of implemention and creation of Robots.txt and sitemap.xml.",
+      "technologies": ["React", "Next.js", "JavaScript", "SEO"],
+      "taskType": "POC / Research"
+    },
+    "2025-08-13": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Issues resolved as per UI and pushed the code. Continues on the research on SEO.",
+      "technologies": ["Next.js", "Git", "SEO"],
+      "taskType": "POC / Research"
+    },
+    "2025-08-14": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Implemented the SEO in our app as per SEO audit reports that is given to us by Bajaj Team for the pages those are given. Mainly pages include Homepage and category pages. and if the category page is not found then made the Mobile phone category page default for all.",
+      "technologies": ["Next.js", "SEO"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-15": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Holiday for Independence Day",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-16": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-17": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-18": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on SEO, given presentation to the bajaj team about the implementation for the SEO in our project and worked on resolving the SEO for OG:image tag as image was not coming for the social media platforms.",
+      "technologies": ["Next.js", "SEO"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-19": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Worked on SEO,cloned PROTEAN PEOJECT and created the Banner carousel for PROTEAN Project.",
+      "technologies": ["React", "Next.js", "SEO"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-20": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Worked on Protean new login form, dashboard updates and new pages.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-21": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Worked on Protean Raise issues page and View tickets page , also create the UI modal for the Raise tickets page. Updated Text and Added logo in the footer for the Tickets page.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-22": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Worked on captcha validation by coordinating with Jay and Ishwar. Created UI for mobile for Raise ticket and View tickets page.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-23": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-24": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-25": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on Easypay.in project removed 88 images and asked Ishwar to provide in weboptimized format.",
+      "technologies": ["Next.js"],
+      "taskType": "Refactoring"
+    },
+    "2025-08-26": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Worked on the Protean UI as per figma given by Ishwar.",
+      "technologies": ["Next.js", "CSS", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-27": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Holiday",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-28": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Worked on the Protean UI as per figma given by Ishwar.",
+      "technologies": ["Next.js", "CSS", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-29": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Worked UI changes in the Dashboard as given by Jay and Ishwar.",
+      "technologies": ["React", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-08-30": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-08-31": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    }
+  },
+  "September-2025": {
+    "2025-09-01": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on the creation of Sitemap.xml for product page, searched about the hierchy about sitemap. Developed UI for the Protean Project.",
+      "technologies": ["React", "Next.js", "CSS", "SEO"],
+      "taskType": "POC / Research"
+    },
+    "2025-09-02": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Implemented the sitemap.xml in the localhost, developed UI for the protean project.",
+      "technologies": ["Next.js", "CSS", "SEO"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-03": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Worked on the Protean UI as per figma shared by Ishwar and Jay.",
+      "technologies": ["Next.js", "CSS", "Figma"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-04": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Correction of UI, and Making of new UI as per directions given by Jay and Ishwar",
+      "technologies": ["React", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-05": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Holiday \u2013 Eid-e-Milad",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-06": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-07": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-08": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Creation of new pages for Protean Project. and addition of new electronics categories for SEO as per SEO audit report.",
+      "technologies": ["React", "Next.js", "SEO"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-09": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Creation of new pages for Protean Project. Tested full object for the SEO implementation.",
+      "technologies": ["React", "Next.js", "SEO"],
+      "taskType": "Testing"
+    },
+    "2025-09-10": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Creation of new pages for Protean Project. New Popup and updated design",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-11": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Creation of new pages for Protean Project. New Popup and updated design.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-12": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Creation of new pages for Protean Project. Added Service card section in the Bajaj buyer frontend project.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-13": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-14": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-15": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Creation of new pages for Protean Project. and Small UI change in the Bajaj buyer project frontend.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-16": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Creation of new Leading Agent UI and Logo Update. API integration in the Bajaj buyer project for Help and Support section",
+      "technologies": ["React", "Next.js", "API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-17": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "API integration in the Bajaj buyer project for Help and Support section, Updated Table for the Raise tickets page",
+      "technologies": ["Next.js", "API Integration"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-18": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Worked on Protean UI changes, and Bajaj project breaking of component into smaller part.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Refactoring"
+    },
+    "2025-09-19": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Worked on Protean UI changes, and Bajaj project breaking of component into smaller part.",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Refactoring"
+    },
+    "2025-09-20": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-21": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-22": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Worked on Protean UI changes",
+      "technologies": ["Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-09-23": {
+      "day": "Tuesday",
+      "client": "EasyPay",
+      "description": "Testing and doing some minor bug fixes/ changes in Bajaj project.",
+      "technologies": ["Next.js"],
+      "taskType": "Bug Fix"
+    },
+    "2025-09-24": {
+      "day": "Wednesday",
+      "client": "EasyPay",
+      "description": "Leave",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-25": {
+      "day": "Thursday",
+      "client": "EasyPay",
+      "description": "Half -Day Leave, Connected with Dharmesh to explain Sitemap functionality",
+      "technologies": ["Next.js", "SEO"],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-26": {
+      "day": "Friday",
+      "client": "EasyPay",
+      "description": "Connected with Dharmesh to explain Sitemap functionality and connected with Bajaj team for structure.",
+      "technologies": ["Next.js", "SEO"],
+      "taskType": "Meeting / Demo"
+    },
+    "2025-09-27": {
+      "day": "Saturday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-28": {
+      "day": "Sunday",
+      "client": "EasyPay",
+      "description": "Week Off",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-09-29": {
+      "day": "Monday",
+      "client": "EasyPay",
+      "description": "Explained SEO impletation to dharmesh.",
+      "technologies": ["Next.js", "SEO"],
+      "taskType": "Meeting / Demo"
+    },
+    "2025-09-30": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "First Day at Greyamp Office",
+      "technologies": [],
+      "taskType": "Setup / Onboarding"
+    }
+  },
+  "October-2025": {
+    "2025-10-01": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Waiting For Laptop",
+      "technologies": [],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-02": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Waiting For Laptop",
+      "technologies": [],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-03": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Waiting For Laptop",
+      "technologies": [],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-06": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Waiting For Laptop",
+      "technologies": [],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-07": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Waiting For Laptop",
+      "technologies": [],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-08": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Waiting For Laptop",
+      "technologies": [],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-09": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Laptop received. Access to Jira and Confluence is active. Awaiting GitHub and repository access.",
+      "technologies": ["Git", "JIRA", "Confluence"],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-10": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Got GitHub and repository access. Code setup completed locally.",
+      "technologies": ["Git"],
+      "taskType": "Setup / Onboarding"
+    },
+    "2025-10-13": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Got assigned two regression issues on Jira. Coordinated with developers and testers to understand the flow and successfully reproduce the issues.",
+      "technologies": ["JIRA"],
+      "taskType": "Bug Fix"
+    },
+    "2025-10-14": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Got assigned two additional issues. Completed one (JIRA SX-16008) from the previous set and raised a pull request. Began working on the second issue.",
+      "technologies": ["Git", "JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-15": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the second issue, Asked access for VPN and Postman.",
+      "technologies": ["Postman", "VPN"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-16": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Issues with less Priority are put on Hold and removed, and asked to worked on the new Feature . Got Access for VPN and Postman. Created some leads to understand the proLogin flow of the web app.",
+      "technologies": ["Postman", "VPN"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-17": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-20": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "HOLIDAY",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-10-21": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "HOLIDAY",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-10-22": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development. (JIRA SX-15073)",
+      "technologies": ["React", "JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-23": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-24": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-27": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development. ( Scope increased ), helped other Team members in getting Access for Jira, Conafluence, and Github copilot, and repository access",
+      "technologies": ["React", "Git", "JIRA", "GitHub Copilot"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-28": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-29": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-30": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on the Feature development.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2025-10-31": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Submitted the task for code, review started working on another task's work analysis. (JIRA SX-14966)",
+      "technologies": ["JIRA"],
+      "taskType": "Feature Development"
+    }
+  },
+  "November-2025": {
+    "2025-11-03": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Started working on (JIRA SX-14966) by Mocking the data as unable to reproduce error,",
+      "technologies": ["JIRA"],
+      "taskType": "POC / Research"
+    },
+    "2025-11-04": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Started working on (JIRA SX-14966) by Mocking the data as unable to reproduce error, Received review comments on (JIRA SX-15073)",
+      "technologies": ["JIRA"],
+      "taskType": "POC / Research"
+    },
+    "2025-11-05": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Task (JIRA SX-14966) UI development completed, and Put on Hold as no one is able to reproduce the error.",
+      "technologies": ["JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2025-11-06": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on the Comments for (JIRA SX-15073) and again pushed the code.",
+      "technologies": ["Git", "JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2025-11-07": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Again received some comments on (JIRA SX-15073), resolved and pushed the code. Ask by Manager to try to create the flow , that how can we restructure our APP.",
+      "technologies": ["Git", "JIRA"],
+      "taskType": "Refactoring"
+    },
+    "2025-11-10": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Resolved the Comments in the MR and repushed, also started analysis for the CDD_POC",
+      "technologies": ["React", "Git"],
+      "taskType": "POC / Research"
+    },
+    "2025-11-11": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Working on Config Driven Deployement , POC. Continuing with the analysis part.",
+      "technologies": ["React"],
+      "taskType": "POC / Research"
+    },
+    "2025-11-12": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Working on Config Driven Deployement , POC. Which includes creation of new concept project, for the demo purpose.",
+      "technologies": ["React"],
+      "taskType": "POC / Research"
+    },
+    "2025-11-13": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Working on Config Driven Deployement , POC. Started development of the project.",
+      "technologies": ["React"],
+      "taskType": "POC / Research"
+    },
+    "2025-11-14": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Working on Config Driven Deployement , POC. Shown the Idea to the Technical Director and Manager. They liked it.",
+      "technologies": ["React"],
+      "taskType": "Meeting / Demo"
+    },
+    "2025-11-17": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Given the Demo for the POC , full idea presented with full Team. Got green flag to implement the CDD .",
+      "technologies": ["React"],
+      "taskType": "Meeting / Demo"
+    },
+    "2025-11-18": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Worked on creating the config files and updating them time to time)",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-11-19": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Integrating the Config with the new UI and enhancing the config whenever needed).",
+      "technologies": ["React", "Next.js", "CSS"],
+      "taskType": "Feature Development"
+    },
+    "2025-11-20": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Making the Buttons dynamic , binding the Start now, Continue and Edit button)",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-11-21": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Worked on Opening of the Pending task bottom sheet)",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-11-24": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Making my component more reusable, that should remove 4 Module Card at once)",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Refactoring"
+    },
+    "2025-11-25": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Making my component more reusable, that should remove 4 Module Card at once)",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Refactoring"
+    },
+    "2025-11-26": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Removing Product specific and Module specific logic to my component from the Module card)",
+      "technologies": ["React", "Next.js", "JavaScript"],
+      "taskType": "Refactoring"
+    },
+    "2025-11-27": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Updating my config to make it scenario based)",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Feature Development"
+    },
+    "2025-11-28": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on implementing the CDD for the post login page, and removing the old SFDC flow. (Testing the button flows)",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Testing"
+    }
+  },
+  "December-2025": {
+    "2025-12-01": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Created documentation for testing team, so that they can accurately test the functionality once released. Also created Excel file so that it can act like a Document for the Postlogin SCUCL , where Testing team and New user can get idea about the SCUCL product.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Documentation"
+    },
+    "2025-12-02": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the documentation. and writing missing part of code.",
+      "technologies": ["React", "Next.js", "JIRA"],
+      "taskType": "Documentation"
+    },
+    "2025-12-03": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on creating reusable components for Header and Footer for the list. Working on extracting the Geotagging logic from the component and put them in our config file.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Refactoring"
+    },
+    "2025-12-04": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working the Geotagging logic from the component and put them in our config file. Attended, Revamping meeting, Sprint Retrospective meeting.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Meeting / Demo"
+    },
+    "2025-12-05": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working the Geotagging logic from the component and put them in our config file. Working on inclusion of the RMPD logic also in our config file.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2025-12-08": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Attended session on Figma design from 11:00 AM to 12: 15 PM. Writing Unit Tests for the changes that i have made, and getting code ready for review.",
+      "technologies": ["CSS", "Figma", "Unit Testing"],
+      "taskType": "Meeting / Demo"
+    },
+    "2025-12-09": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Shown the code to team member, to get review before raising the Merge request. Updating the code structure, to follow direction as given by Team member. Updating the Test cases as many of them failed.",
+      "technologies": ["Git", "Unit Testing"],
+      "taskType": "Code Review"
+    },
+    "2025-12-10": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Update the documentation, and after that raise the PR.",
+      "technologies": ["Git"],
+      "taskType": "Documentation"
+    },
+    "2025-12-11": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Created PR for the Esign ticket, as my changes were in disabled mode , because of Environment variable were not picking in stage platform. Raised MR for the UCL flow. Worked on Cloud Defence vulnerabilities .",
+      "technologies": ["Git"],
+      "taskType": "Deployment"
+    },
+    "2025-12-12": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Made sure my new code was deployed,Worked on Cloud Defence vulnerabilities .",
+      "technologies": ["Next.js", "Git"],
+      "taskType": "Deployment"
+    },
+    "2025-12-15": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Reverted the code as Versions given by the cloud defence were wrong.",
+      "technologies": ["Next.js", "Git"],
+      "taskType": "Deployment"
+    },
+    "2025-12-16": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on the creating the MR for the Config driven flow.",
+      "technologies": ["React", "Git"],
+      "taskType": "Feature Development"
+    },
+    "2025-12-17": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on the creating the MR for the Config driven flow.",
+      "technologies": ["React", "Git"],
+      "taskType": "Feature Development"
+    },
+    "2025-12-18": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "MR Created and waiting for review, Started working on the Product Journey.",
+      "technologies": ["Git"],
+      "taskType": "Documentation"
+    },
+    "2025-12-19": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Resolved the comments on the MR, and again pushed the code.",
+      "technologies": ["Git"],
+      "taskType": "Code Review"
+    },
+    "2025-12-22": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Deployed code on Qa environment and started testing, finished Product Journey flow chart. Code needed to be tested throughly before mergring to main branch",
+      "technologies": ["Next.js", "Git"],
+      "taskType": "Documentation"
+    },
+    "2025-12-23": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on Cloud defence Vulnerabilities, updated next.js version. Checked the code in the local environment and created the Merge request and got it merged.",
+      "technologies": ["Next.js", "Git"],
+      "taskType": "Deployment"
+    },
+    "2025-12-24": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on Regression issues SX-17290, 17532",
+      "technologies": ["JIRA"],
+      "taskType": "Bug Fix"
+    },
+    "2025-12-25": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Christmas Holiday",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2025-12-26": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on incorporating the changes, in my config and updating the flow, Adding CatB and Balance Transfer details",
+      "technologies": ["React", "Next.js", "JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2025-12-29": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on incorporating the changes, in my config and updating the flow, Adding CatB and Balance Transfer details",
+      "technologies": ["React", "Next.js", "JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2025-12-30": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on Cloud defence Vulnerabilities, updated next.js version. Checked the code in the local environment and created the Merge request and got it merged.",
+      "technologies": ["Next.js", "Git"],
+      "taskType": "Deployment"
+    },
+    "2025-12-31": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on APF web cloud defense vulnerabilities",
+      "technologies": ["Next.js", "Git"],
+      "taskType": "Deployment"
+    }
+  },
+  "January-2026": {
+    "2026-01-01": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "HOLIDAY",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2026-01-02": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Resumed working on the 16700, incorporated changes on the CatB and Balance Transfer Details",
+      "technologies": ["React", "Next.js", "JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-05": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Started preperation on the dev testing report, for Local and Dev14 platform.",
+      "technologies": ["React", "Next.js", "JIRA"],
+      "taskType": "Documentation"
+    },
+    "2026-01-06": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Contined working on the preperation of dev testing report, for local and Dev14 platform.",
+      "technologies": ["React", "Next.js", "JIRA"],
+      "taskType": "Documentation"
+    },
+    "2026-01-07": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Raised the Merged, and started working on the another ticket.",
+      "technologies": ["React", "Next.js", "Git", "JIRA"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-08": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Got comments from the L1 review from shreya, and started working on resolving them.",
+      "technologies": ["React", "Next.js", "JIRA"],
+      "taskType": "Code Review"
+    },
+    "2026-01-09": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Pushed the code, and again started working on the new ticket. Got the comments from the L2 developer.",
+      "technologies": ["Git"],
+      "taskType": "Code Review"
+    },
+    "2026-01-12": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Resolved all the comments and re-pushed the code.",
+      "technologies": ["Git"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-13": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Started working on adding new enhancement to the new config driven flow (i.e. Buyback feature).",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-14": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Given demo for the SCUCL, to the Testing team, UI team and other developers.",
+      "technologies": ["React", "Next.js"],
+      "taskType": "Meeting / Demo"
+    },
+    "2026-01-15": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "continued working on the adding Buyback feature.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-16": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "continued working on the adding Buyback feature.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-19": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on adding other modules SCUBL",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-20": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on adding other modules SCUBL",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-21": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on adding other modules SCUBL",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-22": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on adding other modules SCUBL",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-23": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on adding other modules SCUBL",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-26": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "HOLIDAY",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2026-01-27": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on the Bug created by changes, Insurance Details name.",
+      "technologies": ["React"],
+      "taskType": "Bug Fix"
+    },
+    "2026-01-28": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Provided dev testing proof, screenshot and created merge resquest. and then started working on other Products like, UBLTASA, LADS and MFSA.",
+      "technologies": ["React"],
+      "taskType": "Testing"
+    },
+    "2026-01-29": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "started working on adding other modules Like UBLTA, LADS, and MFSA.",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-01-30": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Worked on Integrating the PLSA's (disbursement details and VKYC module)",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    }
+  },
+  "February-2026": {
+    "2026-02-02": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the PLSA's (disbursement details and VKYC module) and created MR.",
+      "technologies": ["React", "Git"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-03": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Started analysis on HLSA and BLSA config flow.",
+      "technologies": ["React"],
+      "taskType": "POC / Research"
+    },
+    "2026-02-04": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-05": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-06": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "LEAVE",
+      "technologies": [],
+      "taskType": "Leave / Holiday"
+    },
+    "2026-02-09": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-10": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-11": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-12": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Got comments on the PR which was raised on for PLSA , UBLTA, LADS, and MFSA etc.",
+      "technologies": ["React"],
+      "taskType": "Code Review"
+    },
+    "2026-02-13": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "solved the review comments and raised the MR for further review.",
+      "technologies": ["Git"],
+      "taskType": "Code Review"
+    },
+    "2026-02-16": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continue working on HLSA and BLSA code transfer",
+      "technologies": ["React"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-17": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-18": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-19": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-20": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-23": {
+      "day": "Monday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-24": {
+      "day": "Tuesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Continued working on the HLSA and BLSA logic extration and writing code.",
+      "technologies": ["React", "JavaScript"],
+      "taskType": "Feature Development"
+    },
+    "2026-02-25": {
+      "day": "Wednesday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Dev testing report creation, UI Transfer and documentaion updation for HLSA , BLSA.",
+      "technologies": ["React", "CSS"],
+      "taskType": "Documentation"
+    },
+    "2026-02-26": {
+      "day": "Thursday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Dev testing report creation, UI Transfer and documentaion updation for HLSA , BLSA.",
+      "technologies": ["React", "CSS"],
+      "taskType": "Documentation"
+    },
+    "2026-02-27": {
+      "day": "Friday",
+      "client": "Piramal - Sales Central (UCL)",
+      "description": "Dev testing report creation, UI Transfer and documentaion updation for HLSA , BLSA.",
+      "technologies": ["React", "CSS"],
+      "taskType": "Documentation"
+    }
+  }
+}

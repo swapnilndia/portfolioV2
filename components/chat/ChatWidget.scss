@@ -901,3 +901,85 @@
     transform: rotate(360deg);
   }
 }
+
+// ─── Sample questions (shown on chat open) ───────────────────────────────────
+
+.chat-widget__sample-questions {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0 var(--space-md);
+  animation: fadeIn 0.4s ease;
+}
+
+.chat-widget__sample-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+  margin: 0 0 var(--space-xs);
+}
+
+// ─── Chip (shared between sample + follow-up) ────────────────────────────────
+
+.chat-widget__chip {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.375rem 0.75rem;
+  font-size: var(--font-size-sm);
+  font-family: var(--font-family-base);
+  color: var(--color-accent);
+  background: var(--color-overlay-accent-light);
+  border: 1px solid var(--color-accent);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  text-align: left;
+  line-height: 1.4;
+  transition:
+    background 0.2s ease,
+    transform 0.15s ease,
+    box-shadow 0.2s ease;
+
+  &:hover:not(:disabled) {
+    background: var(--color-accent);
+    color: white;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px var(--color-overlay-accent-medium);
+  }
+
+  &:active:not(:disabled) {
+    transform: scale(0.97);
+  }
+
+  &:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+
+  @media (max-width: 768px) {
+    font-size: var(--font-size-xs);
+    padding: 0.3rem 0.625rem;
+  }
+}
+
+// ─── Follow-up chips (shown after last assistant message) ─────────────────────
+
+.chat-widget__followup-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  padding: var(--space-sm) 0 var(--space-xs) 2rem;
+  animation: fadeIn 0.35s ease;
+
+  @media (max-width: 768px) {
+    padding-left: 1.75rem;
+    gap: var(--space-xs);
+  }
+}
+
+.chat-widget__chip--followup {
+  font-size: var(--font-size-xs);
+  padding: 0.3rem 0.625rem;
+  opacity: 0.9;
+}

@@ -6,6 +6,7 @@ export interface ChatMessage {
   role: "user" | "assistant";
   text: string;
   content?: StructuredContent; // Structured content for assistant messages
+  followUpQuestions?: [string, string]; // Two follow-up suggestions from AI
   id: string;
   timestamp: Date;
 }
@@ -127,6 +128,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       const responseContent = data.response;
       let responseText = "";
       let structuredContent: StructuredContent | undefined = undefined;
+      let followUpQuestions: [string, string] | undefined = undefined;
 
       try {
         if (
@@ -134,9 +136,20 @@ export const useChatStore = create<ChatStore>((set, get) => ({
           responseContent !== null &&
           "type" in responseContent
         ) {
+          // Extract follow-up questions if present
+          if (
+            "followUpQuestions" in responseContent &&
+            Array.isArray(responseContent.followUpQuestions) &&
+            responseContent.followUpQuestions.length >= 2
+          ) {
+            followUpQuestions = [
+              String(responseContent.followUpQuestions[0]),
+              String(responseContent.followUpQuestions[1]),
+            ];
+          }
+
           // Structured response
           structuredContent = responseContent as StructuredContent;
-          // Extract text for display/fallback
           if (responseContent.type === "text" && responseContent.content?.text) {
             responseText = String(responseContent.content.text);
           } else if (responseContent.type === "structured") {
@@ -145,7 +158,6 @@ export const useChatStore = create<ChatStore>((set, get) => ({
             responseText = "Response received";
           }
         } else if (typeof responseContent === "string") {
-          // Legacy string format
           responseText = responseContent;
         } else {
           responseText = "I apologize, but I could not generate a response.";
@@ -165,6 +177,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
         role: "assistant",
         text: responseText,
         content: structuredContent,
+        followUpQuestions,
         timestamp: new Date(),
       };
 

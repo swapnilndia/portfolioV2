@@ -11,6 +11,13 @@ import {
 import { MessageRenderer } from "./MessageRenderer";
 import "./ChatWidget.scss";
 
+const SAMPLE_QUESTIONS = [
+  "What is Swapnil working on currently?",
+  "What technologies has he used recently?",
+  "How has his work evolved over the past months?",
+  "What was his biggest achievement so far?",
+];
+
 export const ChatWidget = () => {
   const { setChatOpen } = useUiStore();
   const { messages, isLoading, userMessageCount, sendMessage, resetChat } = useChatStore();
@@ -129,6 +136,16 @@ export const ChatWidget = () => {
   const remainingQuestions = MAX_QUESTIONS - userMessageCount;
   const remainingChars = MESSAGE_HARD_LIMIT - messageLength;
 
+  const handleQuickSend = async (question: string) => {
+    if (isLoading || isAtQuestionLimit) return;
+    setError(null);
+    try {
+      await sendMessage(question);
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Something went wrong.");
+    }
+  };
+
   const handleKeyDown = (e: React.KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
@@ -213,44 +230,79 @@ export const ChatWidget = () => {
               </div>
             </div>
             <div className="chat-widget__messages">
-              {messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={`chat-widget__message chat-widget__message--${message.role}`}
-                >
-                  <div className="chat-widget__message-avatar">
-                    {message.role === "user" ? (
-                      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                      </svg>
-                    ) : (
-                      <div className="chat-widget__ai-icon">
-                        <svg
-                          width="20"
-                          height="20"
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        >
-                          <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"></path>
-                          <path d="M19 3L19.94 6.06L23 7L19.94 7.94L19 11L18.06 7.94L15 7L18.06 6.06L19 3Z"></path>
-                          <path d="M5 15L5.94 18.06L9 19L5.94 19.94L5 23L4.06 19.94L1 19L4.06 18.06L5 15Z"></path>
+              {/* Sample questions — shown only when only the welcome message exists */}
+              {messages.length === 1 && messages[0].id === "welcome" && !isLoading && (
+                <div className="chat-widget__sample-questions">
+                  <p className="chat-widget__sample-label">Try asking:</p>
+                  {SAMPLE_QUESTIONS.map((q) => (
+                    <button
+                      key={q}
+                      className="chat-widget__chip"
+                      onClick={() => handleQuickSend(q)}
+                      disabled={isAtQuestionLimit}
+                    >
+                      {q}
+                    </button>
+                  ))}
+                </div>
+              )}
+
+              {messages.map((message, idx) => (
+                <div key={message.id}>
+                  <div className={`chat-widget__message chat-widget__message--${message.role}`}>
+                    <div className="chat-widget__message-avatar">
+                      {message.role === "user" ? (
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                         </svg>
-                      </div>
-                    )}
-                  </div>
-                  <div className="chat-widget__message-content">
-                    <div className="chat-widget__message-text">
-                      {message.role === "assistant" && message.content ? (
-                        <MessageRenderer content={message.content} />
                       ) : (
-                        <MessageRenderer content={message.text} />
+                        <div className="chat-widget__ai-icon">
+                          <svg
+                            width="20"
+                            height="20"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <path d="M12 2L13.09 8.26L20 9L13.09 9.74L12 16L10.91 9.74L4 9L10.91 8.26L12 2Z"></path>
+                            <path d="M19 3L19.94 6.06L23 7L19.94 7.94L19 11L18.06 7.94L15 7L18.06 6.06L19 3Z"></path>
+                            <path d="M5 15L5.94 18.06L9 19L5.94 19.94L5 23L4.06 19.94L1 19L4.06 18.06L5 15Z"></path>
+                          </svg>
+                        </div>
                       )}
                     </div>
+                    <div className="chat-widget__message-content">
+                      <div className="chat-widget__message-text">
+                        {message.role === "assistant" && message.content ? (
+                          <MessageRenderer content={message.content} />
+                        ) : (
+                          <MessageRenderer content={message.text} />
+                        )}
+                      </div>
+                    </div>
                   </div>
+
+                  {/* Follow-up chips — shown only after the last assistant message */}
+                  {message.role === "assistant" &&
+                    message.followUpQuestions &&
+                    idx === messages.length - 1 &&
+                    !isLoading && (
+                      <div className="chat-widget__followup-chips">
+                        {message.followUpQuestions.map((q) => (
+                          <button
+                            key={q}
+                            className="chat-widget__chip chat-widget__chip--followup"
+                            onClick={() => handleQuickSend(q)}
+                            disabled={isAtQuestionLimit}
+                          >
+                            {q}
+                          </button>
+                        ))}
+                      </div>
+                    )}
                 </div>
               ))}
               {isLoading && (

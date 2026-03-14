@@ -6,7 +6,7 @@ export interface ChatMessage {
   role: "user" | "assistant";
   text: string;
   content?: StructuredContent; // Structured content for assistant messages
-  followUpQuestions?: [string, string]; // Two follow-up suggestions from AI
+  followUpQuestions?: string[]; // Follow-up suggestions from AI
   id: string;
   timestamp: Date;
 }
@@ -128,7 +128,7 @@ export const useChatStore = create<ChatStore>((set, get) => ({
       const responseContent = data.response;
       let responseText = "";
       let structuredContent: StructuredContent | undefined = undefined;
-      let followUpQuestions: [string, string] | undefined = undefined;
+      let followUpQuestions: string[] | undefined = undefined;
 
       try {
         if (
@@ -140,12 +140,11 @@ export const useChatStore = create<ChatStore>((set, get) => ({
           if (
             "followUpQuestions" in responseContent &&
             Array.isArray(responseContent.followUpQuestions) &&
-            responseContent.followUpQuestions.length >= 2
+            responseContent.followUpQuestions.length > 0
           ) {
-            followUpQuestions = [
-              String(responseContent.followUpQuestions[0]),
-              String(responseContent.followUpQuestions[1]),
-            ];
+            followUpQuestions = responseContent.followUpQuestions
+              .map((item: unknown) => String(item).trim())
+              .filter(Boolean);
           }
 
           // Structured response

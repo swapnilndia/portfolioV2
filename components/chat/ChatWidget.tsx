@@ -18,6 +18,13 @@ const SAMPLE_QUESTIONS = [
   "What was his biggest achievement so far?",
 ];
 
+const normalizeQuestion = (value: string) =>
+  value
+    .toLowerCase()
+    .replace(/[^\w\s]/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+
 export const ChatWidget = () => {
   const { setChatOpen } = useUiStore();
   const { messages, isLoading, userMessageCount, sendMessage, resetChat } = useChatStore();
@@ -156,6 +163,30 @@ export const ChatWidget = () => {
     }
   };
 
+  const getVisibleFollowUps = (messageIndex: number, followUps: string[]) => {
+    const blockedQuestions = new Set<string>();
+
+    for (const item of messages.slice(0, messageIndex)) {
+      if (item.role === "user") {
+        blockedQuestions.add(normalizeQuestion(item.text));
+      }
+    }
+
+    const visible: string[] = [];
+    const seen = new Set<string>();
+
+    for (const suggestion of followUps) {
+      const normalized = normalizeQuestion(suggestion);
+      if (!normalized || seen.has(normalized) || blockedQuestions.has(normalized)) {
+        continue;
+      }
+      seen.add(normalized);
+      visible.push(suggestion);
+    }
+
+    return visible.slice(0, 2);
+  };
+
   return (
     <div className="chat-widget">
       {isOpen && (
@@ -289,9 +320,10 @@ export const ChatWidget = () => {
                   {message.role === "assistant" &&
                     message.followUpQuestions &&
                     idx === messages.length - 1 &&
-                    !isLoading && (
+                    !isLoading &&
+                    getVisibleFollowUps(idx, message.followUpQuestions).length > 0 && (
                       <div className="chat-widget__followup-chips">
-                        {message.followUpQuestions.map((q) => (
+                        {getVisibleFollowUps(idx, message.followUpQuestions).map((q) => (
                           <button
                             key={q}
                             className="chat-widget__chip chat-widget__chip--followup"

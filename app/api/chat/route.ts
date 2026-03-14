@@ -1,7 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
-import { portfolioContext } from "@/data/portfolioContext";
-import { buildWorkLogContext } from "@/data/workLog";
+import {
+  AGENT1_PREPROCESSOR,
+  AGENT2_DATA_FETCHER,
+  AGENT3_ANSWER_BUILDER,
+  AGENT4_PERSONALITY_LAYER,
+} from "./agents";
+import { buildDataContext, portfolioContext, type TopicContext } from "./contextBuilder";
 
 // ─── Types ───────────────────────────────────────────────────────────────────
 
@@ -10,24 +15,462 @@ type ChatHistoryItem = {
   content: string;
 };
 
-type Intent = "work_history" | "tech_stack" | "general" | "projects";
+type Intent = "factual" | "personal" | "unknown";
 
 interface PreprocessorResult {
   intent: Intent;
   cleanQuestion: string;
   timeContext: string | null;
+  topicContext: TopicContext;
 }
 
 interface FinalResponse {
-  type: "structured" | "text";
-  content: {
-    text?: string;
-    sections?: unknown[];
-  };
-  followUpQuestions: [string, string];
+  type: "text";
+  content: { text: string };
+  followUpQuestions?: string[];
 }
 
-// ─── OpenAI client ───────────────────────────────────────────────────────────
+const FOLLOW_UP_REFERENCE_REGEX =
+  /\b(this|that|it|they|them|he|his|these|those|previous|above|same|yeh|woh|uska|unka)\b/i;
+
+function formatHistoryForPreprocessor(history: ChatHistoryItem[]): string {
+  return history
+    .slice(-6)
+    .map((item) => `${item.role === "user" ? "User" : "Assistant"}: ${item.content}`)
+    .join("\n");
+}
+
+function isLikelyFollowUpQuestion(question: string): boolean {
+  return FOLLOW_UP_REFERENCE_REGEX.test(question);
+}
+
+function inferTopicContext(question: string): TopicContext {
+  const q = question.toLowerCase();
+
+  if (
+    /\bwhat did|working on|worked on|last week|last month|recently|today|yesterday|november|october|january|february|march|april|may|june|july|august|september|december\b/.test(
+      q
+    )
+  ) {
+    return "worklog";
+  }
+
+  if (/\bwhat is|what does|stand for|meaning|cdd|ondc|fnb|strapi\b/.test(q)) {
+    return "glossary";
+  }
+
+  if (/\bleave|leaves|holiday|personal leave|half day\b/.test(q)) {
+    return "general";
+  }
+
+  if (
+    /\bachievement|achieve|evolved|evolution|grow|growth|proud|biggest|best work|impact|challenging\b/.test(
+      q
+    )
+  ) {
+    return "achievement";
+  }
+
+  if (
+    /\btech|stack|technology|tool|react|next\.?js|javascript|css|strapi|seo|api|git|testing|husky|eslint\b/.test(
+      q
+    )
+  ) {
+    return "technology";
+  }
+
+  if (
+    /\bproject|build|built|contribution|contributed|piramal|bajaj|protean|cdd|fnb|grocery|inspired|motivat/.test(
+      q
+    )
+  ) {
+    return "project";
+  }
+
+  return "general";
+}
+
+function normalizePreprocessorResult(
+  parsed: PreprocessorResult,
+  rawQuestion: string,
+  history: ChatHistoryItem[]
+): PreprocessorResult {
+  const cleanQuestion = parsed.cleanQuestion ?? rawQuestion;
+  const isFollowUp = history.length > 0 && isLikelyFollowUpQuestion(cleanQuestion);
+
+  if (parsed.intent === "unknown" && isFollowUp) {
+    return {
+      intent: "factual",
+      cleanQuestion,
+      timeContext: parsed.timeContext ?? null,
+      topicContext: parsed.topicContext ?? inferTopicContext(cleanQuestion),
+    };
+  }
+
+  if (parsed.intent !== "unknown" && !parsed.topicContext && parsed.intent === "factual") {
+    return {
+      ...parsed,
+      cleanQuestion,
+      timeContext: parsed.timeContext ?? null,
+      topicContext: inferTopicContext(cleanQuestion),
+    };
+  }
+
+  return {
+    intent: parsed.intent ?? "factual",
+    cleanQuestion,
+    timeContext: parsed.timeContext ?? null,
+    topicContext: parsed.topicContext ?? "general",
+  };
+}
+
+function extractJsonObject(raw: string): string | null {
+  const start = raw.indexOf("{");
+  if (start === -1) return null;
+
+  let depth = 0;
+  let inString = false;
+  let escaped = false;
+
+  for (let index = start; index < raw.length; index += 1) {
+    const char = raw[index];
+
+    if (escaped) {
+      escaped = false;
+      continue;
+    }
+
+    if (char === "\\") {
+      escaped = true;
+      continue;
+    }
+
+    if (char === '"') {
+      inString = !inString;
+      continue;
+    }
+
+    if (inString) continue;
+
+    if (char === "{") depth += 1;
+    if (char === "}") depth -= 1;
+
+    if (depth === 0) {
+      return raw.slice(start, index + 1);
+    }
+  }
+
+  return null;
+}
+
+function normalizeAssistantText(text: string): string {
+  return text.replace(/\s+/g, " ").trim();
+}
+
+function truncateWords(text: string, maxWords = 180): string {
+  const normalized = normalizeAssistantText(text);
+  const words = normalized.split(" ").filter(Boolean);
+
+  if (words.length <= maxWords) {
+    return normalized;
+  }
+
+  const sentences = normalized.split(/(?<=[.!?])\s+/);
+  const selected: string[] = [];
+  let wordCount = 0;
+
+  for (const sentence of sentences) {
+    const sentenceWords = sentence.split(" ").filter(Boolean);
+    if (sentenceWords.length === 0) continue;
+
+    if (wordCount + sentenceWords.length > maxWords) {
+      break;
+    }
+
+    selected.push(sentence);
+    wordCount += sentenceWords.length;
+  }
+
+  if (selected.length > 0 && wordCount >= 120) {
+    return selected.join(" ").trim();
+  }
+
+  return `${words.slice(0, maxWords).join(" ")}...`;
+}
+
+function unescapeJsonString(value: string): string {
+  try {
+    return JSON.parse(`"${value}"`) as string;
+  } catch {
+    return value
+      .replace(/\\"/g, '"')
+      .replace(/\\n/g, " ")
+      .replace(/\\r/g, " ")
+      .replace(/\\t/g, " ")
+      .replace(/\\\\/g, "\\");
+  }
+}
+
+function extractTextFromMalformedJson(raw: string): string | null {
+  const textMatch = raw.match(/"text"\s*:\s*"((?:\\[\s\S]|[^"\\])*)"/);
+  if (!textMatch?.[1]) return null;
+  return truncateWords(unescapeJsonString(textMatch[1]));
+}
+
+function extractFollowUpsFromMalformedJson(raw: string): string[] | undefined {
+  const match = raw.match(/"followUpQuestions"\s*:\s*\[((?:.|\n|\r)*?)\]/);
+  if (!match?.[1]) return undefined;
+
+  const items = [...match[1].matchAll(/"((?:\\.|[^"\\])*)"/g)]
+    .map((item) => unescapeJsonString(item[1]).trim())
+    .filter(Boolean);
+
+  return items.length > 0 ? items : undefined;
+}
+
+function isUnavailableAnswer(text: string): boolean {
+  const lower = text.toLowerCase();
+  return (
+    lower.includes("i don't have that specific information") ||
+    lower.includes("this specific information is not available") ||
+    lower.includes("isn't available at the moment") ||
+    lower.includes("there isn't specific information")
+  );
+}
+
+function getSpecificTechMention(question: string): string | null {
+  const techMentions = [
+    "React",
+    "Next.js",
+    "JavaScript",
+    "CSS",
+    "Strapi",
+    "SEO",
+    "API Integration",
+    "Git",
+    "Unit Testing",
+    "Husky",
+    "ESLint",
+    "GitHub Copilot",
+    "Cline",
+    "Claude",
+    "Grok",
+    "ChatGPT",
+  ];
+
+  const lower = question.toLowerCase();
+  return techMentions.find((tech) => lower.includes(tech.toLowerCase())) ?? null;
+}
+
+function getRelevantProjectLabel(question: string, rawFacts: string): string | null {
+  const combined = `${question}\n${rawFacts}`.toLowerCase();
+
+  if (
+    combined.includes("config driven deployment") ||
+    combined.includes("cdd") ||
+    combined.includes("piramal sales central")
+  ) {
+    return "CDD project";
+  }
+
+  if (combined.includes("bajaj") || combined.includes("ondc") || combined.includes("fnb")) {
+    return "Bajaj Finserv Markets project";
+  }
+
+  if (combined.includes("protean")) {
+    return "Protean project";
+  }
+
+  return null;
+}
+
+function buildGroundedFollowUps(
+  topicContext: TopicContext,
+  cleanQuestion: string,
+  rawFacts: string,
+  finalText: string,
+  history: ChatHistoryItem[]
+): string[] | undefined {
+  if (isUnavailableAnswer(rawFacts) || isUnavailableAnswer(finalText)) {
+    return undefined;
+  }
+
+  const projectLabel = getRelevantProjectLabel(cleanQuestion, rawFacts);
+  const techMention = getSpecificTechMention(cleanQuestion);
+  const recentUserQuestions = new Set(
+    history
+      .filter((item) => item.role === "user")
+      .slice(-8)
+      .map((item) => item.content.trim().toLowerCase())
+  );
+  recentUserQuestions.add(cleanQuestion.trim().toLowerCase());
+
+  const pickFollowUps = (candidates: string[], fallback: string[]): string[] | undefined => {
+    const uniqueCandidates = [...new Set(candidates.map((item) => item.trim()))].filter(Boolean);
+    const filtered = uniqueCandidates.filter(
+      (item) => !recentUserQuestions.has(item.toLowerCase())
+    );
+    const chosen = (filtered.length >= 2 ? filtered : uniqueCandidates).slice(0, 4);
+
+    if (chosen.length >= 2) {
+      return chosen;
+    }
+
+    const fallbackPool = [...new Set(fallback.map((item) => item.trim()))].filter(
+      (item) => item && !recentUserQuestions.has(item.toLowerCase())
+    );
+
+    if (chosen.length === 1 && fallbackPool.length > 0) {
+      return [chosen[0], ...fallbackPool.slice(0, 3)];
+    }
+
+    if (fallbackPool.length >= 2) {
+      return fallbackPool.slice(0, 4);
+    }
+
+    return undefined;
+  };
+
+  switch (topicContext) {
+    case "project":
+      if (projectLabel === "CDD project") {
+        return pickFollowUps(
+          [
+            "What problem did the CDD project solve?",
+            "What technologies were used in the CDD project?",
+            "What impact did the CDD project have on the codebase?",
+            "Why was the CDD project so important?",
+          ],
+          [
+            "What was Swapnil's most challenging project?",
+            "How has Swapnil's work evolved over time?",
+          ]
+        );
+      }
+      if (projectLabel === "Bajaj Finserv Markets project") {
+        return pickFollowUps(
+          [
+            "What did Swapnil build for the Bajaj Finserv Markets project?",
+            "What technologies were used in the Bajaj Finserv Markets project?",
+            "How did Swapnil handle SEO in the Bajaj Finserv Markets project?",
+            "What was Swapnil's role in the Bajaj Finserv Markets project?",
+          ],
+          [
+            "What technologies has Swapnil been using lately?",
+            "What was Swapnil's biggest achievement so far?",
+          ]
+        );
+      }
+      if (projectLabel === "Protean project") {
+        return pickFollowUps(
+          [
+            "What did Swapnil build for the Protean project?",
+            "What technologies were used in the Protean project?",
+            "How complex was the Protean project?",
+          ],
+          [
+            "What technologies has Swapnil been using lately?",
+            "Tell me about Swapnil's most recent project.",
+          ]
+        );
+      }
+      return pickFollowUps(
+        [
+          "What technologies were used in that project?",
+          "What impact did that project have?",
+          "What was Swapnil's contribution to that project?",
+        ],
+        [
+          "What technologies has Swapnil been using lately?",
+          "What was Swapnil's biggest achievement so far?",
+        ]
+      );
+    case "technology":
+      if (techMention) {
+        return pickFollowUps(
+          [
+            `Which projects used ${techMention}?`,
+            `How has Swapnil used ${techMention} in his work?`,
+            `Has ${techMention} been part of Swapnil's recent work?`,
+          ],
+          ["Which AI tools does Swapnil use at work?", "What is Swapnil's most recent project?"]
+        );
+      }
+      return pickFollowUps(
+        [
+          "Which projects used this tech stack?",
+          "Which AI tools does Swapnil use at work?",
+          "How has Swapnil used these technologies across projects?",
+        ],
+        [
+          "What was Swapnil's biggest achievement so far?",
+          "Tell me about Swapnil's most recent project.",
+        ]
+      );
+    case "worklog":
+      return pickFollowUps(
+        [
+          "Which project was Swapnil focused on during that time?",
+          "What technologies did Swapnil use during that period?",
+          "What did Swapnil build during that period?",
+        ],
+        [
+          "How has Swapnil's work evolved over time?",
+          "What technologies has Swapnil been using lately?",
+        ]
+      );
+    case "achievement":
+      return pickFollowUps(
+        [
+          "What was Swapnil's most challenging project?",
+          "How has Swapnil's work evolved over time?",
+          "What impact did Swapnil have in his recent projects?",
+        ],
+        [
+          "What technologies has Swapnil been using lately?",
+          "Tell me about Swapnil's most recent project.",
+        ]
+      );
+    case "glossary":
+      if (cleanQuestion.toLowerCase().includes("cdd")) {
+        return pickFollowUps(
+          [
+            "Which project used CDD?",
+            "What impact did CDD have on the codebase?",
+            "Why was CDD introduced?",
+          ],
+          [
+            "Tell me about Swapnil's most recent project.",
+            "What technologies has Swapnil been using lately?",
+          ]
+        );
+      }
+      return pickFollowUps(
+        [
+          "Where has Swapnil used that in his work?",
+          "Which project is most relevant to that term?",
+          "How does that connect to Swapnil's projects?",
+        ],
+        [
+          "Tell me about Swapnil's most recent project.",
+          "What was Swapnil's biggest achievement so far?",
+        ]
+      );
+    case "general":
+    default:
+      return pickFollowUps(
+        [
+          "Tell me about Swapnil's most recent project.",
+          "What technologies has Swapnil been using lately?",
+          "What was Swapnil's biggest achievement so far?",
+          "How has Swapnil's work evolved over time?",
+        ],
+        []
+      );
+  }
+}
+
+// ─── OpenAI client ────────────────────────────────────────────────────────────
 
 function getClient(): OpenAI {
   const apiKey = process.env.OPENAI_API_KEY;
@@ -35,7 +478,7 @@ function getClient(): OpenAI {
   return new OpenAI({ apiKey });
 }
 
-// ─── History sanitizer ───────────────────────────────────────────────────────
+// ─── History sanitizer ────────────────────────────────────────────────────────
 
 function sanitizeHistory(value: unknown): ChatHistoryItem[] {
   if (!Array.isArray(value)) return [];
@@ -52,156 +495,120 @@ function sanitizeHistory(value: unknown): ChatHistoryItem[] {
     .slice(-20);
 }
 
-// ─── Agent 1: Preprocessor ───────────────────────────────────────────────────
-// Fixes spelling/grammar, detects intent, extracts time context.
-// ~300 input / ~80 output tokens
+// ─── Agent 1: Preprocessor ────────────────────────────────────────────────────
 
-async function runPreprocessor(openai: OpenAI, rawQuestion: string): Promise<PreprocessorResult> {
-  const systemPrompt = `You are a query preprocessor for a portfolio chatbot.
-
-Given a user's raw message, return ONLY valid JSON (no markdown, no extra text):
-{
-  "intent": "work_history" | "tech_stack" | "general" | "projects",
-  "cleanQuestion": "<fixed spelling + grammar, same meaning>",
-  "timeContext": "<time reference extracted e.g. 'November 2025', 'last month', 'recently', 'October'> or null"
-}
-
-Intent rules:
-- "work_history" → asking about daily work, what was done on a project, past activity, client work
-- "tech_stack" → asking about technologies, tools, or skills used over time
-- "general" → asking about Swapnil as a person, career, background, contact
-- "projects" → asking about portfolio projects (eCommerce, eGaming, etc.)
-
-Always correct spelling and grammar in cleanQuestion. Keep the meaning identical.`;
-
+async function runPreprocessor(
+  openai: OpenAI,
+  rawQuestion: string,
+  history: ChatHistoryItem[]
+): Promise<PreprocessorResult> {
+  const conversationContext = formatHistoryForPreprocessor(history);
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
-      { role: "system", content: systemPrompt },
-      { role: "user", content: rawQuestion },
+      { role: "system", content: AGENT1_PREPROCESSOR },
+      {
+        role: "user",
+        content: conversationContext
+          ? `Recent conversation:\n${conversationContext}\n\nLatest user message:\n${rawQuestion}`
+          : rawQuestion,
+      },
     ],
-    max_tokens: 120,
+    max_tokens: 150,
     temperature: 0,
+    response_format: { type: "json_object" },
   });
 
   const raw = completion.choices[0]?.message?.content?.trim() ?? "";
   try {
-    const parsed = JSON.parse(raw) as PreprocessorResult;
-    return {
-      intent: parsed.intent ?? "general",
-      cleanQuestion: parsed.cleanQuestion ?? rawQuestion,
-      timeContext: parsed.timeContext ?? null,
-    };
+    return normalizePreprocessorResult(JSON.parse(raw) as PreprocessorResult, rawQuestion, history);
   } catch {
-    return { intent: "general", cleanQuestion: rawQuestion, timeContext: null };
+    return normalizePreprocessorResult(
+      { intent: "factual", cleanQuestion: rawQuestion, timeContext: null, topicContext: null },
+      rawQuestion,
+      history
+    );
   }
 }
 
-// ─── Agent 3: Work Log Specialist ────────────────────────────────────────────
-// Answers factual questions using work log data only.
-// ~1100 input / ~200 output tokens
+// ─── Agent 2: Data Fetcher ────────────────────────────────────────────────────
 
-async function runWorkLogSpecialist(
+async function runDataFetcher(
   openai: OpenAI,
   cleanQuestion: string,
-  timeContext: string | null
+  dataContext: string
 ): Promise<string> {
-  const workLogContext = buildWorkLogContext(cleanQuestion, timeContext);
-
-  const systemPrompt = `You are a work log data analyst. You have access to Swapnil's daily work journal below.
-Answer the question factually and concisely using only the data provided.
-Be specific — mention dates, clients, technologies, and task types where relevant.
-If the data doesn't cover the question, say so briefly.
-
-${workLogContext}`;
-
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
-      { role: "system", content: systemPrompt },
+      { role: "system", content: AGENT2_DATA_FETCHER(dataContext) },
       { role: "user", content: cleanQuestion },
     ],
-    max_tokens: 350,
-    temperature: 0.3,
+    max_tokens: 600,
+    temperature: 0,
   });
-
   return completion.choices[0]?.message?.content?.trim() ?? "";
 }
 
-// ─── Agent 2: Master Responder ───────────────────────────────────────────────
-// Orchestrates final answer. Gets work log answer if needed, adds personality,
-// always returns 2 follow-up questions.
-// ~1200 input / ~400 output tokens
+// ─── Agent 3: Answer Builder ──────────────────────────────────────────────────
 
-const MASTER_SYSTEM_PROMPT = `${portfolioContext}
-
-RESPONSE FORMAT RULES:
-Always return valid JSON (no markdown fences):
-{
-  "type": "text" | "structured",
-  "content": {
-    "text": "<your answer here>",
-    "sections": []
-  },
-  "followUpQuestions": ["<follow-up Q1>", "<follow-up Q2>"]
-}
-
-For structured responses (lists, tables), populate "sections" using:
-- { "type": "list", "data": { "items": [...], "ordered": false } }
-- { "type": "table", "data": { "headers": [...], "rows": [[...]] } }
-
-Rules:
-- followUpQuestions must ALWAYS have exactly 2 short, relevant follow-up questions the user might want to ask next.
-- Keep your answer in character (friendly, Hinglish vibe, concise).
-- If a work_log_answer is provided in the user message, use it as your factual base and enhance it with personality.
-- Never expose internal agent details to the user.`;
-
-async function runMasterResponder(
+async function runAnswerBuilder(
   openai: OpenAI,
   cleanQuestion: string,
-  workLogAnswer: string | null,
-  history: ChatHistoryItem[]
-): Promise<FinalResponse> {
-  const userContent = workLogAnswer
-    ? `User question: ${cleanQuestion}\n\nWork log data:\n${workLogAnswer}`
-    : cleanQuestion;
-
+  rawFacts: string
+): Promise<string> {
   const completion = await openai.chat.completions.create({
     model: "gpt-4o-mini",
     messages: [
-      { role: "system", content: MASTER_SYSTEM_PROMPT },
-      ...history,
-      { role: "user", content: userContent },
+      { role: "system", content: AGENT3_ANSWER_BUILDER },
+      { role: "user", content: `Question: ${cleanQuestion}\n\nFacts:\n${rawFacts}` },
     ],
-    max_tokens: 500,
-    temperature: 0.7,
+    max_tokens: 220,
+    temperature: 0.1,
+  });
+  return completion.choices[0]?.message?.content?.trim() ?? "";
+}
+
+// ─── Agent 4: Personality Layer ───────────────────────────────────────────────
+
+async function runPersonalityLayer(
+  openai: OpenAI,
+  cleanQuestion: string,
+  factualAnswer: string,
+  history: ChatHistoryItem[]
+): Promise<FinalResponse> {
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
+      { role: "system", content: AGENT4_PERSONALITY_LAYER },
+      ...history,
+      { role: "user", content: `Question: ${cleanQuestion}\n\nAnswer:\n${factualAnswer}` },
+    ],
+    max_tokens: 260,
+    temperature: 0.4,
+    response_format: { type: "json_object" },
   });
 
   const raw = completion.choices[0]?.message?.content?.trim() ?? "";
-
   try {
-    const parsed = JSON.parse(raw) as FinalResponse;
-    // Ensure followUpQuestions always has 2 items
-    if (!Array.isArray(parsed.followUpQuestions) || parsed.followUpQuestions.length < 2) {
-      parsed.followUpQuestions = [
-        "What technologies has Swapnil been using lately?",
-        "Tell me about his most recent project.",
-      ];
-    }
+    const parsed = JSON.parse(extractJsonObject(raw) ?? raw) as FinalResponse;
+    parsed.content = { text: truncateWords(parsed.content?.text ?? "") };
     return parsed;
   } catch {
+    const recoveredText = extractTextFromMalformedJson(raw);
+    const recoveredFollowUps = extractFollowUpsFromMalformedJson(raw);
+
     return {
       type: "text",
-      content: { text: raw || "I couldn't generate a response." },
-      followUpQuestions: [
-        "What technologies has Swapnil been using lately?",
-        "Tell me about his most recent project.",
-      ],
+      content: {
+        text: recoveredText ?? truncateWords(raw || "I couldn't generate a response."),
+      },
+      followUpQuestions: recoveredFollowUps,
     };
   }
 }
 
-// ─── POST handler ────────────────────────────────────────────────────────────
+// ─── POST handler ─────────────────────────────────────────────────────────────
 
 export async function POST(request: NextRequest) {
   try {
@@ -221,32 +628,59 @@ export async function POST(request: NextRequest) {
     const history = sanitizeHistory(previousMessages);
     const openai = getClient();
 
-    // ── Step 1: Preprocess (Agent 1) ──────────────────────────────────────
-    const { intent, cleanQuestion, timeContext } = await runPreprocessor(openai, message.trim());
+    // ── Step 1: Preprocess (Agent 1) ──────────────────────────────────────────
+    const { intent, cleanQuestion, timeContext, topicContext } = await runPreprocessor(
+      openai,
+      message.trim(),
+      history
+    );
 
-    // ── Step 2: Work log lookup (Agent 3) — only if needed ────────────────
-    let workLogAnswer: string | null = null;
-    if (intent === "work_history" || intent === "tech_stack") {
-      workLogAnswer = await runWorkLogSpecialist(openai, cleanQuestion, timeContext);
+    // ── Step 2: Unknown intent → graceful fallback (no more LLM calls) ────────
+    if (intent === "unknown") {
+      const fallback: FinalResponse = {
+        type: "text",
+        content: {
+          text: "Yaar, yeh Swapnil ke baare mein nahi lag raha. Main sirf uske kaam, projects, aur skills ke baare mein bata sakta hoon. Koi relevant sawaal puchho!",
+        },
+        followUpQuestions: undefined,
+      };
+      const updatedHistory: ChatHistoryItem[] = [
+        ...history,
+        { role: "user", content: cleanQuestion },
+        { role: "assistant", content: fallback.content.text },
+      ];
+      return NextResponse.json({ response: fallback, history: updatedHistory });
     }
 
-    // ── Step 3: Master response (Agent 2) ────────────────────────────────
-    const finalResponse = await runMasterResponder(openai, cleanQuestion, workLogAnswer, history);
+    // ── Step 3: Build data context ────────────────────────────────────────────
+    const dataContext =
+      intent === "personal"
+        ? portfolioContext
+        : buildDataContext(topicContext, timeContext, cleanQuestion);
 
-    // Build updated history using cleanQuestion for better context continuity
+    // ── Step 4: Fetch raw facts (Agent 2) ─────────────────────────────────────
+    const rawFacts = await runDataFetcher(openai, cleanQuestion, dataContext);
+
+    // ── Step 5: Build clean answer (Agent 3) ──────────────────────────────────
+    const cleanAnswer = await runAnswerBuilder(openai, cleanQuestion, rawFacts);
+
+    // ── Step 6: Add personality (Agent 4) ─────────────────────────────────────
+    const finalResponse = await runPersonalityLayer(openai, cleanQuestion, cleanAnswer, history);
+    finalResponse.followUpQuestions = buildGroundedFollowUps(
+      topicContext,
+      cleanQuestion,
+      rawFacts,
+      finalResponse.content.text,
+      history
+    );
+
     const updatedHistory: ChatHistoryItem[] = [
       ...history,
       { role: "user", content: cleanQuestion },
-      {
-        role: "assistant",
-        content: finalResponse.content?.text ?? JSON.stringify(finalResponse.content),
-      },
+      { role: "assistant", content: finalResponse.content?.text ?? "" },
     ];
 
-    return NextResponse.json({
-      response: finalResponse,
-      history: updatedHistory,
-    });
+    return NextResponse.json({ response: finalResponse, history: updatedHistory });
   } catch (error) {
     console.error("Error in chat API:", error);
 
@@ -255,8 +689,9 @@ export async function POST(request: NextRequest) {
 
     if (error instanceof Error) {
       errorMessage = error.message;
-      if (error.message.includes("API key not configured")) statusCode = 500;
-      else if (error.message.includes("quota") || error.message.includes("insufficient_quota")) {
+      if (error.message.includes("API key not configured")) {
+        statusCode = 500;
+      } else if (error.message.includes("quota") || error.message.includes("insufficient_quota")) {
         errorMessage = "OpenAI API quota exceeded. Please check your billing.";
         statusCode = 429;
       } else if (error.message.includes("rate_limit") || error.message.includes("rate limit")) {

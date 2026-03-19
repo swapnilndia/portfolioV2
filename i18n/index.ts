@@ -8,17 +8,20 @@ import experienceEn from "./locales/en/experience.json";
 import blogEn from "./locales/en/blog.json";
 import contactEn from "./locales/en/contact.json";
 
+const enResources = {
+  common: commonEn,
+  home: homeEn,
+  projects: projectsEn,
+  about: aboutEn,
+  experience: experienceEn,
+  blog: blogEn,
+  contact: contactEn,
+};
+
 i18n.use(initReactI18next).init({
   resources: {
-    en: {
-      common: commonEn,
-      home: homeEn,
-      projects: projectsEn,
-      about: aboutEn,
-      experience: experienceEn,
-      blog: blogEn,
-      contact: contactEn,
-    },
+    en: enResources,
+    hi: enResources,
   },
   lng: "en",
   fallbackLng: "en",

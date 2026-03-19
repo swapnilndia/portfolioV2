@@ -14,16 +14,16 @@ export const RecentExperience = () => {
     <section className="recent-experience">
       <div className="recent-experience__container">
         <div className="recent-experience__header">
-          <h2 className="recent-experience__title">{t("sections.recentExperience")}</h2>
+          <h2 className="recent-experience__section-title">{t("sections.recentExperience")}</h2>
           <Link href="/experience" className="recent-experience__link">
-            View Full Experience →
+            {t("links.viewFullExperience")}
           </Link>
         </div>
         <div className="recent-experience__list">
           {recentRoles.map((exp) => (
             <Card key={exp.id} className="recent-experience__card">
               <h3 className="recent-experience__company">{exp.company}</h3>
-              <p className="recent-experience__title">{exp.title}</p>
+              <p className="recent-experience__job-title">{exp.title}</p>
               <p className="recent-experience__timeframe">{exp.timeframe}</p>
               <p className="recent-experience__location">{exp.location}</p>
             </Card>

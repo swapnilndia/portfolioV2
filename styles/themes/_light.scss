@@ -1,12 +1,13 @@
+/* Light theme — neutral, high-clarity surfaces (editorial / product-style) */
 [data-theme="light"] {
-  --color-bg: #ffffff;
-  --color-bg-elevated: #f8fafc;
-  --color-bg-secondary: #f1f5f9;
-  --color-text: #0f172a;
-  --color-text-muted: #475569;
-  --color-text-light: #64748b;
-  --color-border: #e2e8f0;
-  --color-border-hover: #cbd5e1;
-  --color-accent: #3b82f6;
-  --color-accent-hover: #2563eb;
+  --color-bg: #f5f5f7;
+  --color-bg-elevated: #ffffff;
+  --color-bg-secondary: #e8e8ed;
+  --color-text: #1d1d1f;
+  --color-text-muted: #6e6e73;
+  --color-text-light: #86868b;
+  --color-border: #d2d2d7;
+  --color-border-hover: #aeaeb2;
+  --color-accent: #0a84ff;
+  --color-accent-hover: #0077ed;
 }

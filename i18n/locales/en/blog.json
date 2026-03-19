@@ -1,6 +1,9 @@
 {
   "title": "Blog",
   "subtitle": "Thoughts on frontend development, React, and building better web experiences",
+  "intro": {
+    "paragraph": "Short notes on front-end performance and React + TypeScript patterns—what I’m learning while shipping maintainable, user-friendly interfaces."
+  },
   "readMore": "Read More",
   "backToBlog": "Back to Blog"
 }

@@ -87,7 +87,7 @@ export function userReplyHtml({ name, analysis }: UserReplyProps): string {
                   </td>
                   <td valign="middle" style="padding-left:14px;">
                     <p style="margin:0;font-size:15px;font-weight:700;color:#0f172a;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">Swapnil Katiyar</p>
-                    <p style="margin:3px 0 0;font-size:13px;color:#64748b;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">Front-End Developer &middot; Noida, India</p>
+                    <p style="margin:3px 0 0;font-size:13px;color:#64748b;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">Front-End Developer &middot; Bangalore, Karnataka, India</p>
                     <p style="margin:4px 0 0;font-size:12px;color:#3b82f6;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;font-style:italic;">Building products, one component at a time.</p>
                   </td>
                 </tr>

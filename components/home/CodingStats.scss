@@ -11,8 +11,8 @@
 .coding-stats__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-xl);
+  align-items: flex-end;
+  margin-bottom: var(--space-2xl);
   flex-wrap: wrap;
   gap: var(--space-md);
 }
@@ -22,15 +22,17 @@
 }
 
 .coding-stats__link {
-  @include body;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
   color: var(--color-accent);
-  font-weight: 500;
   text-decoration: none;
   transition: color var(--transition-base);
+  padding: var(--space-xs) 0;
 
   &:hover {
     color: var(--color-accent-hover);
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }
 
@@ -39,8 +41,12 @@
   grid-template-columns: 1fr;
   gap: var(--space-lg);
 
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(3, 1fr);
+  @media (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1100px) {
+    grid-template-columns: repeat(4, 1fr);
   }
 }
 
@@ -67,6 +73,12 @@
   &--leetcode {
     background: var(--color-overlay-warning);
     color: var(--color-warning);
+  }
+
+  &--leetcode-streak {
+    background: var(--color-overlay-warning-medium);
+    color: var(--color-warning);
+    box-shadow: inset 0 0 0 1px rgba(251, 191, 36, 0.35);
   }
 
   &--streak {

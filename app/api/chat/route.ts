@@ -30,6 +30,113 @@ interface FinalResponse {
   followUpQuestions?: string[];
 }
 
+function isSmallTalk(message: string): boolean {
+  const text = message.toLowerCase().trim();
+  return (
+    /^(hi|hello|hey|yo|hii|hlo)\b/.test(text) ||
+    /\b(how are you|how r u|what's up|whats up|sup)\b/.test(text) ||
+    /\b(thanks|thank you|thx|ty)\b/.test(text)
+  );
+}
+
+function isAiQuestion(question: string): boolean {
+  const q = question.toLowerCase();
+  return /\b(ai|artificial intelligence|copilot|cline|claude|grok|chatgpt|github copilot)\b/.test(
+    q
+  );
+}
+
+function isLearningQuestion(question: string): boolean {
+  const q = question.toLowerCase();
+  return (
+    /\bcurrently learning\b/.test(q) ||
+    (/\bhow (does|do) swapnil\b/.test(q) && /\blearn\b/.test(q)) ||
+    (/\bhow (does|do) he\b/.test(q) && /\blearn\b/.test(q)) ||
+    (/\bhow (does|do) he\b/.test(q) && /\blearn new\b/.test(q)) ||
+    /\blearn new\b/.test(q) ||
+    /\bhow (does|do).*learn\b/.test(q) ||
+    /\badvance dsa\b/.test(q) ||
+    /\bds(a|a)\b/.test(q) ||
+    /\bsystem design\b/.test(q) ||
+    /\bspring boot\b/.test(q) ||
+    /\bjava\b/.test(q) ||
+    /\bupdate(s|ing)? (his )?portfolio\b/.test(q)
+  );
+}
+
+async function runGeneralHelper(
+  openai: OpenAI,
+  cleanQuestion: string,
+  history: ChatHistoryItem[]
+): Promise<FinalResponse> {
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a helpful assistant embedded in a personal portfolio site. " +
+          "Answer the user's question briefly and clearly in professional, warm English. " +
+          "Keep it to 2–3 short sentences. Do not mention policy, models, or internal tools. " +
+          "After answering, add one short sentence that gently redirects back to Swapnil's portfolio context " +
+          '(e.g., \"If you want, ask how Swapnil has used this in his work.\").',
+      },
+      ...history.slice(-6),
+      { role: "user", content: cleanQuestion },
+    ],
+    max_tokens: 160,
+    temperature: 0.3,
+  });
+
+  const text = truncateWords(completion.choices[0]?.message?.content?.trim() ?? "", 120);
+  return {
+    type: "text",
+    content: {
+      text: text || "I can help with that. If you want, ask how Swapnil has used this in his work.",
+    },
+    followUpQuestions: [
+      "How has Swapnil used this in his projects?",
+      "Which project is most relevant to this topic?",
+    ],
+  };
+}
+
+async function runGeneralDefinitionHelper(
+  openai: OpenAI,
+  cleanQuestion: string
+): Promise<FinalResponse> {
+  const completion = await openai.chat.completions.create({
+    model: "gpt-4o-mini",
+    messages: [
+      {
+        role: "system",
+        content:
+          "You are a concise explainer for software/AI terms inside a developer portfolio site. " +
+          "Give a short, accurate definition in 2–3 sentences, in professional, warm English. " +
+          "Focus on what the tool/term is and how developers typically use it. " +
+          "Do not mention Swapnil here; this is a general explanation.",
+      },
+      { role: "user", content: cleanQuestion },
+    ],
+    max_tokens: 140,
+    temperature: 0.2,
+  });
+
+  const text = truncateWords(completion.choices[0]?.message?.content?.trim() ?? "", 90);
+  return {
+    type: "text",
+    content: {
+      text:
+        text ||
+        "It’s a developer tool. If you’d like, you can ask how Swapnil has used it in his work.",
+    },
+    followUpQuestions: [
+      "How has Swapnil used this tool in his work?",
+      "Which of Swapnil's projects involved this tool?",
+    ],
+  };
+}
+
 const FOLLOW_UP_REFERENCE_REGEX =
   /\b(this|that|it|they|them|he|his|these|those|previous|above|same|yeh|woh|uska|unka)\b/i;
 
@@ -57,6 +164,10 @@ function inferTopicContext(question: string): TopicContext {
 
   if (/\bwhat is|what does|stand for|meaning|cdd|ondc|fnb|strapi\b/.test(q)) {
     return "glossary";
+  }
+
+  if (/\b(ai|artificial intelligence|github copilot|copilot|claude|grok|chatgpt)\b/.test(q)) {
+    return "technology";
   }
 
   if (/\bleave|leaves|holiday|personal leave|half day\b/.test(q)) {
@@ -291,7 +402,12 @@ function buildGroundedFollowUps(
   finalText: string,
   history: ChatHistoryItem[]
 ): string[] | undefined {
-  if (isUnavailableAnswer(rawFacts) || isUnavailableAnswer(finalText)) {
+  const learningQ = isLearningQuestion(cleanQuestion);
+  const aiQ = isAiQuestion(cleanQuestion);
+
+  // If the portfolio data is missing, we still want follow-ups for "learning" and "AI" topics
+  // so the chat stays conversational instead of dead-ending.
+  if ((isUnavailableAnswer(rawFacts) || isUnavailableAnswer(finalText)) && !learningQ && !aiQ) {
     return undefined;
   }
 
@@ -330,6 +446,21 @@ function buildGroundedFollowUps(
 
     return undefined;
   };
+
+  if (learningQ) {
+    return pickFollowUps(
+      [
+        "What topics in advanced DSA is Swapnil currently focusing on?",
+        "How does Swapnil plan his learning roadmap day by day?",
+        "After DSA, what does Swapnil want to learn next (system design)?",
+        "What is Swapnil's plan for Java and Spring Boot after system design?",
+      ],
+      [
+        "How does Swapnil prefer to learn new technologies (group study, AI, YouTube)?",
+        "What helps Swapnil stay consistent while updating his portfolio daily?",
+      ]
+    );
+  }
 
   switch (topicContext) {
     case "project":
@@ -628,6 +759,27 @@ export async function POST(request: NextRequest) {
     const history = sanitizeHistory(previousMessages);
     const openai = getClient();
 
+    if (isSmallTalk(message)) {
+      const response: FinalResponse = {
+        type: "text",
+        content: {
+          text: "Hi there — happy to help. This assistant is focused on Swapnil’s work and portfolio, so feel free to ask about his projects, experience, tech stack, or recent work.",
+        },
+        followUpQuestions: [
+          "What is Swapnil working on recently?",
+          "Which projects show his strongest impact?",
+        ],
+      };
+
+      const updatedHistory: ChatHistoryItem[] = [
+        ...history,
+        { role: "user", content: message.trim() },
+        { role: "assistant", content: response.content.text },
+      ];
+
+      return NextResponse.json({ response, history: updatedHistory });
+    }
+
     // ── Step 1: Preprocess (Agent 1) ──────────────────────────────────────────
     const { intent, cleanQuestion, timeContext, topicContext } = await runPreprocessor(
       openai,
@@ -635,15 +787,13 @@ export async function POST(request: NextRequest) {
       history
     );
 
+    const learningOverride = isLearningQuestion(cleanQuestion);
+    const effectiveIntent: Intent = learningOverride ? "personal" : intent;
+    const effectiveTopicContext: TopicContext = learningOverride ? "general" : topicContext;
+
     // ── Step 2: Unknown intent → graceful fallback (no more LLM calls) ────────
-    if (intent === "unknown") {
-      const fallback: FinalResponse = {
-        type: "text",
-        content: {
-          text: "Yaar, yeh Swapnil ke baare mein nahi lag raha. Main sirf uske kaam, projects, aur skills ke baare mein bata sakta hoon. Koi relevant sawaal puchho!",
-        },
-        followUpQuestions: undefined,
-      };
+    if (effectiveIntent === "unknown") {
+      const fallback = await runGeneralHelper(openai, cleanQuestion, history);
       const updatedHistory: ChatHistoryItem[] = [
         ...history,
         { role: "user", content: cleanQuestion },
@@ -654,12 +804,32 @@ export async function POST(request: NextRequest) {
 
     // ── Step 3: Build data context ────────────────────────────────────────────
     const dataContext =
-      intent === "personal"
+      effectiveIntent === "personal"
         ? portfolioContext
-        : buildDataContext(topicContext, timeContext, cleanQuestion);
+        : buildDataContext(effectiveTopicContext, timeContext, cleanQuestion);
 
     // ── Step 4: Fetch raw facts (Agent 2) ─────────────────────────────────────
     const rawFacts = await runDataFetcher(openai, cleanQuestion, dataContext);
+
+    const lowerQuestion = message.toLowerCase();
+    const mentionsSwapnil =
+      lowerQuestion.includes("swapnil") ||
+      lowerQuestion.includes("his ") ||
+      lowerQuestion.includes("he ");
+
+    if (
+      !mentionsSwapnil &&
+      (topicContext === "glossary" || topicContext === "technology") &&
+      isUnavailableAnswer(rawFacts)
+    ) {
+      const generalDef = await runGeneralDefinitionHelper(openai, cleanQuestion);
+      const updatedHistory: ChatHistoryItem[] = [
+        ...history,
+        { role: "user", content: cleanQuestion },
+        { role: "assistant", content: generalDef.content.text },
+      ];
+      return NextResponse.json({ response: generalDef, history: updatedHistory });
+    }
 
     // ── Step 5: Build clean answer (Agent 3) ──────────────────────────────────
     const cleanAnswer = await runAnswerBuilder(openai, cleanQuestion, rawFacts);
@@ -667,7 +837,7 @@ export async function POST(request: NextRequest) {
     // ── Step 6: Add personality (Agent 4) ─────────────────────────────────────
     const finalResponse = await runPersonalityLayer(openai, cleanQuestion, cleanAnswer, history);
     finalResponse.followUpQuestions = buildGroundedFollowUps(
-      topicContext,
+      effectiveTopicContext,
       cleanQuestion,
       rawFacts,
       finalResponse.content.text,

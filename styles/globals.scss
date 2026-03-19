@@ -52,6 +52,6 @@ body {
 
 /* Selection styles */
 ::selection {
-  background-color: var(--color-accent);
-  color: white;
+  background-color: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  color: var(--color-text);
 }

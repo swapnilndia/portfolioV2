@@ -21,7 +21,10 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
       <div className="blog-post">
         <div className="blog-post__header">
           <Link href="/blog" className="blog-post__back">
-            ← {t("backToBlog")}
+            <span className="blog-post__back-arrow" aria-hidden="true">
+              ←
+            </span>
+            {t("backToBlog")}
           </Link>
         </div>
 
@@ -31,6 +34,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
             <span className="blog-post__read-time">{post.readTime}</span>
           </div>
 
+          <div className="blog-post__divider blog-post__divider--meta" aria-hidden="true" />
+
           <div className="blog-post__tags">
             {post.tags.map((tag) => (
               <Tag key={tag} variant="default" size="sm">
@@ -38,6 +43,8 @@ export function BlogPostClient({ post }: BlogPostClientProps) {
               </Tag>
             ))}
           </div>
+
+          <div className="blog-post__divider blog-post__divider--tags" aria-hidden="true" />
 
           <div className="blog-post__content">
             <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>

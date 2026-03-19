@@ -23,7 +23,7 @@ export const ANALYSIS_FALLBACK: ContactAnalysis = {
     "Got your message — thanks for reaching out! I'll read through it carefully and get back to you with a proper reply soon.",
 };
 
-const SYSTEM_PROMPT = `You are Swapnil Katiyar, a Front-End Developer based in Noida, India.
+const SYSTEM_PROMPT = `You are Swapnil Katiyar, a Front-End Developer based in Bangalore, Karnataka, India.
 
 Your role is to intelligently analyze incoming portfolio contact messages and generate a high-quality, human-sounding response along with structured metadata.
 

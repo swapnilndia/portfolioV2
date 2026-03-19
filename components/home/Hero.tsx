@@ -13,13 +13,15 @@ export const Hero = () => {
       <div className="hero__container">
         <div className="hero__content">
           <div className="hero__text">
-            <h1 className="hero__title">{t("hero.title")}</h1>
             <p className="hero__subtitle">{t("hero.subtitle")}</p>
+            <h1 className="hero__title">{t("hero.title")}</h1>
+            <p className="hero__employer">{t("hero.employer")}</p>
             <p className="hero__description">{t("hero.description")}</p>
             <p className="hero__location">📍 {t("hero.location")}</p>
+            <p className="hero__availability">{t("hero.availability")}</p>
             <div className="hero__actions">
               <Button as="a" href="/projects" variant="primary" size="lg">
-                View Projects
+                {t("cta.viewProjects")}
               </Button>
               <Button
                 as="a"
@@ -30,7 +32,7 @@ export const Hero = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Download Resume
+                {t("cta.downloadResume")}
               </Button>
             </div>
           </div>

@@ -2,6 +2,17 @@
 
 .highlight-projects {
   @include section-padding;
+  /* When stacking sections, reduce the combined gap by lowering bottom padding.
+     This keeps vertical rhythm consistent vs. (bottom padding + next top padding). */
+  padding-bottom: var(--space-2xl);
+
+  @media (min-width: 768px) {
+    padding-bottom: var(--space-2xl);
+  }
+
+  @media (min-width: 1024px) {
+    padding-bottom: var(--space-2xl);
+  }
 }
 
 .highlight-projects__container {
@@ -11,8 +22,8 @@
 .highlight-projects__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-xl);
+  align-items: flex-end;
+  margin-bottom: var(--space-2xl);
   flex-wrap: wrap;
   gap: var(--space-md);
 }
@@ -22,28 +33,30 @@
 }
 
 .highlight-projects__link {
-  @include body;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
   color: var(--color-accent);
-  font-weight: 500;
   text-decoration: none;
   transition: color var(--transition-base);
+  padding: var(--space-xs) 0;
 
   &:hover {
     color: var(--color-accent-hover);
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }
 
 .highlight-projects__grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: var(--space-xl);
+  gap: var(--space-lg);
 
   @media (min-width: 768px) {
     grid-template-columns: repeat(2, 1fr);
   }
 
   @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, 1fr);
   }
 }

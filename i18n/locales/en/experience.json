@@ -1,6 +1,9 @@
 {
   "title": "Experience",
   "subtitle": "My professional journey in software engineering and beyond",
+  "intro": {
+    "paragraph": "Across software and structural engineering roles, I enjoy owning complex UI problems end-to-end—turning requirements into responsive, maintainable interfaces. My recent work includes production UIs at Tekonika and an architecture shift (CDD) for loan workflows at Piramal."
+  },
   "sections": {
     "softwareEngineering": "Software Engineering",
     "civilEngineering": "Civil / Structural Engineering"

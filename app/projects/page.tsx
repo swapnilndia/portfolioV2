@@ -16,6 +16,7 @@ export default function ProjectsPage() {
   return (
     <Section title={t("title")} subtitle={t("description")}>
       <div className="projects-page">
+        <p className="projects-page__intro">{t("intro.paragraph")}</p>
         <div className="projects-page__filters">
           <button
             className={`projects-page__filter ${
@@ -37,7 +38,7 @@ export default function ProjectsPage() {
 
         <div className="projects-page__grid">
           {filteredProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
+            <ProjectCard key={project.slug} project={project} layout="horizontal" />
           ))}
         </div>
       </div>

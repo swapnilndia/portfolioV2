@@ -10,18 +10,22 @@ import experienceEn from "@/i18n/locales/en/experience.json";
 import blogEn from "@/i18n/locales/en/blog.json";
 import contactEn from "@/i18n/locales/en/contact.json";
 
+const enResources = {
+  common: commonEn,
+  home: homeEn,
+  projects: projectsEn,
+  about: aboutEn,
+  experience: experienceEn,
+  blog: blogEn,
+  contact: contactEn,
+};
+
 if (!i18n.isInitialized) {
   i18n.use(initReactI18next).init({
     resources: {
-      en: {
-        common: commonEn,
-        home: homeEn,
-        projects: projectsEn,
-        about: aboutEn,
-        experience: experienceEn,
-        blog: blogEn,
-        contact: contactEn,
-      },
+      en: enResources,
+      // Hindi UI is not translated yet; reuse English so keys never render raw (e.g. persisted `hi`).
+      hi: enResources,
     },
     lng: "en",
     fallbackLng: "en",

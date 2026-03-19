@@ -2,7 +2,7 @@
 
 .project-detail {
   &__header {
-    margin-bottom: var(--space-xl);
+    margin-bottom: var(--space-2xl);
   }
 
   &__back {
@@ -24,16 +24,16 @@
     padding: var(--space-lg);
 
     @media (min-width: 768px) {
-      padding: var(--space-xl);
+      padding: var(--space-2xl);
     }
   }
 
   &__meta {
     display: flex;
     flex-direction: column;
-    gap: var(--space-md);
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-lg);
     border-bottom: 1px solid var(--color-border);
 
     @media (min-width: 640px) {
@@ -67,8 +67,8 @@
   }
 
   &__tech {
-    margin-bottom: var(--space-xl);
-    padding-bottom: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+    padding-bottom: var(--space-lg);
     border-bottom: 1px solid var(--color-border);
   }
 
@@ -87,14 +87,14 @@
   &__content {
     display: flex;
     flex-direction: column;
-    gap: var(--space-xl);
-    margin-bottom: var(--space-xl);
+    gap: var(--space-2xl);
+    margin-bottom: 0;
   }
 
   &__section {
     &-title {
       @include heading-sm;
-      margin-bottom: var(--space-md);
+      margin-bottom: var(--space-sm);
       color: var(--color-text);
     }
 
@@ -103,6 +103,10 @@
       line-height: var(--line-height-relaxed);
       color: var(--color-text-muted);
     }
+  }
+
+  &__section:last-child {
+    margin-bottom: 0;
   }
 
   &__links {

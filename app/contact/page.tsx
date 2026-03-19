@@ -200,6 +200,7 @@ export default function ContactPage() {
   return (
     <Section title={t("title")} subtitle={t("subtitle")}>
       <div className="contact-page">
+        <p className="contact-page__intro">{t("intro.paragraph")}</p>
         <div className="contact-page__content">
           <Card className="contact-page__form-card">
             <form onSubmit={handleSubmit} className="contact-page__form">

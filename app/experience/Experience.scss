@@ -1,6 +1,17 @@
 @use "@/styles/core/mixins" as *;
 
 .experience-page {
+  &__intro {
+    @include body-lg;
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-muted);
+    margin-bottom: var(--space-3xl);
+    max-width: 70ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   &__section {
     margin-bottom: var(--space-2xl);
 
@@ -96,5 +107,42 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-sm);
+  }
+}
+
+@media (min-width: 1024px) {
+  .experience-page__header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    column-gap: var(--space-2xl);
+    row-gap: 0;
+    align-items: start;
+    grid-template-areas:
+      "company location"
+      "title timeframe";
+  }
+
+  .experience-page__company {
+    grid-area: company;
+    text-align: left;
+    margin-bottom: var(--space-xs);
+  }
+
+  .experience-page__title {
+    grid-area: title;
+    text-align: left;
+    margin-bottom: 0;
+  }
+
+  .experience-page__location {
+    grid-area: location;
+    text-align: right;
+    margin-bottom: var(--space-xs);
+  }
+
+  .experience-page__timeframe {
+    grid-area: timeframe;
+    text-align: right;
+    margin-bottom: 0;
   }
 }

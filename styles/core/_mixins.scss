@@ -2,17 +2,17 @@
 @mixin heading-xl {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-5xl);
-  font-weight: 700;
+  font-weight: 600;
   line-height: var(--line-height-tight);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.035em;
 }
 
 @mixin heading-lg {
   font-family: var(--font-family-heading);
   font-size: var(--font-size-4xl);
-  font-weight: 700;
+  font-weight: 600;
   line-height: var(--line-height-tight);
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
 }
 
 @mixin heading-md {
@@ -20,6 +20,7 @@
   font-size: var(--font-size-3xl);
   font-weight: 600;
   line-height: var(--line-height-tight);
+  letter-spacing: -0.025em;
 }
 
 @mixin heading-sm {
@@ -27,6 +28,7 @@
   font-size: var(--font-size-2xl);
   font-weight: 600;
   line-height: var(--line-height-tight);
+  letter-spacing: -0.02em;
 }
 
 @mixin body {
@@ -51,25 +53,35 @@
 /* Layout Mixins */
 @mixin container {
   width: 100%;
-  max-width: 1200px;
+  max-width: 1120px;
   margin-left: auto;
   margin-right: auto;
-  padding-left: var(--space-md);
-  padding-right: var(--space-md);
+  padding-left: max(var(--space-md), env(safe-area-inset-left));
+  padding-right: max(var(--space-md), env(safe-area-inset-right));
 
   @media (min-width: 768px) {
-    padding-left: var(--space-xl);
-    padding-right: var(--space-xl);
+    padding-left: max(2rem, env(safe-area-inset-left));
+    padding-right: max(2rem, env(safe-area-inset-right));
+  }
+
+  @media (min-width: 1200px) {
+    padding-left: max(2.5rem, env(safe-area-inset-left));
+    padding-right: max(2.5rem, env(safe-area-inset-right));
   }
 }
 
 @mixin section-padding {
-  padding-top: var(--space-2xl);
-  padding-bottom: var(--space-2xl);
+  padding-top: var(--space-3xl);
+  padding-bottom: var(--space-3xl);
 
   @media (min-width: 768px) {
-    padding-top: var(--space-3xl);
-    padding-bottom: var(--space-3xl);
+    padding-top: 4.5rem;
+    padding-bottom: 4.5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding-top: 5.5rem;
+    padding-bottom: 5.5rem;
   }
 }
 
@@ -94,14 +106,17 @@
 @mixin card {
   background-color: var(--color-bg-elevated);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-lg);
-  padding: var(--space-lg);
+  border-radius: var(--radius-2xl);
+  padding: var(--space-xl);
+  box-shadow: var(--shadow-card);
   transition:
     box-shadow var(--transition-base),
-    transform var(--transition-base);
+    transform var(--transition-base),
+    border-color var(--transition-base);
 
   &:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
+    box-shadow: var(--shadow-card-hover);
+    transform: translateY(-1px);
+    border-color: var(--color-border-hover);
   }
 }

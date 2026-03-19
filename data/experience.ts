@@ -14,7 +14,7 @@ export const experiences: Experience[] = [
     id: "tekonika-2025",
     company: "Tekonika Technologies",
     title: "Software Developer",
-    location: "Noida, India",
+    location: "Bangalore, Karnataka, India",
     timeframe: "May 2025 – Present",
     bullets: [
       "Built frontend for eCommerce platform using React, Redux, SCSS, and modern JavaScript",
@@ -29,7 +29,7 @@ export const experiences: Experience[] = [
     id: "wagergeeks-2025",
     company: "WagerGeeks Private Limited",
     title: "Software Developer",
-    location: "Noida, India",
+    location: "Bangalore, Karnataka, India",
     timeframe: "Feb 2025 – May 2025",
     bullets: [
       "Maintained and enhanced legacy React application",

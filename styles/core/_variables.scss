@@ -2,10 +2,10 @@
 
 /* Colors */
 :root {
-  --color-primary: #2563eb;
-  --color-primary-hover: #1d4ed8;
+  --color-primary: #0a84ff;
+  --color-primary-hover: #0077ed;
   --color-secondary: #64748b;
-  --color-accent: #3b82f6;
+  --color-accent: #0a84ff;
   --color-success: #10b981;
   --color-danger: #ef4444;
   --color-warning: #f59e0b;
@@ -17,10 +17,10 @@
   --color-danger-dark: #dc2626;
 
   /* Overlay colors with alpha transparency */
-  --color-overlay-accent-light: rgba(59, 130, 246, 0.15);
-  --color-overlay-accent-medium: rgba(59, 130, 246, 0.25);
-  --color-overlay-accent-strong: rgba(59, 130, 246, 0.4);
-  --color-overlay-accent-stronger: rgba(59, 130, 246, 0.5);
+  --color-overlay-accent-light: rgba(10, 132, 255, 0.15);
+  --color-overlay-accent-medium: rgba(10, 132, 255, 0.25);
+  --color-overlay-accent-strong: rgba(10, 132, 255, 0.4);
+  --color-overlay-accent-stronger: rgba(10, 132, 255, 0.5);
   --color-overlay-purple: rgba(139, 92, 246, 0.15);
   --color-overlay-white-light: rgba(255, 255, 255, 0.1);
   --color-overlay-white-medium: rgba(255, 255, 255, 0.2);
@@ -50,13 +50,16 @@
   --radius-md: 0.5rem;
   --radius-lg: 0.75rem;
   --radius-xl: 1rem;
+  --radius-2xl: 1.25rem;
   --radius-pill: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
-  --shadow-xl: 0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+  /* Shadows — soft elevation (editorial / product-page style) */
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.04);
+  --shadow-md: 0 4px 12px rgb(0 0 0 / 0.06);
+  --shadow-lg: 0 12px 32px rgb(0 0 0 / 0.08);
+  --shadow-xl: 0 24px 48px rgb(0 0 0 / 0.1);
+  --shadow-card: 0 1px 3px rgb(0 0 0 / 0.04), 0 4px 12px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 4px 16px rgb(0 0 0 / 0.07), 0 2px 4px rgb(0 0 0 / 0.04);
 
   /* Typography */
   --font-family-base:
@@ -72,14 +75,15 @@
   --font-size-3xl: 1.875rem;
   --font-size-4xl: 2.25rem;
   --font-size-5xl: 3rem;
-  --line-height-tight: 1.25;
-  --line-height-base: 1.5;
-  --line-height-relaxed: 1.75;
+  --line-height-tight: 1.15;
+  --line-height-base: 1.47059;
+  --line-height-relaxed: 1.6;
 
   /* Transitions */
-  --transition-fast: 150ms ease;
-  --transition-base: 200ms ease;
-  --transition-slow: 300ms ease;
+  --ease-out-standard: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --transition-fast: 150ms var(--ease-out-standard);
+  --transition-base: 220ms var(--ease-out-standard);
+  --transition-slow: 360ms var(--ease-out-standard);
 
   /* Z-index layers */
   --z-base: 1;

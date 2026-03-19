@@ -164,27 +164,19 @@ export const ChatWidget = () => {
   };
 
   const getVisibleFollowUps = (messageIndex: number, followUps: string[]) => {
-    const blockedQuestions = new Set<string>();
-
-    for (const item of messages.slice(0, messageIndex)) {
-      if (item.role === "user") {
-        blockedQuestions.add(normalizeQuestion(item.text));
-      }
-    }
-
     const visible: string[] = [];
     const seen = new Set<string>();
 
     for (const suggestion of followUps) {
       const normalized = normalizeQuestion(suggestion);
-      if (!normalized || seen.has(normalized) || blockedQuestions.has(normalized)) {
+      if (!normalized || seen.has(normalized)) {
         continue;
       }
       seen.add(normalized);
       visible.push(suggestion);
     }
 
-    return visible.slice(0, 2);
+    return visible.slice(0, 3);
   };
 
   return (

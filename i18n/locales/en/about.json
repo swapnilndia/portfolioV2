@@ -2,16 +2,17 @@
   "title": "About",
   "subtitle": "From Civil Engineering to Front-End Development",
   "intro": {
-    "paragraph1": "I'm Swapnil Katiyar, a Front-End Developer based in Noida, India. With ~3+ years of experience building responsive, high-performance web applications, I specialize in React, TypeScript, and modern JavaScript.",
-    "paragraph2": "My journey started in civil engineering, where I worked as a Structural Design Engineer, analyzing and designing structures while mentoring 200+ students. This analytical background helps me approach frontend development with a focus on performance, scalability, and maintainability.",
-    "paragraph3": "Today, I build product-focused UIs that prioritize user experience, SEO, and performance. I'm passionate about code quality, team collaboration, and continuous learning."
+    "paragraph1": "I'm Swapnil Katiyar, a Front-End Developer based in Bangalore, Karnataka, India. I build production UIs with React and TypeScript, focusing on performance, user experience, and maintainable component architecture. Currently, I’m a Software Developer at Tekonika Technologies (May 2025 – Present).",
+    "paragraph2": "My journey started in civil engineering, where I worked as a Structural Design Engineer and mentored 200+ students. That analytical mindset helped me break complex problems into clear systems, and it shapes how I approach frontend development today.",
+    "paragraph3": "Recently, I built a live ONDC e-commerce marketplace for Bajaj Finserv Markets (EasyPay) using React/Next.js with Strapi CMS. I shipped vertical pages from Figma to production, built dynamic search with debouncing, filters, and pagination, and integrated location-based listing APIs. I also improved perceived performance with skeleton/shimmer loading and ensured the mobile UX felt smooth with responsive filter overlays and carousels.",
+    "paragraph4": "At Piramal Sales Central, an internal tool used by loan sales officers, I owned the architecture shift to Config Driven Deployment (CDD). The goal was to eliminate conditional hell by unifying mortgage and non-mortgage product journeys into one scalable, data-driven system. I proposed the approach, built a POC, presented it to the Technical Director, and after sign-off migrated 8+ loan product flows. Along the way, I added unit tests + documentation, handled security and Next.js upgrades, and supported regression handoff to QA in March 2026."
   },
   "sections": {
     "skills": "Skills",
     "techStack": "Tech Stack",
     "careerSwitch": {
       "title": "Career Switch",
-      "content": "Transitioning from civil engineering to frontend development wasn't just a career change—it was leveraging analytical thinking and problem-solving skills in a new domain. The attention to detail required in structural analysis translates directly to writing clean, performant code."
+      "content": "Switching from civil engineering to frontend development wasn’t a leap into the unknown—it was applying the same discipline to a new system. Structural analysis taught me to design for correctness and long-term maintainability, and that directly translates into clean React code and scalable UI patterns."
     }
   },
   "skills": {

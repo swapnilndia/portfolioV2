@@ -1,40 +1,66 @@
 @use "@/styles/core/mixins" as *;
 
 .blog-page {
+  &__intro {
+    @include body-lg;
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-2xl);
+    max-width: 70ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   &__list {
     display: flex;
     flex-direction: column;
     gap: var(--space-lg);
 
     @media (min-width: 768px) {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
       gap: var(--space-xl);
+      align-items: stretch;
     }
   }
 
   &__card {
-    padding: var(--space-lg);
-    transition:
-      transform var(--transition-base),
-      box-shadow var(--transition-base);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
 
-    @media (min-width: 768px) {
-      padding: var(--space-xl);
-    }
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: var(--shadow-lg);
+    .card__body {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
     }
   }
 
-  &__link {
-    text-decoration: none;
-    color: inherit;
+  &__header {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
   }
 
   &__title {
-    @include heading-md;
-    margin-bottom: var(--space-md);
+    @include heading-sm;
+    margin: 0 0 var(--space-sm);
+    letter-spacing: -0.02em;
+  }
+
+  &__title-link {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-sm);
+    width: 100%;
+    text-decoration: none;
     color: var(--color-text);
     transition: color var(--transition-base);
 
@@ -43,11 +69,41 @@
     }
   }
 
+  &__title-text {
+    flex: 1;
+    min-width: 0;
+  }
+
+  &__title-arrow {
+    display: inline-flex;
+    color: var(--color-accent);
+    transition: transform var(--transition-base);
+  }
+
+  &__card:hover &__title-arrow {
+    transform: translateX(2px);
+  }
+
+  &__divider {
+    height: 1px;
+    width: 100%;
+    background: var(--color-border);
+  }
+
+  &__divider--meta {
+    margin: var(--space-sm) 0 var(--space-md);
+  }
+
+  &__divider--excerpt {
+    margin-top: 0;
+    margin-bottom: var(--space-sm);
+  }
+
   &__excerpt {
-    @include body-lg;
+    @include body;
     line-height: var(--line-height-relaxed);
     color: var(--color-text-muted);
-    margin-bottom: var(--space-md);
+    margin: 0;
   }
 
   &__meta {
@@ -55,11 +111,10 @@
     flex-wrap: wrap;
     gap: var(--space-sm);
     @include caption;
-    color: var(--color-text-muted);
-    margin-bottom: var(--space-md);
+    color: var(--color-text-light);
+    margin-bottom: 0;
   }
 
-  &__date,
   &__read-time {
     &::before {
       content: "•";
@@ -71,5 +126,14 @@
     display: flex;
     flex-wrap: wrap;
     gap: var(--space-xs);
+    margin-top: 0;
   }
+
+  &__bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* No CTA button in the blog cards; spacing is handled by the anchored bottom wrapper. */
 }

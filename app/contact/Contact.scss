@@ -1,4 +1,17 @@
+@use "@/styles/core/mixins" as *;
+
 .contact-page {
+  &__intro {
+    @include body-lg;
+    color: var(--color-text-muted);
+    line-height: var(--line-height-relaxed);
+    margin-bottom: var(--space-2xl);
+    max-width: 70ch;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+  }
+
   &__content {
     display: grid;
     grid-template-columns: 1fr;

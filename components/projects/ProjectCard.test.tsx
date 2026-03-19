@@ -43,4 +43,11 @@ describe("ProjectCard", () => {
     const { getByText } = render(<ProjectCard project={project} />);
     expect(getByText(project.timeframe)).toBeInTheDocument();
   });
+
+  it("renders resume bullets when provided", () => {
+    const { getByRole } = render(<ProjectCard project={project} />);
+    expect(project.resumeBullets?.length).toBeGreaterThan(0);
+    const list = getByRole("list");
+    expect(list.querySelectorAll("li")).toHaveLength(project.resumeBullets!.length);
+  });
 });

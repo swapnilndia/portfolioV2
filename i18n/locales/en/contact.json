@@ -1,6 +1,9 @@
 {
   "title": "Get in Touch",
   "subtitle": "I'm open to frontend roles, remote/hybrid opportunities, and interesting product teams.",
+  "intro": {
+    "paragraph": "If you’re hiring for a React/TypeScript front-end role (remote or hybrid) or working on a product team that values clean UX and performance, send a message. Share the role context and what you’re building, and I’ll reply via email."
+  },
   "form": {
     "name": "Name",
     "email": "Email",

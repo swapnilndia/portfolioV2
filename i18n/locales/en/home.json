@@ -2,12 +2,30 @@
   "hero": {
     "title": "Swapnil Katiyar",
     "subtitle": "Front-End Developer",
-    "description": "Building responsive, high-performance web applications with React, TypeScript, and modern JavaScript. Product-focused developer with ~3+ years of experience specializing in frontend development, performance optimization, and crafting exceptional user experiences.",
-    "location": "Noida, India"
+    "employer": "Software Developer · Tekonika Technologies",
+    "description": "I build production UIs with Next.js and React—recently a live ONDC marketplace for Bajaj Finserv Markets (Strapi CMS, full SEO: sitemap, robots, OG) and Piramal Sales Central, where I led Config Driven Deployment to unify 8+ loan product flows and cut conditional sprawl. ~3+ years across e-commerce, e-gaming, CMS dashboards, and legacy codebases. Civil engineer turned developer; I care about performance, maintainability, and UX that survives real traffic.",
+    "location": "Bangalore, Karnataka, India",
+    "availability": "Open to React / TypeScript frontend roles — remote or hybrid product teams"
   },
   "sections": {
-    "highlightProjects": "Featured Projects",
-    "recentExperience": "Recent Experience",
-    "techStack": "Technologies I Work With"
+    "highlightProjects": "Featured projects",
+    "recentExperience": "Recent experience",
+    "techStack": "Stack I work with"
+  },
+  "cta": {
+    "viewProjects": "View projects",
+    "downloadResume": "Download résumé"
+  },
+  "links": {
+    "viewAllProjects": "All projects →",
+    "viewFullExperience": "Full experience →"
+  },
+  "codingStats": {
+    "title": "Coding activity",
+    "seeFull": "See full activity →",
+    "contributionsThisYear": "Contributions this year",
+    "githubStreak": "GitHub streak",
+    "problemsSolved": "Problems solved",
+    "leetcodeStreak": "LeetCode streak"
   }
 }

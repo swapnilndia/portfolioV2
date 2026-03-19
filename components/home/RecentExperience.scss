@@ -2,6 +2,12 @@
 
 .recent-experience {
   @include section-padding;
+  /* Reduce the stacked-gap vs the previous section on Home. */
+  padding-top: var(--space-2xl);
+
+  @media (min-width: 768px) {
+    padding-top: var(--space-xl);
+  }
 }
 
 .recent-experience__container {
@@ -11,26 +17,28 @@
 .recent-experience__header {
   display: flex;
   justify-content: space-between;
-  align-items: center;
-  margin-bottom: var(--space-xl);
+  align-items: flex-end;
+  margin-bottom: var(--space-2xl);
   flex-wrap: wrap;
   gap: var(--space-md);
 }
 
-.recent-experience__title {
+.recent-experience__section-title {
   @include heading-lg;
 }
 
 .recent-experience__link {
-  @include body;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
   color: var(--color-accent);
-  font-weight: 500;
   text-decoration: none;
   transition: color var(--transition-base);
+  padding: var(--space-xs) 0;
 
   &:hover {
     color: var(--color-accent-hover);
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
 }
 
@@ -44,16 +52,12 @@
   }
 }
 
-.recent-experience__card {
-  padding: var(--space-lg);
-}
-
 .recent-experience__company {
   @include heading-sm;
   margin-bottom: var(--space-xs);
 }
 
-.recent-experience__title {
+.recent-experience__job-title {
   @include body;
   color: var(--color-accent);
   margin-bottom: var(--space-xs);

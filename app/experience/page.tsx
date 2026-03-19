@@ -16,6 +16,7 @@ export default function ExperiencePage() {
   return (
     <Section title={t("title")} subtitle={t("subtitle")}>
       <div className="experience-page">
+        <p className="experience-page__intro">{t("intro.paragraph")}</p>
         {softwareExperiences.length > 0 && (
           <div className="experience-page__section">
             <h2 className="experience-page__section-title">{t("sections.softwareEngineering")}</h2>

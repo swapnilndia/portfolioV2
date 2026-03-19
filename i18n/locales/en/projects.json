@@ -1,6 +1,9 @@
 {
   "title": "Projects",
   "description": "A collection of projects I've built, highlighting my work in React, TypeScript, and modern frontend development.",
+  "intro": {
+    "paragraph": "A curated set of front-end projects where I shipped production-ready UIs end-to-end—focused on maintainable UI architecture, performance, and smooth user workflows (from EasyPay’s ONDC marketplace verticals to Piramal Sales Central’s Config Driven Deployment)."
+  },
   "filters": {
     "all": "All Projects",
     "featured": "Featured"

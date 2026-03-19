@@ -6,13 +6,20 @@
   flex-direction: column;
 }
 
+.project-card--horizontal {
+  flex-direction: column;
+}
+
 .project-card__header {
-  margin-bottom: var(--space-md);
+  margin-bottom: var(--space-lg);
+  padding-bottom: var(--space-md);
+  border-bottom: 1px solid var(--color-border);
 }
 
 .project-card__title {
   @include heading-sm;
-  margin-bottom: var(--space-xs);
+  margin-bottom: var(--space-sm);
+  letter-spacing: -0.02em;
 
   a {
     color: var(--color-text);
@@ -22,6 +29,33 @@
       color: var(--color-accent);
     }
   }
+}
+
+.project-card__title-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-sm);
+  width: 100%;
+}
+
+.project-card__title-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.project-card__title-arrow {
+  display: none;
+  color: var(--color-accent);
+  transition: transform var(--transition-base);
+}
+
+.project-card--horizontal .project-card__title-arrow {
+  display: inline-flex;
+}
+
+.project-card--horizontal .project-card__title-link:hover .project-card__title-arrow {
+  transform: translateX(2px);
 }
 
 .project-card__company {
@@ -48,6 +82,36 @@
   line-height: var(--line-height-relaxed);
 }
 
+.project-card__bullets {
+  list-style: none;
+  margin: 0 0 var(--space-lg);
+  padding: 0;
+}
+
+.project-card__bullet {
+  position: relative;
+  @include body;
+  color: var(--color-text-muted);
+  line-height: 1.55;
+  padding-left: 1rem;
+  margin-bottom: var(--space-sm);
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background-color: var(--color-accent);
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
 .project-card__tech {
   display: flex;
   flex-wrap: wrap;
@@ -56,18 +120,96 @@
 
 .project-card__footer {
   margin-top: auto;
-  padding-top: var(--space-md);
+  padding-top: var(--space-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.project-card__divider {
+  display: none;
+}
+
+.project-card__divider--timeframe,
+.project-card__divider--bullets {
+  height: 1px;
+  background: var(--color-border);
+  width: 100%;
 }
 
 .project-card__link {
-  @include body;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
   color: var(--color-accent);
-  font-weight: 500;
   text-decoration: none;
   transition: color var(--transition-base);
 
   &:hover {
     color: var(--color-accent-hover);
     text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+}
+
+@media (min-width: 768px) {
+  .project-card--horizontal {
+    flex-direction: row;
+    align-items: stretch;
+  }
+
+  .project-card--horizontal .project-card__header {
+    margin: 0;
+    padding: 0 var(--space-lg) 0 0;
+    border-bottom: none;
+    border-right: none;
+    align-self: stretch;
+    min-width: 260px;
+  }
+
+  .project-card--horizontal .project-card__body {
+    margin-bottom: 0;
+    padding-left: var(--space-lg);
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-card--horizontal .project-card__tech {
+    /* Anchor chips to the bottom of the card body */
+    margin-top: auto;
+    margin-bottom: 0;
+  }
+
+  .project-card--horizontal .project-card__bullets {
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .project-card--horizontal .project-card__summary {
+    margin-bottom: 0;
+  }
+
+  .project-card--horizontal .project-card__divider {
+    display: block;
+  }
+
+  /* Make the divider span the whole header column, including the right-side padding. */
+  .project-card--horizontal .project-card__divider--timeframe {
+    margin-right: calc(-1 * var(--space-lg));
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .project-card--horizontal .project-card__divider--bullets {
+    margin-top: var(--space-sm);
+    margin-bottom: var(--space-md);
+  }
+
+  .project-card--horizontal .project-card__footer {
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+    min-width: 170px;
+    display: flex;
+    align-items: flex-end;
+    padding-left: var(--space-xl);
+    padding-bottom: var(--space-lg);
   }
 }

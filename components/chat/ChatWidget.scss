@@ -5,6 +5,7 @@
   bottom: var(--space-lg);
   right: var(--space-lg);
   z-index: var(--z-modal);
+  isolation: isolate;
 
   @media (max-width: 768px) {
     bottom: var(--space-md);
@@ -25,7 +26,7 @@
   );
   backdrop-filter: blur(64px) saturate(180%);
   -webkit-backdrop-filter: blur(64px) saturate(180%);
-  z-index: calc(var(--z-modal) - 1);
+  z-index: 0;
   animation: backdropFadeIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   pointer-events: auto;
@@ -111,9 +112,9 @@
 }
 
 .chat-widget__container {
-  position: fixed;
-  bottom: var(--space-lg);
-  right: var(--space-lg);
+  position: absolute;
+  bottom: 0;
+  right: 0;
   width: 420px;
   max-width: calc(100vw - var(--space-xl));
   height: 650px;
@@ -131,7 +132,7 @@
   animation: slideUpFromButton 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   backdrop-filter: blur(48px);
   -webkit-backdrop-filter: blur(48px);
-  z-index: var(--z-modal);
+  z-index: 1;
   pointer-events: auto;
   transform-origin: bottom right;
   top: auto;
@@ -141,10 +142,10 @@
     width: calc(100vw - var(--space-md) * 2);
     max-height: calc(100dvh - var(--space-md) * 2);
     height: calc(100dvh - var(--space-md) * 2);
-    bottom: var(--space-md);
-    right: var(--space-md);
-    left: var(--space-md);
-    top: var(--space-md);
+    bottom: 0;
+    right: 0;
+    left: auto;
+    top: auto;
   }
 
   @media (max-width: 768px) and (max-height: 800px) {

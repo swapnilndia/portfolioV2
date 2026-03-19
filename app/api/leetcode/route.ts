@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
+import { calculateLeetCodeStreakFromDays } from "@/lib/leetcodeStreak";
 
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 const LEETCODE_QUERY = `
   query userStats($username: String!) {
@@ -85,6 +86,7 @@ export async function GET() {
   try {
     const res = await fetch("https://leetcode.com/graphql", {
       method: "POST",
+      cache: "no-store",
       headers: {
         "Content-Type": "application/json",
         Referer: "https://leetcode.com",
@@ -100,7 +102,11 @@ export async function GET() {
       throw new Error(`LeetCode GraphQL responded with ${res.status}`);
     }
 
-    const json: LeetCodeGraphQLResponse = await res.json();
+    const json: LeetCodeGraphQLResponse & { errors?: { message: string }[] } = await res.json();
+
+    if (json.errors?.length) {
+      console.error("LeetCode GraphQL errors:", json.errors);
+    }
 
     if (!json.data?.matchedUser) {
       throw new Error("LeetCode user not found or profile is private");
@@ -141,8 +147,11 @@ export async function GET() {
       count: yearCountMap.get(year) ?? 0,
     }));
 
+    const currentStreak = calculateLeetCodeStreakFromDays(submissions);
+
     return NextResponse.json({
       totalSolved: allSolved?.count ?? 0,
+      currentStreak,
       totalQuestions: totalQ?.count ?? 0,
       easySolved: easySolved?.count ?? 0,
       totalEasy: easyQ?.count ?? 0,
